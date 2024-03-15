@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Programme {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  description     String
+  programmemodule ProgrammeModule[]
+  
+}
+
+model CourseContent {
+  id            Int           @id
+  TypeContect   TypeContect?  @relation(fields: [typeContectId], references: [id])
+  typeContectId Int?
+  weekcontent   WeekContent[]
+  Course        Course?       @relation(fields: [courseId], references: [id])
+  courseId      Int?
+
+  @@unique(fields: [courseId, typeContectId], name: "couursecontent")
+}
+
+model TypeContect {
+  id            Int             @id @default(autoincrement())
+  desription    String
+  coursecontent CourseContent[]
+}
+
+model Session {
+  id             Int              @id @default(autoincrement())
+  sessionstudent SessionStudent[]
+  msgs           Msgs[]
+  sessionteacher SessionTeacher[]
+
+  weeks Weeks[]
+}
+
+model Category {
+  id Int @id
+}
+
+model SessionStudent {
+  id        Int      @id
+  Student   Student? @relation(fields: [studentId], references: [id])
+  studentId Int?
+  Session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId Int?
+}
+
+model Student {
+  id             Int              @id
+  sessionstudent SessionStudent[]
+  msgs           Msgs[]
+}
+
+model Msgs {
+  id        Int      @id
+  Session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId Int?
+  Student   Student? @relation(fields: [studentId], references: [id])
+  studentId Int?
+  Teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId Int?
+}
+
+model SessionTeacher {
+  id        Int      @id
+  Session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId Int?
+  Teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId Int?
+}
+
+model Teacher {
+  id             Int              @id
+  msgs           Msgs[]
+  sessionteacher SessionTeacher[]
+}
+
+model Weeks {
+  id          Int           @id
+  weekcontent WeekContent[]
+
+  Session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId Int?
+}
+
+model ProgrammeModule {
+  id Int @id
+
+  Programme   Programme? @relation(fields: [programmeId], references: [id])
+  programmeId Int?
+  Module      Module?    @relation(fields: [moduleId], references: [id])
+  moduleId    Int?
+
+  @@unique(fields: [programmeId, moduleId], name: "programmemodule")
+}
+
+model Module {
+  id              Int               @id
+  programmemodule ProgrammeModule[]
+  Course          Course?           @relation(fields: [courseId], references: [id])
+  courseId        Int?
+}
+
+model WeekContent {
+  id              Int            @id
+  Weeks           Weeks?         @relation(fields: [weeksId], references: [id])
+  weeksId         Int?
+  CourseContent   CourseContent? @relation(fields: [courseContentId], references: [id])
+  courseContentId Int?
+}
+
+model Course {
+  id            Int             @id
+  coursecontent CourseContent[]
+  module        Module[]
+}
