@@ -18,7 +18,7 @@ model Programme {
   name            String            @unique
   description     String
   programmemodule ProgrammeModule[]
-  
+
 }
 
 model CourseContent {
@@ -29,7 +29,7 @@ model CourseContent {
   Course        Course?       @relation(fields: [courseId], references: [id])
   courseId      Int?
 
-  @@unique(fields: [courseId, typeContectId], name: "couursecontent")
+  @@unique(fields: [courseId, typeContectId], name: "coursecontent")
 }
 
 model TypeContect {
@@ -43,6 +43,7 @@ model Session {
   sessionstudent SessionStudent[]
   msgs           Msgs[]
   sessionteacher SessionTeacher[]
+  
 
   weeks Weeks[]
 }

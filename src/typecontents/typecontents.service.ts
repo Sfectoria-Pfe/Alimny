@@ -16,14 +16,17 @@ export class TypecontentsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} typecontent`;
+    return this.prisma.typeContect.findUnique({ where: { id } });
   }
 
   update(id: number, updateTypecontentDto: UpdateTypecontentDto) {
-    return `This action updates a #${id} typecontent`;
+    return this.prisma.typeContect.update({
+      where: { id },
+      data: updateTypecontentDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} typecontent`;
+    return this.prisma.typeContect.delete({ where: { id } });
   }
 }
