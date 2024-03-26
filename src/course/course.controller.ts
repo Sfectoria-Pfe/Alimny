@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Course")
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
@@ -12,7 +14,10 @@ export class CourseController {
     return this.courseService.create(createCourseDto);
   }
 
-  @Get()
+  @Get('drafts')
+  findDrafts() {
+    return this.courseService.findDrafts();
+  }
   findAll() {
     return this.courseService.findAll();
   }

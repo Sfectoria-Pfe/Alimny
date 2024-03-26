@@ -5,4 +5,6 @@ export class CreateTypecontentDto {
     @ApiProperty()
     @IsString()
     desription: string
+    name: string 
+    
 }

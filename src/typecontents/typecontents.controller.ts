@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TypecontentsService } from './typecontents.service';
 import { CreateTypecontentDto } from './dto/create-typecontent.dto';
 import { UpdateTypecontentDto } from './dto/update-typecontent.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Type Content")
 @Controller('typecontents')
 export class TypecontentsController {
   constructor(private readonly typecontentsService: TypecontentsService) {}

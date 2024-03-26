@@ -6,27 +6,28 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class TypecontentsService {
   constructor(private prisma: PrismaService) {}
-  create(createTypecontentDto: CreateTypecontentDto) {
-    return this.prisma.typeContect.create({data:createTypecontentDto})
+ async create(createTypecontentDto: CreateTypecontentDto) {
+    return await this.prisma.typeContent.create({data:createTypecontentDto})
    
+
   }
 
   findAll() {
-    return this.prisma.typeContect.findMany();
+    return this.prisma.typeContent.findMany();
   }
 
   findOne(id: number) {
-    return this.prisma.typeContect.findUnique({ where: { id } });
+    return this.prisma.typeContent.findUnique({ where: { id } });
   }
 
   update(id: number, updateTypecontentDto: UpdateTypecontentDto) {
-    return this.prisma.typeContect.update({
+    return this.prisma.typeContent.update({
       where: { id },
       data: updateTypecontentDto,
     });
   }
 
   remove(id: number) {
-    return this.prisma.typeContect.delete({ where: { id } });
+    return this.prisma.typeContent.delete({ where: { id } });
   }
 }

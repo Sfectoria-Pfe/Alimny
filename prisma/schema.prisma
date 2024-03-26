@@ -18,88 +18,85 @@ model Programme {
   name            String            @unique
   description     String
   programmemodule ProgrammeModule[]
-
+  Category        Category          @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  session         Session[]
 }
 
 model CourseContent {
-  id            Int           @id
-  TypeContect   TypeContect?  @relation(fields: [typeContectId], references: [id])
-  typeContectId Int?
+  id            Int           @id @default(autoincrement())
+  name          String
+  TypeContent   TypeContent?  @relation(fields: [typeContentId], references: [id])
+  typeContentId Int?
   weekcontent   WeekContent[]
   Course        Course?       @relation(fields: [courseId], references: [id])
   courseId      Int?
+  Questions     Questions?    @relation(fields: [questionsId], references: [id])
+  questionsId   Int?
 
-  @@unique(fields: [courseId, typeContectId], name: "coursecontent")
+  @@unique(fields: [courseId, typeContentId], name: "coursecontent")
 }
 
-model TypeContect {
+model TypeContent {
   id            Int             @id @default(autoincrement())
   desription    String
+  name          String
   coursecontent CourseContent[]
 }
 
 model Session {
   id             Int              @id @default(autoincrement())
+  name           String           @unique
+  description    String
+  date           DateTime
   sessionstudent SessionStudent[]
-  msgs           Msgs[]
-  sessionteacher SessionTeacher[]
-  
 
-  weeks Weeks[]
+  sessionteacher SessionTeacher[]
+  weeks          Weeks[]
+  Programme      Programme        @relation(fields: [programmeId], references: [id])
+  programmeId    Int
+  Msgs           Msgs[]
 }
 
 model Category {
-  id Int @id
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  programme Programme[]
 }
 
 model SessionStudent {
-  id        Int      @id
-  Student   Student? @relation(fields: [studentId], references: [id])
-  studentId Int?
+  id Int @id @default(autoincrement())
   Session   Session? @relation(fields: [sessionId], references: [id])
   sessionId Int?
-}
-
-model Student {
-  id             Int              @id
-  sessionstudent SessionStudent[]
-  msgs           Msgs[]
-}
+  Student   Student? @relation(fields: [studentId], references: [id])
+  studentId Int?
+  }
 
 model Msgs {
-  id        Int      @id
-  Session   Session? @relation(fields: [sessionId], references: [id])
-  sessionId Int?
-  Student   Student? @relation(fields: [studentId], references: [id])
-  studentId Int?
-  Teacher   Teacher? @relation(fields: [teacherId], references: [id])
-  teacherId Int?
+  id        Int     @id @default(autoincrement())
+  Session   Session @relation(fields: [sessionId], references: [id])
+  sessionId Int
+  user      User[]
 }
 
 model SessionTeacher {
-  id        Int      @id
-  Session   Session? @relation(fields: [sessionId], references: [id])
-  sessionId Int?
-  Teacher   Teacher? @relation(fields: [teacherId], references: [id])
-  teacherId Int?
-}
-
-model Teacher {
-  id             Int              @id
-  msgs           Msgs[]
-  sessionteacher SessionTeacher[]
+  id         Int       @id @default(autoincrement())
+  Session    Session?  @relation(fields: [sessionId], references: [id])
+  sessionId  Int?
+  Employee   Employee? @relation(fields: [employeeId], references: [id])
+  employeeId Int?
 }
 
 model Weeks {
-  id          Int           @id
+  id          Int           @id @default(autoincrement())
   weekcontent WeekContent[]
 
-  Session   Session? @relation(fields: [sessionId], references: [id])
-  sessionId Int?
+  Session   Session @relation(fields: [sessionId], references: [id])
+  sessionId Int
 }
 
 model ProgrammeModule {
-  id Int @id
+  id Int @id @default(autoincrement())
 
   Programme   Programme? @relation(fields: [programmeId], references: [id])
   programmeId Int?
@@ -109,15 +106,17 @@ model ProgrammeModule {
   @@unique(fields: [programmeId, moduleId], name: "programmemodule")
 }
 
-model Module {
-  id              Int               @id
+model Module { 
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  description     String
   programmemodule ProgrammeModule[]
-  Course          Course?           @relation(fields: [courseId], references: [id])
-  courseId        Int?
+  Course          Course            @relation(fields: [courseId], references: [id])
+  courseId        Int
 }
 
 model WeekContent {
-  id              Int            @id
+  id              Int            @id @default(autoincrement())
   Weeks           Weeks?         @relation(fields: [weeksId], references: [id])
   weeksId         Int?
   CourseContent   CourseContent? @relation(fields: [courseContentId], references: [id])
@@ -125,7 +124,74 @@ model WeekContent {
 }
 
 model Course {
-  id            Int             @id
+  id            Int             @id @default(autoincrement())
+  name          String
+  desription    String
   coursecontent CourseContent[]
   module        Module[]
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  isStudent  Boolean
+  Msgs       Msgs?     @relation(fields: [msgsId], references: [id])
+  msgsId     Int?
+  Student    Student?  @relation(fields: [studentId], references: [id])
+  studentId  Int?
+  Employee   Employee? @relation(fields: [employeeId], references: [id])
+  employeeId Int?
+}
+
+model Employee {
+  id             Int              @id @unique 
+  firstname      String
+  LastName       String
+  isAdmin        Boolean
+  sessionteacher SessionTeacher[]
+  user           User[]
+}
+
+model Questions {
+  id              Int               @id @default(autoincrement())
+  correction      String
+  coursecontent   CourseContent[]
+  studentresponse StudentResponse[]
+}
+
+model StudentResponse {
+  id          Int        @id @default(autoincrement())
+  response    String
+  score       Int
+  Student     Student?   @relation(fields: [studentId], references: [id])
+  studentId   Int?
+  Questions   Questions? @relation(fields: [questionsId], references: [id])
+  questionsId Int?
+}
+
+model StudentBadge {
+  id        Int      @id @default(autoincrement())
+  fullpack  String
+  month     DateTime
+  isMonthly Boolean
+  Student   Student? @relation(fields: [studentId], references: [id])
+  studentId Int?
+  Badge     Badge?   @relation(fields: [badgeId], references: [id])
+  badgeId   Int?
+}
+
+model Badge {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  studentbadge StudentBadge[]
+}
+
+model Student {
+  id        Int    @id
+  firstname String
+  LastName  String
+  isAdmin Boolean
+  sessionstudent  SessionStudent[]
+  user            User[]
+  studentresponse StudentResponse[]
+  studentbadge    StudentBadge[]
 }
