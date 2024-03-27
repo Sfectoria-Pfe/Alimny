@@ -11,7 +11,7 @@ CREATE TABLE `Programme` (
 
 -- CreateTable
 CREATE TABLE `CourseContent` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `typeContentId` INTEGER NULL,
     `courseId` INTEGER NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `Category` (
 
 -- CreateTable
 CREATE TABLE `SessionStudent` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `sessionId` INTEGER NULL,
     `studentId` INTEGER NULL,
 
@@ -62,7 +62,7 @@ CREATE TABLE `SessionStudent` (
 
 -- CreateTable
 CREATE TABLE `Msgs` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `sessionId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -70,7 +70,7 @@ CREATE TABLE `Msgs` (
 
 -- CreateTable
 CREATE TABLE `SessionTeacher` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `sessionId` INTEGER NULL,
     `employeeId` INTEGER NULL,
 
@@ -79,7 +79,7 @@ CREATE TABLE `SessionTeacher` (
 
 -- CreateTable
 CREATE TABLE `Weeks` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `sessionId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -87,7 +87,7 @@ CREATE TABLE `Weeks` (
 
 -- CreateTable
 CREATE TABLE `ProgrammeModule` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `programmeId` INTEGER NULL,
     `moduleId` INTEGER NULL,
 
@@ -97,7 +97,7 @@ CREATE TABLE `ProgrammeModule` (
 
 -- CreateTable
 CREATE TABLE `Module` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
     `courseId` INTEGER NOT NULL,
@@ -108,7 +108,7 @@ CREATE TABLE `Module` (
 
 -- CreateTable
 CREATE TABLE `WeekContent` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `weeksId` INTEGER NULL,
     `courseContentId` INTEGER NULL,
 
@@ -117,7 +117,7 @@ CREATE TABLE `WeekContent` (
 
 -- CreateTable
 CREATE TABLE `Course` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `desription` VARCHAR(191) NOT NULL,
 
@@ -126,7 +126,7 @@ CREATE TABLE `Course` (
 
 -- CreateTable
 CREATE TABLE `User` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `isStudent` BOOLEAN NOT NULL,
     `msgsId` INTEGER NULL,
     `studentId` INTEGER NULL,
@@ -148,7 +148,7 @@ CREATE TABLE `Employee` (
 
 -- CreateTable
 CREATE TABLE `Questions` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `correction` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -156,7 +156,7 @@ CREATE TABLE `Questions` (
 
 -- CreateTable
 CREATE TABLE `StudentResponse` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `response` VARCHAR(191) NOT NULL,
     `score` INTEGER NOT NULL,
     `studentId` INTEGER NULL,
@@ -167,7 +167,7 @@ CREATE TABLE `StudentResponse` (
 
 -- CreateTable
 CREATE TABLE `StudentBadge` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `fullpack` VARCHAR(191) NOT NULL,
     `month` DATETIME(3) NOT NULL,
     `isMonthly` BOOLEAN NOT NULL,
@@ -179,7 +179,7 @@ CREATE TABLE `StudentBadge` (
 
 -- CreateTable
 CREATE TABLE `Badge` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Badge_name_key`(`name`),

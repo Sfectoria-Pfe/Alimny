@@ -6,19 +6,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class CourseService {
   constructor(private prisma: PrismaService) {}
-  create(createCourseDto: CreateCourseDto) {
-    return "babang"
-    // this.prisma.course.create({data: createCourseDto });
+  async create(createCourseDto: CreateCourseDto) {
+    return await this.prisma.course.create({ data: createCourseDto });
   }
-  findDrafts() {
-    return "babang"
 
-    // this.prisma.course.findMany({ where: { published: false } });
-  }
-  findAll() {
-    return "babang"
-
-    // this.prisma.course.findMany({ where: { published: true } });
+  async findAll() {
+    const result = await this.prisma.course.findMany();
+    return result;
   }
 
   findOne(id: number) {

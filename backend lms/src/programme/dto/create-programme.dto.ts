@@ -6,4 +6,5 @@ export class CreateProgrammeDto {
     @IsString()
     name : string
     description : string
+    categoryId : number
 }

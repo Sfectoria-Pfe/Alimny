@@ -126,7 +126,7 @@ model WeekContent {
 model Course {
   id            Int             @id @default(autoincrement())
   name          String
-  desription    String
+  description    String
   coursecontent CourseContent[]
   module        Module[]
 }

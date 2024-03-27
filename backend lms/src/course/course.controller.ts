@@ -14,10 +14,7 @@ export class CourseController {
     return this.courseService.create(createCourseDto);
   }
 
-  @Get('drafts')
-  findDrafts() {
-    return this.courseService.findDrafts();
-  }
+  @Get()
   findAll() {
     return this.courseService.findAll();
   }
