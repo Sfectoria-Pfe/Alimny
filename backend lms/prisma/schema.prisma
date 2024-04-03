@@ -65,12 +65,12 @@ model Category {
 }
 
 model SessionStudent {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   Session   Session? @relation(fields: [sessionId], references: [id])
   sessionId Int?
   Student   Student? @relation(fields: [studentId], references: [id])
   studentId Int?
-  }
+}
 
 model Msgs {
   id        Int     @id @default(autoincrement())
@@ -106,7 +106,7 @@ model ProgrammeModule {
   @@unique(fields: [programmeId, moduleId], name: "programmemodule")
 }
 
-model Module { 
+model Module {
   id              Int               @id @default(autoincrement())
   name            String            @unique
   description     String
@@ -126,13 +126,18 @@ model WeekContent {
 model Course {
   id            Int             @id @default(autoincrement())
   name          String
-  description    String
+  description   String
   coursecontent CourseContent[]
   module        Module[]
 }
 
 model User {
   id         Int       @id @default(autoincrement())
+  email      String    @unique
+  password   String
+  fullName   String
+  phone      String
+  address     String
   isStudent  Boolean
   Msgs       Msgs?     @relation(fields: [msgsId], references: [id])
   msgsId     Int?
@@ -143,7 +148,7 @@ model User {
 }
 
 model Employee {
-  id             Int              @id @unique 
+  id             Int              @id @unique
   firstname      String
   LastName       String
   isAdmin        Boolean
@@ -186,10 +191,10 @@ model Badge {
 }
 
 model Student {
-  id        Int    @id
-  firstname String
-  LastName  String
-  isAdmin Boolean
+  id              Int               @id
+  firstname       String
+  LastName        String
+  isAdmin         Boolean
   sessionstudent  SessionStudent[]
   user            User[]
   studentresponse StudentResponse[]
