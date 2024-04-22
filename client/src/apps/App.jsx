@@ -16,14 +16,36 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import NavBar from "./NavBar";
-import { Outlet } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import EventAvailableOutlinedIcon from "@mui/icons-material/EventAvailableOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
-
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import ViewInArOutlinedIcon from '@mui/icons-material/ViewInArOutlined';
+import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 const drawerWidth = 240;
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const sidebarData = [
+  { name: "Dashboard", path: "/", icon: <HomeIcon /> },
+  { name: "Programme", path: "programme", icon: <BorderColorOutlinedIcon/> },
+  { name: "Module", path: "module", icon: <ViewInArOutlinedIcon/> },
+  { name: "Courses", path: "courses", icon: <CategoryOutlinedIcon/> },
+  { name: "Session", path: "session", icon: <Diversity1OutlinedIcon/> },
+  { name: "Users", path: "users", icon: <ManageAccountsOutlinedIcon/> },
+  { name: "Mysessions", path: "mysessions", icon: <SchoolOutlinedIcon/> },
+  { name: "Agenda", path: "agenda", icon: <EventAvailableOutlinedIcon /> },
+  { name: "Help", path: "help", icon: <InfoOutlinedIcon /> },
+  { name: "LandingPage", path: "landingpage", icon: <InfoOutlinedIcon /> },
+];
+const settings = [
+  { name: "Profile", path: "profile", icon: <HomeIcon /> },
+
+  { name: "Logout", path: "logout", icon: <HomeIcon /> },
+  { name: "EditProfile ", path: "edit", icon: <HomeIcon /> },
+];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -90,25 +112,32 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer({ user, setUser }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
+    console.log("hh");
     setAnchorElUser(event.currentTarget);
   };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleCloseNavMenu = (path) => {
+    if (path === "logout") {
+      setUser(null);
+      navigate("/");
+    } else {
+      navigate(path);
+      setAnchorElNav(null);
+      handleCloseUserMenu();
+    }
+  };
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
   };
 
   const handleDrawerOpen = () => {
@@ -118,6 +147,7 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -138,13 +168,13 @@ export default function MiniDrawer() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Mini variant drawer
+              LMS Malek
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -163,15 +193,17 @@ export default function MiniDrawer() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settings.map((setting, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={() => handleCloseNavMenu(setting.path)}
+                >
+                  <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
         </Toolbar>
-       
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
@@ -185,14 +217,15 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {sidebarData.map((item, index) => (
+            <ListItem key={item.name} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
                 }}
+                onClick={() => navigate(item.path)}
               >
                 <ListItemIcon
                   sx={{
@@ -201,15 +234,19 @@ export default function MiniDrawer() {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary={item.name}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
+
         <Divider />
-        <List>
+        {/* <List>
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
@@ -232,11 +269,11 @@ export default function MiniDrawer() {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-       
+
         <Outlet />
       </Box>
     </Box>
