@@ -42,9 +42,9 @@ const sidebarData = [
 ];
 const settings = [
   { name: "Profile", path: "profile", icon: <HomeIcon /> },
-
+  { name: "Settings ", path: "edit", icon: <HomeIcon /> },
   { name: "Logout", path: "logout", icon: <HomeIcon /> },
-  { name: "EditProfile ", path: "edit", icon: <HomeIcon /> },
+ 
 ];
 
 const openedMixin = (theme) => ({
