@@ -14,6 +14,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import avatar from "../assets/image/avatar.png";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../store/auth";
 
 function Copyright(props) {
   return (
@@ -38,22 +40,16 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide({ setUser }) {
+  const dispatch=useDispatch()
+  const [email,setEmail]=React.useState("")
+  const [password,setPassword]=React.useState("")
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    setUser({
-      email: "String",
-      fullName: "String",
-      phone: "String",
-      address: "String",
-      isStudent: true,
-      role: "student",
-      avatarURL: avatar,
-    });
+   
+   
+    dispatch(login({email,password}))
+   
   };
 
   return (
@@ -108,6 +104,7 @@ export default function SignInSide({ setUser }) {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={(e)=>setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -118,6 +115,8 @@ export default function SignInSide({ setUser }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e)=>setPassword(e.target.value)}
+
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

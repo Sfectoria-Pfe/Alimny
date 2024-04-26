@@ -11,7 +11,9 @@ export class ProgrammeService {
   }
 
   findAll() {
-    return this.prisma.programme.findMany();
+    return this.prisma.programme.findMany({
+      include:{Category:true}
+    });
   }
 
   findOne(id: number) {

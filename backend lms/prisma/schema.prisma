@@ -24,24 +24,14 @@ model Programme {
 }
 
 model CourseContent {
-  id            Int           @id @default(autoincrement())
-  name          String
-  TypeContent   TypeContent?  @relation(fields: [typeContentId], references: [id])
-  typeContentId Int?
-  weekcontent   WeekContent[]
-  Course        Course?       @relation(fields: [courseId], references: [id])
-  courseId      Int?
-  Questions     Questions?    @relation(fields: [questionsId], references: [id])
-  questionsId   Int?
-
-  @@unique(fields: [courseId, typeContentId], name: "coursecontent")
-}
-
-model TypeContent {
-  id            Int             @id @default(autoincrement())
-  desription    String
-  name          String
-  coursecontent CourseContent[]
+  id          Int           @id @default(autoincrement())
+  name        String
+  type        TypeContent
+  weekcontent WeekContent[]
+  Course      Course?       @relation(fields: [courseId], references: [id])
+  courseId    Int?
+  Questions   Questions?    @relation(fields: [questionsId], references: [id])
+  questionsId Int?
 }
 
 model Session {
@@ -137,8 +127,10 @@ model User {
   password   String
   fullName   String
   phone      String
-  address     String
+  address    String
   isStudent  Boolean
+  role       Role
+  isActive   Boolean   @default(true)
   Msgs       Msgs?     @relation(fields: [msgsId], references: [id])
   msgsId     Int?
   Student    Student?  @relation(fields: [studentId], references: [id])
@@ -199,4 +191,18 @@ model Student {
   user            User[]
   studentresponse StudentResponse[]
   studentbadge    StudentBadge[]
+}
+
+enum Role {
+  admin
+  teacher
+  manager
+  student
+}
+
+enum TypeContent {
+  pdf
+  video
+  quiz
+  exercice
 }

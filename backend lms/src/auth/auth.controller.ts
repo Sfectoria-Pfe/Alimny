@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ApiSecurity } from '@nestjs/swagger';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -15,7 +17,17 @@ export class AuthController {
   signup(@Body() createAuthDto: CreateAuthDto) {
     return this.authService.singup(createAuthDto);
   }
+  @ApiSecurity('apiKey') // for swagger
+  @UseGuards(JwtAuthGuard) // the get don't work without token
+  @Get('me')
+  async findMe(@Request() req, ) {
+    // get all oject of request
+    console.log(req.user,'from me');
 
+    return await this.authService.getMyInfo(
+      req.get('Authorization').replace('Bearer ', ''), // just the token without Bearer and space
+    );
+  }
   @Get()
   findAll() {
     return this.authService.findAll();

@@ -27,6 +27,9 @@ import ViewInArOutlinedIcon from '@mui/icons-material/ViewInArOutlined';
 import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import { logout } from "../store/auth";
+import { useDispatch } from "react-redux";
+
 const drawerWidth = 240;
 const sidebarData = [
   { name: "Dashboard", path: "/", icon: <HomeIcon /> },
@@ -125,16 +128,9 @@ export default function MiniDrawer({ user, setUser }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const handleCloseNavMenu = (path) => {
-    if (path === "logout") {
-      setUser(null);
-      navigate("/");
-    } else {
-      navigate(path);
-      setAnchorElNav(null);
-      handleCloseUserMenu();
-    }
+  const dispatch =useDispatch()
+  const handlelogout = () => {
+  dispatch(logout())
   };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -196,7 +192,7 @@ export default function MiniDrawer({ user, setUser }) {
               {settings.map((setting, index) => (
                 <MenuItem
                   key={index}
-                  onClick={() => handleCloseNavMenu(setting.path)}
+                  onClick={() => handlelogout()}
                 >
                   <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>

@@ -18,12 +18,18 @@ export class AuthService {
     }
     const validpassword = await bcrypt.compare(Dto.password, user.password);
     if (!validpassword) {
-      throw new HttpException('invalid email', HttpStatus.BAD_REQUEST);
+      throw new HttpException('invalid Password', HttpStatus.BAD_REQUEST);
     }
     const{password,...rest}=user
     const token = await this.jwtService.signAsync(rest);
     return token;
   }
+
+  async getMyInfo(token: string) {
+    const myInfo = this.jwtService.decode(token);
+    return myInfo;
+  }
+  
   singup(createAuthDto: CreateAuthDto) {
     return 'This action adds a new auth';
   }
