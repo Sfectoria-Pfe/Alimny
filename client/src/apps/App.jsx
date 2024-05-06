@@ -46,7 +46,7 @@ const sidebarData = [
 const settings = [
   { name: "Profile", path: "profile", icon: <HomeIcon /> },
   { name: "Settings ", path: "edit", icon: <HomeIcon /> },
-  { name: "Logout", path: "logout", icon: <HomeIcon /> },
+  { name: "Logout", path: "/", icon: <HomeIcon /> },
  
 ];
 
@@ -131,6 +131,7 @@ export default function MiniDrawer({ user, setUser }) {
   const dispatch =useDispatch()
   const handlelogout = () => {
   dispatch(logout())
+  navigate("/")
   };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -192,9 +193,9 @@ export default function MiniDrawer({ user, setUser }) {
               {settings.map((setting, index) => (
                 <MenuItem
                   key={index}
-                  onClick={() => handlelogout()}
+                 
                 >
-                  <Typography textAlign="center">{setting.name}</Typography>
+                  <Typography textAlign="center"   onClick={() => setting.name === "Logout" ? handlelogout()  : navigate(`${setting.path}`)}>{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

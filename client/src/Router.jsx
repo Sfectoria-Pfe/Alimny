@@ -24,6 +24,7 @@ import ProgrammeDetail from "./pages/programmes/ProgrammeDetail";
 import AddProgramme from "./pages/programmes/AddProgramme";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "./store/auth";
+import Chat from "./pages/chat/Chat";
 
 function Router() {
  
@@ -46,7 +47,7 @@ function Router() {
             <Route index element={<Dashboard />} />
             <Route path="courses" element={<Courses />} />
             <Route path="agenda" element={<Agenda />} />
-            <Route path="help" element={<Help />} />
+            <Route path="help" element={<Chat/>} />
             <Route path="profile" element={<Profile />} />
             <Route path="programme" element={<Programme />} >
             <Route index element={<ProgrammeList />} />
