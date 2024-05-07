@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import App from "./apps/App";
 import Login from "./components/Login";
 import Dashboard from "./pages/Dashboard";
 import Courses from "./pages/Courses";
-import Agenda from "./pages/Agenda";
+
 import Help from "./pages/Help";
 import Profile from "./pages/Profile";
 import avatar from "./assets/image/avatar.png";
@@ -25,6 +25,7 @@ import AddProgramme from "./pages/programmes/AddProgramme";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "./store/auth";
 import Chat from "./pages/chat/Chat";
+import Agenda from "./pages/agenda/Agenda";
 
 function Router() {
  
@@ -44,6 +45,7 @@ function Router() {
       <Routes>
         {user ? (
           <Route path="/" element={<App/>}>
+            <Route path="*" element={<Navigate to="/"/>} />
             <Route index element={<Dashboard />} />
             <Route path="courses" element={<Courses />} />
             <Route path="agenda" element={<Agenda />} />
@@ -64,6 +66,7 @@ function Router() {
           </Route>
         ) : (
           <Route path="/" element={<Auth />}>
+            <Route path="*" element={<Navigate to="/"/>} />
             <Route index element={<Login />} />
             <Route path="signup" element={<Signup />} />
           </Route>

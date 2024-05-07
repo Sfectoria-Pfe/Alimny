@@ -29,6 +29,7 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import { logout } from "../store/auth";
 import { useDispatch } from "react-redux";
+import logo from "../assets/logo.png"
 
 const drawerWidth = 240;
 const sidebarData = [
@@ -149,7 +150,7 @@ export default function MiniDrawer({ user, setUser }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} style={{backgroundColor:"#6635DF"}}>
         <Toolbar>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <IconButton
@@ -162,6 +163,7 @@ export default function MiniDrawer({ user, setUser }) {
                 ...(open && { display: "none" }),
               }}
             >
+              
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
@@ -203,7 +205,7 @@ export default function MiniDrawer({ user, setUser }) {
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+        <DrawerHeader className="d-flex w-100 flex-start">
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -211,7 +213,10 @@ export default function MiniDrawer({ user, setUser }) {
               <ChevronLeftIcon />
             )}
           </IconButton>
+            
         </DrawerHeader>
+        <img src={logo} alt="logo" loading="lazy"  className="p-3 mt-60"  width={120}/>
+
         <Divider />
         <List>
           {sidebarData.map((item, index) => (
@@ -276,3 +281,4 @@ export default function MiniDrawer({ user, setUser }) {
     </Box>
   );
 }
+
