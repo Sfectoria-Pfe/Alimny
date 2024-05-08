@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { me } from "./store/auth";
 import Chat from "./pages/chat/Chat";
 import Agenda from "./pages/agenda/Agenda";
+import UserPage from "./pages/user/view/user-view";
 
 function Router() {
  
@@ -59,7 +60,7 @@ function Router() {
             </Route>
             <Route path="module" element={<Module />} />
             <Route path="session" element={<Session />} />
-            <Route path="users" element={<Users />} />
+            <Route path="users" element={<UserPage />} />
             <Route path="mysessions" element={<Mysessions />} />
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />
