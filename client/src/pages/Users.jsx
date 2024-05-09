@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import TablePage from "../components/table/view/table-view";
 function Users() {
   const [cover, setCover] = useState(null);
 
@@ -65,26 +67,27 @@ function Users() {
 
   }
   return (
-    <div>
-      <input type="file" onChange={(e) => handleChange(e)}></input>
-      <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
+    // <div>
+    //   <input type="file" onChange={(e) => handleChange(e)}></input>
+    //   <Box sx={{ height: 400, width: '100%' }}>
+    //   <DataGrid
+    //     rows={rows}
+    //     columns={columns}
+    //     initialState={{
+    //       pagination: {
+    //         paginationModel: {
+    //           pageSize: 5,
+    //         },
+    //       },
+    //     }}
+    //     pageSizeOptions={[5]}
         
-        disableRowSelectionOnClick
-        slots={{ toolbar: GridToolbar }}
-      />
-    </Box>
-    </div>
+    //     disableRowSelectionOnClick
+    //     slots={{ toolbar: GridToolbar }}
+    //   />
+    // </Box>
+    // </div>
+    <TablePage btnTitle={"Add user"} icon={ <ManageAccountsOutlinedIcon/> } titlePage={"Users"}/>
   );
 }
 

@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import App from "./apps/App";
 import Login from "./components/Login";
 import Dashboard from "./pages/Dashboard";
 import Courses from "./pages/Courses";
 
-import Help from "./pages/Help";
 import Profile from "./pages/Profile";
-import avatar from "./assets/image/avatar.png";
 import Auth from "./apps/Auth";
 import Signup from "./components/Signup";
 import Programme from "./pages/programmes/Programme";
-import Module from "./pages/Module";
 import Session from "./pages/Session";
-import Users from "./pages/Users";
 import Mysessions from "./pages/Mysessions";
 import LandingPage from "./pages/LandigPage";
-import programme from "./pages/programmes/Programme"
 
 import EditProfile from "./pages/EditProfile";
 import ProgrammeList from "./pages/programmes/ProgrammeList";
@@ -27,6 +22,10 @@ import { me } from "./store/auth";
 import Chat from "./pages/chat/Chat";
 import Agenda from "./pages/agenda/Agenda";
 import UserPage from "./pages/user/view/user-view";
+import ModulePage from "./pages/module/ModulePage";
+import Users from "./pages/Users";
+import ProductsView from "./pages/products/view/products-view";
+
 
 function Router() {
  
@@ -58,10 +57,10 @@ function Router() {
             <Route path="programmeDetail/:id" element={<ProgrammeDetail />} />
    
             </Route>
-            <Route path="module" element={<Module />} />
+            <Route path="module" element={<ModulePage />} />
             <Route path="session" element={<Session />} />
-            <Route path="users" element={<UserPage />} />
-            <Route path="mysessions" element={<Mysessions />} />
+            <Route path="users" element={<Users />} />
+            <Route path="mysessions" element={< ProductsView/>} />
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />
           </Route>

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import TableRow from "../components/table/user-table-row";
+import TablePage from "../components/table/view/table-view";
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+
 function Courses() {
   const [cover, setCover] = useState(null);
 
@@ -58,26 +62,27 @@ function Courses() {
 
   }
   return (
-    <div>
-      <input type="file" onChange={(e) => handleChange(e)}></input>
-      <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
+    // <div>
+    //   <input type="file" onChange={(e) => handleChange(e)}></input>
+    //   <Box sx={{ height: 400, width: '100%' }}>
+    //   <DataGrid
+    //     rows={rows}
+    //     columns={columns}
+    //     initialState={{
+    //       pagination: {
+    //         paginationModel: {
+    //           pageSize: 5,
+    //         },
+    //       },
+    //     }}
+    //     pageSizeOptions={[5]}
         
-        disableRowSelectionOnClick
-        slots={{ toolbar: GridToolbar }}
-      />
-    </Box>
-    </div>
+    //     disableRowSelectionOnClick
+    //     slots={{ toolbar: GridToolbar }}
+    //   />
+    // </Box>
+    // </div>
+    <TablePage btnTitle={"Add Course"}  icon={<CategoryOutlinedIcon/>} titlePage={"Courses"}/>
   );
 }
 

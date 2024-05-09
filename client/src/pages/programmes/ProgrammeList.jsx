@@ -6,9 +6,14 @@ import { fetchprogrammes } from "../../store/programme";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
+import TablePage from "../../components/table/view/table-view";
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import KeepMountedModal from "../../components/Modals/Modal";
+
 function ProgrammeList() {
   const [cover, setCover] = useState(null);
   const [rows, setRows] = useState([]);
+  const [open,setOpen]=useState(false)
   const navigate = useNavigate();
 
   const programmes = useSelector(
@@ -75,33 +80,37 @@ function ProgrammeList() {
     }
   };
   return (
-    <div className="">
-      <div className="d-flex justify-content-end py-3">
-        <button
-          className="btn btn-primary "
-          onClick={() => navigate("addProgramme")}
-        >
-          Add Programme
-        </button>
-      </div>
+    // <div className="">
+    //   <div className="d-flex justify-content-end py-3">
+    //     <button
+    //       className="btn btn-primary "
+    //       onClick={() => navigate("addProgramme")}
+    //     >
+    //       Add Programme
+    //     </button>
+    //   </div>
 
-      <Box sx={{ height: 400, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          disableRowSelectionOnClick
-          slots={{ toolbar: GridToolbar }}
-        />
-      </Box>
-    </div>
+    //   <Box sx={{ height: 400, width: "100%" }}>
+    //     <DataGrid
+    //       rows={rows}
+    //       columns={columns}
+    //       initialState={{
+    //         pagination: {
+    //           paginationModel: {
+    //             pageSize: 5,
+    //           },
+    //         },
+    //       }}
+    //       pageSizeOptions={[5]}
+    //       disableRowSelectionOnClick
+    //       slots={{ toolbar: GridToolbar }}
+    //     />
+    //   </Box>
+    // </div>
+    <>
+    <TablePage btnTitle={"Add Programme"} icon={<BorderColorOutlinedIcon/>} titlePage={"Programmes"} setOpen={setOpen}/>
+    <KeepMountedModal open={open} setOpen={setOpen} />
+    </>
   );
 }
 
