@@ -9,26 +9,41 @@ import { useNavigate } from "react-router-dom";
 import TablePage from "../../components/table/view/table-view";
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import KeepMountedModal from "../../components/Modals/Modal";
+import { fetchcategories } from "../../store/category";
 
 function ProgrammeList() {
   const [cover, setCover] = useState(null);
   const [rows, setRows] = useState([]);
   const [open,setOpen]=useState(false)
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  const [addedProgramme,setAddedprogramme]=useState({
+    name:"",
+    description:"",
+    categoryId:"",
+  })
+    
+
+
 
   const programmes = useSelector(
     (state) => state.programmeSlice?.programmes?.items
   );
+  const categories = useSelector(
+    (state) => state.category?.categories?.items
+  );
+  console.log(programmes, "this is programmes")
+  console.log(categories,"this is categories")
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchprogrammes());
+    dispatch(fetchcategories())
     
   }, [dispatch]);
+
   useEffect(()=>{
     setRows(programmes);
   },[programmes])
-  console.log(programmes, "prog");
-
+ 
   const columns = [
     { field: "id", headerName: "malek", width: 90 },
     {
@@ -108,8 +123,8 @@ function ProgrammeList() {
     //   </Box>
     // </div>
     <>
-    <TablePage btnTitle={"Add Programme"} icon={<BorderColorOutlinedIcon/>} titlePage={"Programmes"} setOpen={setOpen}/>
-    <KeepMountedModal open={open} setOpen={setOpen} />
+    <TablePage btnTitle={"Add Programme"} icon={<BorderColorOutlinedIcon/>} titlePage={"Programmes"} setOpen={setOpen} programmes={programmes}/>
+    <KeepMountedModal open={open} setOpen={setOpen} categories={categories} setAddedprogramme={setAddedprogramme} />
     </>
   );
 }

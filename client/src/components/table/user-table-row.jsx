@@ -20,10 +20,8 @@ export default function TableRow({
   selected,
   name,
   avatarUrl,
-  company,
-  role,
-  isVerified,
-  status,
+  description,
+  category,
   handleClick,
 }) {
   const [open, setOpen] = useState(null);
@@ -52,15 +50,12 @@ export default function TableRow({
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{description.slice(0,100) + " ..."}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{category}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
 
-        <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
-        </TableCell>
+    
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -86,7 +81,7 @@ export default function TableRow({
 
         <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
           <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Delete
+          Delete row
         </MenuItem>
       </Popover>
     </>
