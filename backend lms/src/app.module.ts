@@ -8,11 +8,12 @@ import { CourseModule } from './course/course.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
+import { CategoriesModule } from './categories/categories.module';
 
 
 
 @Module({
-  imports: [PrismaModule, TypecontentsModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, DashboardsModule,],
+  imports: [PrismaModule, TypecontentsModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, DashboardsModule, CategoriesModule,],
   controllers: [AppController],
   providers: [AppService],
 })
