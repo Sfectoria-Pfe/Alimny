@@ -4,7 +4,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { extname } from 'path';
 import { existsSync, mkdirSync } from 'fs';
 import { diskStorage } from 'multer';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('Users')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}

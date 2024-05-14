@@ -15,4 +15,6 @@ export class CreateUserDto {
   address: string;
   @ApiProperty()
   isStudent: boolean;
+  @ApiProperty()
+role : any
 }

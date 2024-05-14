@@ -1,26 +1,44 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { UpdateDashboardDto } from './dto/update-dashboard.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
-@Injectable()
+@Injectable() 
 export class DashboardsService {
-  create(createDashboardDto: CreateDashboardDto) {
-    return 'This action adds a new dashboard';
+  constructor(private readonly prisma:PrismaService){}
+
+ async create(dto: CreateDashboardDto) {
+    return await this.prisma.dashboard.create({
+      data:dto
+    })
   }
 
-  findAll() {
-    return `This action returns all dashboards`;
+  async  findAll() {
+    return await this.prisma.dashboard.findMany({})
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dashboard`;
+  async  findOne(id: number) {
+    return await this.prisma.dashboard.findFirst({
+      where : {
+        id
+      }
+    })
   }
 
-  update(id: number, updateDashboardDto: UpdateDashboardDto) {
-    return `This action updates a #${id} dashboard`;
+  async  update(id: number, dto: UpdateDashboardDto) {
+    return await this.prisma.category.update({
+      where : {
+        id
+      },
+      data : dto
+    })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} dashboard`;
+  async  remove(id: number) {
+    return this.prisma.dashboard.delete({
+      where : {
+        id
+      }
+    })
   }
 }

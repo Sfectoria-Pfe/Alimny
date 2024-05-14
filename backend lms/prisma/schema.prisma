@@ -129,7 +129,7 @@ model User {
   phone      String
   address    String
   isStudent  Boolean
-  role       Role
+  role       Role  
   isActive   Boolean   @default(true)
   Msgs       Msgs?     @relation(fields: [msgsId], references: [id])
   msgsId     Int?
@@ -181,7 +181,15 @@ model Badge {
   name         String         @unique
   studentbadge StudentBadge[]
 }
+model Agenda{
+  id Int @id @default(autoincrement())
+  title String
+  start DateTime @default(now())
 
+}
+model Dashboard{
+    id        Int      @id @default(autoincrement())
+}
 model Student {
   id              Int               @id
   firstname       String

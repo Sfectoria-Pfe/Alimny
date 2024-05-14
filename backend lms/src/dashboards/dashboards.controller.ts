@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DashboardsService } from './dashboards.service';
 import { CreateDashboardDto } from './dto/create-dashboard.dto';
 import { UpdateDashboardDto } from './dto/update-dashboard.dto';
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('dashboards')
 
 @Controller('dashboards')
 export class DashboardsController {
@@ -23,7 +25,10 @@ export class DashboardsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDashboardDto: UpdateDashboardDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateDashboardDto: UpdateDashboardDto,
+  ) {
     return this.dashboardsService.update(+id, updateDashboardDto);
   }
 

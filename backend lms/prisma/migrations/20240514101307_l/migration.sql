@@ -13,19 +13,9 @@ CREATE TABLE `Programme` (
 CREATE TABLE `CourseContent` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `typeContentId` INTEGER NULL,
+    `type` ENUM('pdf', 'video', 'quiz', 'exercice') NOT NULL,
     `courseId` INTEGER NULL,
     `questionsId` INTEGER NULL,
-
-    UNIQUE INDEX `CourseContent_courseId_typeContentId_key`(`courseId`, `typeContentId`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `TypeContent` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `desription` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -119,7 +109,7 @@ CREATE TABLE `WeekContent` (
 CREATE TABLE `Course` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `desription` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -127,11 +117,19 @@ CREATE TABLE `Course` (
 -- CreateTable
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `fullName` VARCHAR(191) NOT NULL,
+    `phone` VARCHAR(191) NOT NULL,
+    `address` VARCHAR(191) NOT NULL,
     `isStudent` BOOLEAN NOT NULL,
+    `role` ENUM('admin', 'teacher', 'manager', 'student') NOT NULL DEFAULT 'admin',
+    `isActive` BOOLEAN NOT NULL DEFAULT true,
     `msgsId` INTEGER NULL,
     `studentId` INTEGER NULL,
     `employeeId` INTEGER NULL,
 
+    UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -187,6 +185,13 @@ CREATE TABLE `Badge` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Agenda` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Student` (
     `id` INTEGER NOT NULL,
     `firstname` VARCHAR(191) NOT NULL,
@@ -198,9 +203,6 @@ CREATE TABLE `Student` (
 
 -- AddForeignKey
 ALTER TABLE `Programme` ADD CONSTRAINT `Programme_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `CourseContent` ADD CONSTRAINT `CourseContent_typeContentId_fkey` FOREIGN KEY (`typeContentId`) REFERENCES `TypeContent`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `CourseContent` ADD CONSTRAINT `CourseContent_courseId_fkey` FOREIGN KEY (`courseId`) REFERENCES `Course`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

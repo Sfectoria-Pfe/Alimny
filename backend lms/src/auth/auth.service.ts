@@ -27,6 +27,8 @@ export class AuthService {
 
   async getMyInfo(token: string) {
     const myInfo = this.jwtService.decode(token);
+    console.log(myInfo,"myInfo");
+    
     return myInfo;
   }
   
