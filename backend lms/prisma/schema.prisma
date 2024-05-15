@@ -187,9 +187,7 @@ model Agenda{
   start DateTime @default(now())
 
 }
-model Dashboard{
-    id        Int      @id @default(autoincrement())
-}
+
 model Student {
   id              Int               @id
   firstname       String

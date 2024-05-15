@@ -32,57 +32,7 @@ const Dashboard = () => {
   const me = useSelector(state=>state.auth.me)
   console.log(me,"this is the connected user")
   return (
-    // <div className="dashboard-container">
-    //   <div className="dashboard-header">
-    //     <h1 className="dashboard-title">Tableau de bord</h1>
-    //     <div className="dashboard-actions">
-    //       <button className="action-button">Exporter</button>
-    //       <button className="action-button">Imprimer</button>
-    //     </div>
-    //   </div>
-    //   <div className="dashboard-summary">
-    //     <div className="summary-item">
-    //       <h2>En Cours</h2>
-    //       <p>250</p>
-    //     </div>
-    //     <div className="summary-item">
-    //       <h2>Complet</h2>
-    //       <p>20</p>
-    //     </div>
-    //     <div className="summary-item">
-    //       <h2>Progression moyenne</h2>
-    //       <p>75%</p>
-    //     </div>
-    //   </div>
-    //   <div className="dashboard-charts">
-    //     <h2>Graphiques</h2>
-    //     <div className="chart-container">
-    //       <div className="chart">
-    //         <h3>Graphique à barres</h3>
-    //         <div className="bar-chart">
-    //           <div className="bar" style={{ height: '150px' }}></div>
-    //           <div className="bar" style={{ height: '200px' }}></div>
-    //           <div className="bar" style={{ height: '100px' }}></div>
-    //           <div className="bar" style={{ height: '250px' }}></div>
-    //         </div>
-    //       </div>
-    //       <div className="chart">
-    //         <h3>Graphique circulaire</h3>
-    //         <div className="pie-chart">
-    //           {/* Exemple de graphique circulaire à venir */}
-    //           <p>Graphique circulaire à venir...</p>
-    //         </div>
-    //       </div>
-    //       <div className="chart">
-    //         <h3>Graphique extra</h3>
-    //         <div className="extra-chart">
-    //           {/* Exemple de graphique "extra" à venir */}
-    //           <p>Graphique extra à venir...</p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
+
     <Container maxWidth="xl">
     <Typography variant="h4" sx={{ mb: 5 }}>
       Aaslema {me?.fullName}, Welcome back 👋
@@ -91,7 +41,7 @@ const Dashboard = () => {
     <Grid container spacing={3}>
       <Grid xs={12} sm={6} md={3}>
         <AppWidgetSummary
-          title="Weekly Sales"
+          title="Total users"
           total={714000}
           color="success"
           icon={    <Lottie 
@@ -112,7 +62,7 @@ const Dashboard = () => {
 
       <Grid xs={12} sm={6} md={3}>
         <AppWidgetSummary
-          title="New Users"
+          title="Total courses"
           total={1352831}
           color="info"
           icon={    <Lottie 
@@ -131,9 +81,9 @@ const Dashboard = () => {
         />
       </Grid>
 
-      <Grid xs={12} sm={6} md={3}>
+    { me?.role === "student"  ?<Grid xs={12} sm={6} md={3}>
         <AppWidgetSummary
-          title="Item Orders"
+          title="Your sessions"
           total={1723315}
           color="warning"
           icon={    <Lottie 
@@ -150,11 +100,33 @@ const Dashboard = () => {
               style={{marginTop:"-10px"}}
             />}
         />
-      </Grid>
-
+      </Grid> : 
       <Grid xs={12} sm={6} md={3}>
+      <AppWidgetSummary
+        title="Active sessions"
+        total={1723315}
+        color="warning"
+        icon={    <Lottie 
+          options={  {
+            loop: true,
+            autoplay: true,
+            animationData: document,
+            rendererSettings: {
+              preserveAspectRatio: "xMidYMid slice"
+            }
+          }}
+            height={75}
+            width={75}
+            style={{marginTop:"-10px"}}
+          />}
+      />
+    </Grid>
+      
+    }
+
+     { me?.role === "student" && <Grid xs={12} sm={6} md={3}>
         <AppWidgetSummary
-          title="Bug Reports"
+          title="Your score"
           total={234}
           color="error"
           icon={    <Lottie 
@@ -171,11 +143,11 @@ const Dashboard = () => {
               style={{marginTop:"-10px"}}
             />}
         />
-      </Grid>
+      </Grid>}
 
       <Grid xs={12} md={6} lg={8}>
         <AppWebsiteVisits
-          title="Website Visits"
+          title="Website "
           subheader="(+43%) than last year"
           chart={{
             labels: [
