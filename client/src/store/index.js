@@ -3,6 +3,8 @@ import programmeSlice  from './programme'
 import auth from './auth'
 import category from './category'
 import course from './course'
+import users from './users'
+import sessions from './sessions'
 
 
 export const store = configureStore({
@@ -10,6 +12,8 @@ export const store = configureStore({
     programmeSlice: programmeSlice ,/*key & value  */
     auth,
     category,
-    course
+    course,
+    users,
+    sessions
   },
 })

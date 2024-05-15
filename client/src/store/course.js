@@ -26,6 +26,7 @@ export const courseSlice = createSlice({
     extraReducers(builder){
         builder.addCase(fetchcourses.fulfilled,(state, action)=>{console.log("adfc",action);
             state.courses.items=action.payload;
+            state.courses.count=action.payload.length;
         });
     }
 })
