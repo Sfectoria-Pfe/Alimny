@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchprogrammes } from "../../store/programme";
+import { deleteProgramme, fetchprogrammes } from "../../store/programme";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ function ProgrammeList() {
   const [cover, setCover] = useState(null);
   const [rows, setRows] = useState([]);
   const [open,setOpen]=useState(false)
+  const [id,setId] = useState("")
   const navigate = useNavigate(); 
   const [addedProgramme,setAddedprogramme]=useState({
     name:"",
@@ -22,7 +23,19 @@ function ProgrammeList() {
     categoryId:"",
   })
     
-
+const handleDeleteProgramme = async () => {
+  try {
+    if(id) {
+     dispatch(deleteProgramme(id))
+    }
+  } catch (error) {
+    console.log(error)
+    
+  }
+}
+useEffect(()=>{
+  handleDeleteProgramme()
+},[id])
 
 
   const programmes = useSelector(
@@ -123,7 +136,7 @@ function ProgrammeList() {
     //   </Box>
     // </div>
     <>
-    <TablePage btnTitle={"Add Programme"} icon={<BorderColorOutlinedIcon/>} titlePage={"Programmes"} setOpen={setOpen} programmes={programmes}/>
+    <TablePage btnTitle={"Add Programme"} icon={<BorderColorOutlinedIcon/>} titlePage={"Programmes"} setOpen={setOpen} programmes={programmes} setId={setId}/>
     <KeepMountedModal open={open} setOpen={setOpen} categories={categories} setAddedprogramme={setAddedprogramme} />
     </>
   );
