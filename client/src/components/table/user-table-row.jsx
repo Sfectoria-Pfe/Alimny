@@ -23,6 +23,8 @@ export default function TableRow({
   description,
   category,
   handleClick,
+  setId,
+  id
 }) {
   const [open, setOpen] = useState(null);
 
@@ -79,7 +81,7 @@ export default function TableRow({
           Edit
         </MenuItem>
 
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
+        <MenuItem onClick={()=>{setId(id) ,handleCloseMenu()}} sx={{ color: 'error.main' }}>
           <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
           Delete row
         </MenuItem>

@@ -30,6 +30,7 @@ export default function TablePage({
   titlePage,
   setOpen,
   programmes,
+  setId
 }) {
   const [page, setPage] = useState(0);
 
@@ -139,6 +140,7 @@ console.log(filterName,"filterName")
           <TableContainer sx={{ overflow: "unset" }}>
             <Table sx={{ minWidth: 800 }}>
               <UserTableHead
+              setId= {setId}
                 order={order}
                 orderBy={orderBy}
                 rowCount={programmes?.length}
@@ -161,8 +163,10 @@ console.log(filterName,"filterName")
                     console.log(row,"this is row")
                     return (
                     <TableRow
+                    setId={setId}
                       key={row?.id}
                       name={row?.name}
+                      id = {row.id}
                       description={row?.description}
                       category={row?.Category?.name}
                       avatarUrl={row?.avatarUrl}

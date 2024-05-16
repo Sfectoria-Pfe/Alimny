@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../App.css'; // Fichier CSS pour styliser le composant
 
 import Container from '@mui/material/Container';
@@ -27,10 +27,33 @@ import user from "../assets/lotties/user.json"
 import pen from "../assets/lotties/pen.json"
 import document from "../assets/lotties/document.json"
 import heart from "../assets/lotties/heart.json"
+import { fetchusers } from '../store/users';
+import { fetchsessions } from '../store/sessions';
+import { fetchcourses } from '../store/course';
 
 const Dashboard = () => {
   const me = useSelector(state=>state.auth.me)
+  const users = useSelector(state=>state.users.users.count)
+  const sessions = useSelector(state=>state.sessions.sessions.count)
+  const courses = useSelector(state=>state.course.courses.count)
   console.log(me,"this is the connected user")
+
+  console.log({
+    usersCount : users,
+    sessionscount : sessions, 
+    coursescount : courses
+  } )
+
+const dispatch = useDispatch()
+
+useEffect(()=>{
+  dispatch(fetchusers())
+  dispatch(fetchsessions())
+  dispatch(fetchcourses())
+},[])
+
+
+
   return (
 
     <Container maxWidth="xl">
@@ -42,7 +65,7 @@ const Dashboard = () => {
       <Grid xs={12} sm={6} md={3}>
         <AppWidgetSummary
           title="Total users"
-          total={714000}
+          total={users}
           color="success"
           icon={    <Lottie 
             options={  {
@@ -63,7 +86,8 @@ const Dashboard = () => {
       <Grid xs={12} sm={6} md={3}>
         <AppWidgetSummary
           title="Total courses"
-          total={1352831}
+          total={courses?courses:"you dont have courses yet"}
+          
           color="info"
           icon={    <Lottie 
             options={  {
@@ -84,7 +108,7 @@ const Dashboard = () => {
     { me?.role === "student"  ?<Grid xs={12} sm={6} md={3}>
         <AppWidgetSummary
           title="Your sessions"
-          total={1723315}
+          total={sessions}
           color="warning"
           icon={    <Lottie 
             options={  {
@@ -104,7 +128,7 @@ const Dashboard = () => {
       <Grid xs={12} sm={6} md={3}>
       <AppWidgetSummary
         title="Active sessions"
-        total={1723315}
+        total={sessions}
         color="warning"
         icon={    <Lottie 
           options={  {
