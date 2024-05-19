@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProgrammeModulesService } from './programme-modules.service';
 import { CreateProgrammeModuleDto } from './dto/create-programme-module.dto';
 import { UpdateProgrammeModuleDto } from './dto/update-programme-module.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('programme-modules')
 @Controller('programme-modules')
 export class ProgrammeModulesController {
   constructor(private readonly ProgrammeModulesService: ProgrammeModulesService) {}

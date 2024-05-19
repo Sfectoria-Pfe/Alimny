@@ -27,6 +27,12 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
+  async findAllStudents(){
+    return await this.prisma.user.findMany({where:{role:"student"}})
+  }
+  async findAllTeachers(){
+    return await this.prisma.user.findMany({where:{role:"teacher"}})
+  }
   findOne(id: number) {
     return this.prisma.user.findUnique({ where: { id } });
   }
