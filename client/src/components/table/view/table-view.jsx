@@ -10,8 +10,6 @@ import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 
-import { users } from "../../../_mock/user";
-
 import Iconify from "../../iconify";
 import Scrollbar from "../../scrollbar";
 
@@ -32,7 +30,9 @@ export default function TablePage({
   programmes,
   courses,
   users,
-  setId
+  setId,
+  modules,
+  sessions
 }) {
   const [page, setPage] = useState(0);
 
@@ -96,11 +96,11 @@ export default function TablePage({
   };
 
   const dataFiltered = applyFilter({
-    inputData: programmes || courses ||  users|| [],
+    inputData: programmes || courses || users || modules ||  [],
     comparator: getComparator(order, orderBy),
-    filterName,
+    filterName
   });
-console.log(filterName,"filterName")
+  console.log(filterName, "filterName");
   console.log(dataFiltered, "dataFiltered");
 
   const notFound = !dataFiltered.length && !!filterName;
@@ -123,7 +123,6 @@ console.log(filterName,"filterName")
           startIcon={<Iconify icon="eva:plus-fill" />}
           sx={{ bgcolor: "#6635df" }}
           onClick={() => {
-           
             setOpen(true);
           }}
         >
@@ -142,48 +141,52 @@ console.log(filterName,"filterName")
           <TableContainer sx={{ overflow: "unset" }}>
             <Table sx={{ minWidth: 800 }}>
               <UserTableHead
-              setId= {setId}
+                setId={setId}
                 order={order}
                 orderBy={orderBy}
                 rowCount={programmes?.length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
-                headLabel={users ?[
-                  { id: "name", label: "Name" },
-                  { id: "description", label: "Description" },
-                  { id: "category", label: "Category" },
-                  // { id: "isVerified", label: "Verified", align: "center" },
-                  // { id: "status", label: "Status" },
-                  // { id: "" },
-                ]:[{
-                  id:"fullName" , lable : "Full Name"
-                },
-              {id:"role" , label : "Role"},
-              {id:"email" , label : "Email"},
-            ]}
+                headLabel={
+                  !users
+                    ? [
+                        { id: "name", label: "Name" },
+                        { id: "description", label: "Description" },
+                      !modules && !sessions  && { id: "category", label: "Category" }
+                      ]
+                    : [
+                        {
+                          id: "fullName",
+                          label: "FullName"
+                        },
+                        { id: "role", label: "Role" },
+                        { id: "email", label: "Email" }
+                      ]
+                }
               />
               <TableBody>
                 {dataFiltered
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    console.log(row,"this is row")
+                    console.log(row, "this is row");
                     return (
-                    <TableRow
-                    setId={setId}
-                      key={row?.id}
-                      name={row?.name}
-                      role={row?.role}
-                      fullName={row?.fullName}
-                      email={row?.email}
-                      id = {row.id}
-                      description={row?.description}
-                      category={row?.Category?.name}
-                      avatarUrl={row?.avatarUrl}
-                      selected={selected.indexOf(row.name) !== -1}
-                      handleClick={(event) => handleClick(event, row.name)}
-                    />
-                  )})}
+                      <TableRow
+                        setId={setId}
+                        key={row?.id}
+                        name={row?.name}
+                        role={row?.role}
+                        fullName={row?.fullName}
+                        email={row?.email}
+                        id={row.id}
+                        description={row?.description}
+                        category={row?.Category?.name}
+                        avatarUrl={row?.avatarUrl}
+                        selected={selected.indexOf(row.name) !== -1}
+                        handleClick={(event) => handleClick(event, row.name)}
+                      />
+                    );
+                  })}
 
                 <TableEmptyRows
                   height={77}

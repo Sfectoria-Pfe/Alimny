@@ -3,7 +3,7 @@ import axios from "axios";
 import { config } from "./config";
 
 export const fetchsessions=createAsyncThunk("fetch sessions",async()=>{
-    const response=await axios.get("http://localhost:3000/programme")
+    const response=await axios.get("http://localhost:3000/session")
     return response.data;
 })
 export const addSession = createAsyncThunk("add session",async(body,{dispatch})=>{

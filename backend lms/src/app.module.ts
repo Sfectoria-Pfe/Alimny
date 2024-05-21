@@ -12,11 +12,12 @@ import { SessionModule } from './session/session.module';
 import { AgendaModule } from './agenda/agenda.module';
 import { ProgrammeModulesModule } from './programme-modules/programme-modules.module';
 import { SessionStudentModule } from './session-student/session-student.module';
+import { ModulesModule } from './modules/modules.module';
 
 
 
 @Module({
-  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule,],
+  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule, ModulesModule,],
   controllers: [AppController],
   providers: [AppService],
 })
