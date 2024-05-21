@@ -31,6 +31,7 @@ export default function TablePage({
   setOpen,
   programmes,
   courses,
+  users,
   setId
 }) {
   const [page, setPage] = useState(0);
@@ -68,13 +69,13 @@ export default function TablePage({
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
+      newSelected = newSelected.concat(selected?.slice(1));
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(selected?.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        selected?.slice(0, selectedIndex),
+        selected?.slice(selectedIndex + 1)
       );
     }
     setSelected(newSelected);
@@ -95,7 +96,7 @@ export default function TablePage({
   };
 
   const dataFiltered = applyFilter({
-    inputData: programmes || courses || [],
+    inputData: programmes || courses ||  users|| [],
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -148,14 +149,19 @@ console.log(filterName,"filterName")
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
-                headLabel={[
+                headLabel={users ?[
                   { id: "name", label: "Name" },
                   { id: "description", label: "Description" },
                   { id: "category", label: "Category" },
                   // { id: "isVerified", label: "Verified", align: "center" },
                   // { id: "status", label: "Status" },
                   // { id: "" },
-                ]}
+                ]:[{
+                  id:"fullName" , lable : "Full Name"
+                },
+              {id:"role" , label : "Role"},
+              {id:"email" , label : "Email"},
+            ]}
               />
               <TableBody>
                 {dataFiltered
@@ -167,6 +173,9 @@ console.log(filterName,"filterName")
                     setId={setId}
                       key={row?.id}
                       name={row?.name}
+                      role={row?.role}
+                      fullName={row?.fullName}
+                      email={row?.email}
                       id = {row.id}
                       description={row?.description}
                       category={row?.Category?.name}

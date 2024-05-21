@@ -12,7 +12,7 @@ function Courses() {
 
 useEffect(()=>{
   dispatch(fetchcourses())
-},[])
+},[dispatch])
 
 
   return (

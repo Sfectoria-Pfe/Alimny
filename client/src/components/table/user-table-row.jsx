@@ -19,6 +19,9 @@ import Iconify from '../../components/iconify';
 export default function TableRow({
   selected,
   name,
+  fullName,
+  role,
+  email,
   avatarUrl,
   description,
   category,
@@ -47,14 +50,14 @@ export default function TableRow({
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
             <Typography variant="subtitle2" noWrap>
-              {name}
+              {name ? name:fullName}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{description.slice(0,100) + " ..."}</TableCell>
+        <TableCell>{description?(description?.slice(0,100) + " ..."):email}</TableCell>
 
-        <TableCell>{category}</TableCell>
+        <TableCell>{category?category:role}</TableCell>
 
 
     

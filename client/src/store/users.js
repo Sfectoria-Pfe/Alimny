@@ -24,7 +24,7 @@ export const addUser = createAsyncThunk("add user",async(body,{dispatch})=>{
     },
     reducers:{},
     extraReducers(builder){
-        builder.addCase(fetchusers.fulfilled,(state, action)=>{console.log("adfc",action);
+        builder.addCase(fetchusers.fulfilled,(state, action)=>{
             state.users.items=action.payload;
             state.users.count = action.payload.length;
         });
