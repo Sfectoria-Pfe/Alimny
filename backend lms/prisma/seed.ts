@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -49,7 +50,7 @@ async function main() {
       {
   
         "email": "malika@alimny.tn",
-        "password": "1234",
+        "password": `${bcrypt.hashSync('admin', 10)}`,
         "fullName": "malika",
         "phone": "string",
         "address": "string",
@@ -59,8 +60,8 @@ async function main() {
       {
   
         "email": "malika2@alimny.tn",
-        "password": "1234",
-        "fullName": "malika",
+        "password": `${bcrypt.hashSync('teacher', 10)}`,
+        "fullName": "teacher",
         "phone": "string",
         "address": "string",
         "isStudent": false,
@@ -69,8 +70,8 @@ async function main() {
       {
   
         "email": "malika22@alimny.tn",
-        "password": "1234",
-        "fullName": "malika",
+        "password": `${bcrypt.hashSync('teacher', 10)}`,
+        "fullName": "teacher",
         "phone": "string",
         "address": "string",
         "isStudent": false,
@@ -79,7 +80,7 @@ async function main() {
       {
   
         "email": "malek@alimmny.tn",
-        "password": "1234",
+        "password": `${bcrypt.hashSync('student', 10)}`,
         "fullName": "malek-fridhi",
         "phone": "string",
         "address": "string",
@@ -89,7 +90,7 @@ async function main() {
       {
   
         "email": "mraya9@alimmny.tn",
-        "password": "1234",
+        "password": `${bcrypt.hashSync('student', 10)}`,
         "fullName": "mraya9",
         "phone": "string",
         "address": "string",
@@ -185,7 +186,7 @@ async function main() {
         moduleId:3},
       {
         programmeId:4,
-        moduleId:4},
+        moduleId:4}]})
 
   // const post2 = await prisma.student.upsert({
   //   where: { firstname : "What's new in Prisma? (Q1/22)" },
