@@ -30,6 +30,7 @@ export default function TablePage({
   titlePage,
   setOpen,
   programmes,
+  courses,
   setId
 }) {
   const [page, setPage] = useState(0);
@@ -94,7 +95,7 @@ export default function TablePage({
   };
 
   const dataFiltered = applyFilter({
-    inputData: programmes || [],
+    inputData: programmes || courses || [],
     comparator: getComparator(order, orderBy),
     filterName,
   });

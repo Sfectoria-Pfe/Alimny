@@ -26,49 +26,47 @@ import ModulePage from "./pages/module/ModulePage";
 import Users from "./pages/Users";
 import ProductsView from "./pages/products/view/products-view";
 
-
 function Router() {
- 
   const user = useSelector((state) => state.auth?.me);
   const dispatch = useDispatch();
+const  token =  localStorage.getItem("token");
 
   useEffect(() => {
     (async () => {
-      const token = await localStorage.getItem("token");
       if (token) {
         dispatch(me());
       }
     })();
   }, [dispatch]);
+
   return (
     <BrowserRouter>
       <Routes>
         {user ? (
-          <Route path="/" element={<App/>}>
-            <Route path="*" element={<Navigate to="/"/>} />
+          <Route path="/" element={<App />}>
             <Route index element={<Dashboard />} />
             <Route path="courses" element={<Courses />} />
             <Route path="agenda" element={<Agenda />} />
-            <Route path="help" element={<Chat/>} />
+            <Route path="help" element={<Chat />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="programme" element={<Programme />} >
-            <Route index element={<ProgrammeList />} />
-            <Route path="addProgramme" element={<AddProgramme />} />
-            <Route path="programmeDetail/:id" element={<ProgrammeDetail />} />
-   
+            <Route path="programme" element={<Programme />}>
+              <Route index element={<ProgrammeList />} />
+              <Route path="addProgramme" element={<AddProgramme />} />
+              <Route path="programmeDetail/:id" element={<ProgrammeDetail />} />
             </Route>
             <Route path="module" element={<ModulePage />} />
             <Route path="session" element={<Session />} />
             <Route path="users" element={<Users />} />
-            <Route path="mysessions" element={< ProductsView/>} />
+            <Route path="mysessions" element={<ProductsView />} />
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />
+            <Route path="*" element={<Navigate to="/"/>} />
           </Route>
         ) : (
           <Route path="/" element={<Auth />}>
-            <Route path="*" element={<Navigate to="/"/>} />
             <Route index element={<Login />} />
             <Route path="signup" element={<Signup />} />
+            {/* <Route path="*" element={<Navigate to="/" />} /> */}
           </Route>
         )}
       </Routes>
