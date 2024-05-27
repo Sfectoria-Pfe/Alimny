@@ -22,10 +22,21 @@ model Programme {
   categoryId      Int
   session         Session[]
 }
+model Gouvernorat {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+ 
+}
 
-model Ville {
+model CourseContent {
   id          Int           @id @default(autoincrement())
-  name String
+  name        String
+  type        TypeContent
+  weekcontent WeekContent[]
+  Course      Course?       @relation(fields: [courseId], references: [id])
+  courseId    Int?
+  Questions   Questions?    @relation(fields: [questionsId], references: [id])
+  questionsId Int?
 }
 
 model Session {
