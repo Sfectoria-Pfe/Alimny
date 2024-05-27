@@ -147,7 +147,7 @@ async function main() {
       },
     ],
   });
-  await prisma.Gouvernorat.createMany({
+  await prisma.gouvernorat.createMany({
     data: [
       {
         "name": "Ariana"
