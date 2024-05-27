@@ -5,17 +5,14 @@ export const me = createAsyncThunk("auth/me", async () => {
   try {
     const tokenn = await localStorage.getItem("token");
     const token = JSON.parse(tokenn);
-   
+
     const config = {
       headers: {
-        Authorization: "Bearer " + token,
-      },
+        Authorization: "Bearer " + token
+      }
     };
 
-    const response = await axios.get(
-      "http://localhost:3000/auth/me",
-      config
-    );
+    const response = await axios.get("http://localhost:3000/auth/me", config);
     return response.data;
   } catch (e) {
     console.log(e);
@@ -24,10 +21,7 @@ export const me = createAsyncThunk("auth/me", async () => {
 
 export const login = createAsyncThunk("login", async (body, { dispatch }) => {
   try {
-    const res = await axios.post(
-      "http://localhost:3000/auth/login",
-      body
-    );
+    const res = await axios.post("http://localhost:3000/auth/login", body);
     await localStorage.setItem("token", JSON.stringify(res.data));
     dispatch(me(res.data.authorization));
     console.log(res.data, "from login store");
@@ -42,10 +36,24 @@ export const logout = createAsyncThunk("logout", async () => {
   await localStorage.removeItem("token");
 });
 
+export const updateUser = createAsyncThunk("update/user", async (body,{ dispatch }) => {
+  try {
+    const response = await axios.put(
+      `http://localhost:3000/auth/update/${body.id}`,
+      body
+    );
+    await localStorage.setItem("token", JSON.stringify(res.data));
+    dispatch(me(res.data.authorization));
+    return response.data;
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    me: null,
+    me: null
   },
   reducers: {},
   extraReducers(builder) {
@@ -55,7 +63,7 @@ const authSlice = createSlice({
     builder.addCase(logout.fulfilled, (state, action) => {
       state.me = null;
     });
-  },
+  }
 });
 
 export default authSlice.reducer;
