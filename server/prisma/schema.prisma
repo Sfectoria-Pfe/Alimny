@@ -22,6 +22,11 @@ model Programme {
   categoryId      Int
   session         Session[]
 }
+model Gouvernorat {
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+ 
+}
 
 model CourseContent {
   id          Int           @id @default(autoincrement())
