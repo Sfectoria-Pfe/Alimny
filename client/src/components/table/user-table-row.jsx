@@ -55,9 +55,9 @@ export default function TableRow({
           </Stack>
         </TableCell>
 
-        <TableCell>{description?(description?.slice(0,100) + " ..."):email}</TableCell>
+        <TableCell>{description?(description?.slice(0,100) + " ..."):role}</TableCell>
 
-        <TableCell>{category?category:role}</TableCell>
+        <TableCell>{category?category:email}</TableCell>
 
 
     

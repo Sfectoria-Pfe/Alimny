@@ -57,7 +57,7 @@ const  token =  localStorage.getItem("token");
             <Route path="module" element={<ModulePage />} />
             <Route path="session" element={<Session />} />
             <Route path="users" element={<Users />} />
-            <Route path="mysessions" element={<ProductsView />} />
+            <Route path="mysessions" element={<Mysessions />} />
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />
             <Route path="*" element={<Navigate to="/"/>} />

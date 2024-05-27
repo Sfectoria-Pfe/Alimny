@@ -40,12 +40,13 @@ model Session {
   description    String
   date           DateTime
   sessionstudent SessionStudent[]
-
+  imageUrl       String?  @default("https://media.licdn.com/dms/image/D4E0BAQH8I-kzQdsUXg/company-logo_200_200/0/1698062214267/sfectoria_logo?e=2147483647&v=beta&t=-FocSdGYCvAW7rmL_dPMHj9GYFN11yEm1CM0JwZYdIk")
   sessionteacher SessionTeacher[]
   weeks          Weeks[]
   Programme      Programme        @relation(fields: [programmeId], references: [id])
   programmeId    Int
   Msgs           Msgs[]
+  active Boolean @default(false)
 }
 
 model Category {

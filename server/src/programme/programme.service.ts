@@ -1,3 +1,4 @@
+import { Session } from './../session/entities/session.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateProgrammeDto } from './dto/create-programme.dto';
 import { UpdateProgrammeDto } from './dto/update-programme.dto';
@@ -12,7 +13,7 @@ export class ProgrammeService {
 
   findAll() {
     return this.prisma.programme.findMany({
-      include:{Category:true}
+      include:{Category:true,session:true,programmemodule:true}
     });
   }
 

@@ -1,3 +1,4 @@
+import { ProgrammeModule } from './../programme-modules/entities/programme-module.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
@@ -14,7 +15,22 @@ export class SessionService {
   }
 
   async  findAll() {
-    return await this.prisma.session.findMany({})
+    return await this.prisma.session.findMany({
+      include: {
+        Programme :{
+            include : {
+              programmemodule : {
+                include : {
+                  Module : true
+                }
+              }
+            }
+        },
+        weeks  :true,
+        sessionteacher : true , 
+        sessionstudent : true
+      }
+    })
   }
 
   async  findOne(id: number) {

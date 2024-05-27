@@ -12,7 +12,6 @@ export const addSession = createAsyncThunk("add session",async(body,{dispatch})=
  return response.data;
 })
 
-
  const sessionSlice = createSlice({
     name: "session",
     initialState:{
@@ -24,7 +23,7 @@ export const addSession = createAsyncThunk("add session",async(body,{dispatch})=
     },
     reducers:{},
     extraReducers(builder){
-        builder.addCase(fetchsessions.fulfilled,(state, action)=>{console.log("adfc",action);
+        builder.addCase(fetchsessions.fulfilled,(state, action)=>{
             state.sessions.items=action.payload;
             state.sessions.count=action.payload.length;
         });
