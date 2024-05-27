@@ -25,6 +25,8 @@ import UserPage from "./pages/user/view/user-view";
 import ModulePage from "./pages/module/ModulePage";
 import Users from "./pages/Users";
 import ProductsView from "./pages/products/view/products-view";
+import SessionDetails from "./pages/sessions/SessionDetails";
+import SessionList from "./pages/sessions/SessionList";
 
 function Router() {
   const user = useSelector((state) => state.auth?.me);
@@ -57,7 +59,11 @@ const  token =  localStorage.getItem("token");
             <Route path="module" element={<ModulePage />} />
             <Route path="session" element={<Session />} />
             <Route path="users" element={<Users />} />
-            <Route path="mysessions" element={<Mysessions />} />
+            <Route path="mysessions" element={<SessionList />} >
+<Route index element={<Mysessions/>} />
+<Route path=":id" element={<SessionDetails/>} />
+
+            </Route>
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />
             <Route path="*" element={<Navigate to="/"/>} />
