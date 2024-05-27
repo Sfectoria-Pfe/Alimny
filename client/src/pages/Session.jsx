@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Box from '@mui/material/Box';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { useEffect } from "react";
 import TablePage from "../components/table/view/table-view";
 import ViewInArOutlinedIcon from '@mui/icons-material/ViewInArOutlined';
 import {useSelector,useDispatch} from "react-redux"

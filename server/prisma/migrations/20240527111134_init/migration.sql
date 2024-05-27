@@ -123,7 +123,8 @@ CREATE TABLE `User` (
     `phone` VARCHAR(191) NOT NULL,
     `address` VARCHAR(191) NOT NULL,
     `isStudent` BOOLEAN NOT NULL,
-    `role` ENUM('admin', 'teacher', 'manager', 'student') NOT NULL DEFAULT 'admin',
+    `imageUrl` VARCHAR(191) NULL,
+    `role` ENUM('admin', 'teacher', 'manager', 'student') NOT NULL,
     `isActive` BOOLEAN NOT NULL DEFAULT true,
     `msgsId` INTEGER NULL,
     `studentId` INTEGER NULL,
@@ -187,6 +188,8 @@ CREATE TABLE `Badge` (
 -- CreateTable
 CREATE TABLE `Agenda` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(191) NOT NULL,
+    `start` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

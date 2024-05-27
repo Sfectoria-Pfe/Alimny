@@ -55,7 +55,9 @@ async function main() {
         "phone": "string",
         "address": "string",
         "isStudent": false,
-        "role": "admin"
+        "role": "admin",
+        "imageUrl" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s",
+        "aboutMe" : "my name is malika i love coding and i am a student"
       },
       {
   
