@@ -66,87 +66,6 @@ async function main() {
     ],
   });
 
-  await prisma.user.createMany({
-    data: [
-      {
-        email: 'malika@alimny.tn',
-        password: `${bcrypt.hashSync('admin', 10)}`,
-        fullName: 'malika',
-        phone: 'string',
-        address: 'string',
-        isStudent: false,
-        role: 'admin',
-        imageUrl:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s',
-        aboutMe: 'my name is malika i love coding and i am a student',
-      },
-      {
-        email: 'malika2@alimny.tn',
-        password: `${bcrypt.hashSync('teacher', 10)}`,
-        fullName: 'teacher',
-        phone: 'string',
-        address: 'string',
-        isStudent: false,
-        role: 'teacher',
-      },
-      {
-        email: 'malika22@alimny.tn',
-        password: `${bcrypt.hashSync('teacher', 10)}`,
-        fullName: 'teacher',
-        phone: 'string',
-        address: 'string',
-        isStudent: false,
-        role: 'teacher',
-      },
-      {
-        email: 'malek@alimmny.tn',
-        password: `${bcrypt.hashSync('student', 10)}`,
-        fullName: 'malek-fridhi',
-        phone: 'string',
-        address: 'string',
-        isStudent: true,
-        role: 'student',
-      },
-      {
-        email: 'mraya9@alimmny.tn',
-        password: `${bcrypt.hashSync('student', 10)}`,
-        fullName: 'mraya9',
-        phone: 'string',
-        address: 'string',
-        isStudent: true,
-        role: 'student',
-      },
-    ],
-  });
-  await prisma.course.createMany({
-    data: [
-      {
-        name: 'Introduction to Programming',
-        description:
-          'This course covers the basics of programming, including data types, variables, and control flow.',
-      },
-      {
-        name: 'Data Structures and Algorithms',
-        description:
-          'This course explores the use of data structures and algorithms to solve problems efficiently.',
-      },
-      {
-        name: 'Web Development',
-        description:
-          'This course covers the fundamentals of web development, including HTML, CSS, and JavaScript.',
-      },
-      {
-        name: 'Database Systems',
-        description:
-          'This course introduces students to the design and implementation of database systems.',
-      },
-      {
-        name: 'Artificial Intelligence',
-        description:
-          'This course explores the field of artificial intelligence, including machine learning and natural language processing.',
-      },
-    ],
-  });
   await prisma.gouvernorat.createMany({
     data: [
       {
@@ -222,6 +141,94 @@ async function main() {
         "name": "Zaghouan"
       }
     ],});
+  await prisma.user.createMany({
+    data: [
+      {
+        email: 'malika@alimny.tn',
+        password: `${bcrypt.hashSync('admin', 10)}`,
+        fullName: 'malika',
+        phone: 'string',
+        address: 'string',
+        isStudent: false,
+        role: 'admin',
+        imageUrl:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s',
+        aboutMe: 'my name is malika i love coding and i am a student',
+        gouvernoratId :1
+      },
+      {
+        email: 'malika2@alimny.tn',
+        password: `${bcrypt.hashSync('teacher', 10)}`,
+        fullName: 'teacher',
+        phone: 'string',
+        address: 'string',
+        isStudent: false,
+        role: 'teacher',
+        gouvernoratId :1
+      },
+      {
+        email: 'malika22@alimny.tn',
+        password: `${bcrypt.hashSync('teacher', 10)}`,
+        fullName: 'teacher',
+        phone: 'string',
+        address: 'string',
+        isStudent: false,
+        role: 'teacher',
+        gouvernoratId :2
+      },
+      {
+        email: 'malek@alimmny.tn',
+        password: `${bcrypt.hashSync('student', 10)}`,
+        fullName: 'malek-fridhi',
+        phone: 'string',
+        address: 'string',
+        isStudent: true,
+        role: 'student',
+        gouvernoratId :2
+      },
+      {
+        email: 'mraya9@alimmny.tn',
+        password: `${bcrypt.hashSync('student', 10)}`,
+        fullName: 'mraya9',
+        phone: 'string',
+        address: 'string',
+        isStudent: true,
+        role: 'student',
+        gouvernoratId :10,
+
+      },
+    ],
+  });
+  await prisma.course.createMany({
+    data: [
+      {
+        name: 'Introduction to Programming',
+        description:
+          'This course covers the basics of programming, including data types, variables, and control flow.',
+      },
+      {
+        name: 'Data Structures and Algorithms',
+        description:
+          'This course explores the use of data structures and algorithms to solve problems efficiently.',
+      },
+      {
+        name: 'Web Development',
+        description:
+          'This course covers the fundamentals of web development, including HTML, CSS, and JavaScript.',
+      },
+      {
+        name: 'Database Systems',
+        description:
+          'This course introduces students to the design and implementation of database systems.',
+      },
+      {
+        name: 'Artificial Intelligence',
+        description:
+          'This course explores the field of artificial intelligence, including machine learning and natural language processing.',
+      },
+    ],
+  });
+ 
 
   await prisma.module.createMany({
     data: [

@@ -22,10 +22,11 @@ model Programme {
   categoryId      Int
   session         Session[]
 }
+
 model Gouvernorat {
-  id              Int               @id @default(autoincrement())
-  name            String            @unique
- 
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
 }
 
 model CourseContent {
@@ -45,13 +46,13 @@ model Session {
   description    String
   date           DateTime
   sessionstudent SessionStudent[]
-  imageUrl       String?  @default("https://media.licdn.com/dms/image/D4E0BAQH8I-kzQdsUXg/company-logo_200_200/0/1698062214267/sfectoria_logo?e=2147483647&v=beta&t=-FocSdGYCvAW7rmL_dPMHj9GYFN11yEm1CM0JwZYdIk")
+  imageUrl       String?          @default("https://media.licdn.com/dms/image/D4E0BAQH8I-kzQdsUXg/company-logo_200_200/0/1698062214267/sfectoria_logo?e=2147483647&v=beta&t=-FocSdGYCvAW7rmL_dPMHj9GYFN11yEm1CM0JwZYdIk")
   sessionteacher SessionTeacher[]
   weeks          Weeks[]
   Programme      Programme        @relation(fields: [programmeId], references: [id])
   programmeId    Int
   Msgs           Msgs[]
-  active Boolean @default(false)
+  active         Boolean          @default(false)
 }
 
 model Category {
@@ -128,23 +129,25 @@ model Course {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  email      String    @unique
-  password   String
-  fullName   String
-  phone      String
-  address    String
-  isStudent  Boolean
-  imageUrl   String?
-  role       Role
-  isActive   Boolean   @default(true)
-  Msgs       Msgs?     @relation(fields: [msgsId], references: [id])
-  msgsId     Int?
-  Student    Student?  @relation(fields: [studentId], references: [id])
-  studentId  Int?
-  Employee   Employee? @relation(fields: [employeeId], references: [id])
-  employeeId Int?
-  aboutMe String?
+  id            Int          @id @default(autoincrement())
+  email         String       @unique
+  password      String
+  fullName      String
+  phone         String
+  address       String
+  isStudent     Boolean
+  imageUrl      String?
+  role          Role
+  isActive      Boolean      @default(true)
+  Msgs          Msgs?        @relation(fields: [msgsId], references: [id])
+  msgsId        Int?
+  Student       Student?     @relation(fields: [studentId], references: [id])
+  studentId     Int?
+  Employee      Employee?    @relation(fields: [employeeId], references: [id])
+  employeeId    Int?
+  aboutMe       String?
+  Gouvernorat   Gouvernorat? @relation(fields: [gouvernoratId], references: [id])
+  gouvernoratId Int?
 }
 
 model Employee {
