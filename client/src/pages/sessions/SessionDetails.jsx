@@ -15,11 +15,11 @@ function SessionDetails() {
         <button className="btn btn-success fs-5">+ Add</button>
         
       </div>
-      <Accordion defaultActiveKey={['0']} className='mt-5' >
+      <Accordion defaultActiveKey={['0']} className='mt-5' alwaysOpen >
       {[1,2,3].map((e,i)=>{
         return (
             <div className='mt-4'key={i}>
-      <Accordion.Item eventKey="0" >
+      <Accordion.Item eventKey={i+""} >
       <Accordion.Header>Week {e}</Accordion.Header>
       <Accordion.Body>
       <ListGroup >
