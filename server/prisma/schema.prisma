@@ -23,15 +23,9 @@ model Programme {
   session         Session[]
 }
 
-model CourseContent {
+model Ville {
   id          Int           @id @default(autoincrement())
-  name        String
-  type        TypeContent
-  weekcontent WeekContent[]
-  Course      Course?       @relation(fields: [courseId], references: [id])
-  courseId    Int?
-  Questions   Questions?    @relation(fields: [questionsId], references: [id])
-  questionsId Int?
+  name String
 }
 
 model Session {
