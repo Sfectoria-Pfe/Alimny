@@ -10,7 +10,8 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://root:95134505Yy*@localhost:3306/alimny"
+
 }
 
 model Programme {
@@ -148,6 +149,8 @@ model User {
   aboutMe       String?
   Gouvernorat   Gouvernorat? @relation(fields: [gouvernoratId], references: [id])
   gouvernoratId Int?
+   createdAt              DateTime?           @default(now())
+  updatedAt              DateTime?           @updatedAt
 }
 
 model Employee {

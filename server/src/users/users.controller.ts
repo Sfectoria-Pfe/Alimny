@@ -18,6 +18,16 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
+  @Get("/gouvernorats")
+  findUsersByGouvernorat() {
+    return this.usersService.findUsersByGouvernorat();
+  }
+
+  @Get("/stas")
+  getChartData() {
+    return this.usersService.getChartData();
+  }
+
 @Get("/students") 
 findAllStudents() {
   return this.usersService.findAllStudents();
