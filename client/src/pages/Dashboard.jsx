@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css'; // Fichier CSS pour styliser le composant
 
 import Container from '@mui/material/Container';
@@ -21,7 +21,7 @@ import bag from "../assets/icons/glass/ic_glass_bag.png"
 import users from "../assets/icons/glass/ic_glass_users.png"
 import buy from "../assets/icons/glass/ic_glass_buy.png"
 import message from "../assets/icons/glass/ic_glass_message.png"
-import {useDispatch,useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Lottie from 'react-lottie';
 import user from "../assets/lotties/user.json"
 import pen from "../assets/lotties/pen.json"
@@ -30,149 +30,168 @@ import heart from "../assets/lotties/heart.json"
 import { fetchusers } from '../store/users';
 import { fetchsessions } from '../store/sessions';
 import { fetchcourses } from '../store/course';
+import Chart from 'chart.js/auto'; // Import Chart.js library
+import 'chartjs-adapter-moment'; // Import Moment.js adapter for Chart.js
+import axios from 'axios';
 
 const Dashboard = () => {
-  const me = useSelector(state=>state.auth.me)
-  const users = useSelector(state=>state.users.users.count)
-  const sessions = useSelector(state=>state.sessions.sessions.count)
-  const courses = useSelector(state=>state.course.courses.count)
-  console.log(me,"this is the connected user")
 
+  const me = useSelector(state => state.auth.me)
+  const users = useSelector(state => state.users.users.count)
+  const userData = useSelector(state => state.users.users.items)
+  const sessions = useSelector(state => state.sessions.sessions.count)
+  const courses = useSelector(state => state.course.courses.count)
+  console.log(me, "this is the connected user")
+  const [userByGouvernorat, setUserByGouvernorat] = useState(null);
   console.log({
-    usersCount : users,
-    sessionscount : sessions, 
-    coursescount : courses
-  } )
+    usersCount: users,
+    sessionscount: sessions,
+    coursescount: courses
+  })
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await axios.get("http://localhost:3000/users/gouvernorats")
+        setUserByGouvernorat(userData.data);
+        console.log('User data by governorate:', userData.data);
+      } catch (error) {
+        console.error('Error fetching user data by governorate:', error);
+      }
+    };
 
-const dispatch = useDispatch()
+    fetchData();
+  }, []);
+  const dispatch = useDispatch()
 
-useEffect(()=>{
-  dispatch(fetchusers())
-  dispatch(fetchsessions())
-  dispatch(fetchcourses())
-},[])
+  useEffect(() => {
+    dispatch(fetchusers())
+    dispatch(fetchsessions())
+    dispatch(fetchcourses())
+  }, [])
+
+
 
 
 
   return (
 
     <Container maxWidth="xl">
-    <Typography variant="h4" sx={{ mb: 5 }}>
-      Aaslema {me?.fullName}, Welcome back 👋
-    </Typography>
+      <Typography variant="h4" sx={{ mb: 5 }}>
+        Aaslema {me?.fullName}, Welcome back 👋
+      </Typography>
 
-    <Grid container spacing={3}>
-      <Grid xs={12} sm={6} md={3}>
-        <AppWidgetSummary
-          title="Total users"
-          total={users}
-          color="success"
-          icon={    <Lottie 
-            options={  {
-              loop: true,
-              autoplay: true,
-              animationData: user,
-              rendererSettings: {
-                preserveAspectRatio: "xMidYMid slice"
-              }
-            }}
+      <Grid container spacing={3}>
+        <Grid xs={12} sm={6} md={3}>
+          <AppWidgetSummary
+            title="Total users"
+            total={users}
+            color="success"
+            icon={<Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: user,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice"
+                }
+              }}
               height={75}
               width={75}
-              style={{marginTop:"-10px"}}
+              style={{ marginTop: "-10px" }}
             />}
-        />
-      </Grid>
+          />
+        </Grid>
 
-      <Grid xs={12} sm={6} md={3}>
-        <AppWidgetSummary
-          title="Total courses"
-          total={courses?courses:"you dont have courses yet"}
-          
-          color="info"
-          icon={    <Lottie 
-            options={  {
-              loop: true,
-              autoplay: true,
-              animationData: pen,
-              rendererSettings: {
-                preserveAspectRatio: "xMidYMid slice"
-              }
-            }}
+        <Grid xs={12} sm={6} md={3}>
+          <AppWidgetSummary
+            title="Total courses"
+            total={courses ? courses : "you dont have courses yet"}
+
+            color="info"
+            icon={<Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: pen,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice"
+                }
+              }}
               height={75}
               width={75}
-              style={{marginTop:"-10px"}}
+              style={{ marginTop: "-10px" }}
             />}
-        />
-      </Grid>
+          />
+        </Grid>
 
-    { me?.role === "student"  ?<Grid xs={12} sm={6} md={3}>
-        <AppWidgetSummary
-          title="Your sessions"
-          total={sessions}
-          color="warning"
-          icon={    <Lottie 
-            options={  {
-              loop: true,
-              autoplay: true,
-              animationData: document,
-              rendererSettings: {
-                preserveAspectRatio: "xMidYMid slice"
-              }
-            }}
+        {me?.role === "student" ? <Grid xs={12} sm={6} md={3}>
+          <AppWidgetSummary
+            title="Your sessions"
+            total={sessions}
+            color="warning"
+            icon={<Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: document,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice"
+                }
+              }}
               height={75}
               width={75}
-              style={{marginTop:"-10px"}}
+              style={{ marginTop: "-10px" }}
             />}
-        />
-      </Grid> : 
-      <Grid xs={12} sm={6} md={3}>
-      <AppWidgetSummary
-        title="Active sessions"
-        total={sessions}
-        color="warning"
-        icon={    <Lottie 
-          options={  {
-            loop: true,
-            autoplay: true,
-            animationData: document,
-            rendererSettings: {
-              preserveAspectRatio: "xMidYMid slice"
-            }
-          }}
-            height={75}
-            width={75}
-            style={{marginTop:"-10px"}}
-          />}
-      />
-    </Grid>
-      
-    }
+          />
+        </Grid> :
+          <Grid xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Active sessions"
+              total={sessions}
+              color="warning"
+              icon={<Lottie
+                options={{
+                  loop: true,
+                  autoplay: true,
+                  animationData: document,
+                  rendererSettings: {
+                    preserveAspectRatio: "xMidYMid slice"
+                  }
+                }}
+                height={75}
+                width={75}
+                style={{ marginTop: "-10px" }}
+              />}
+            />
+          </Grid>
 
-     { me?.role === "student" && <Grid xs={12} sm={6} md={3}>
-        <AppWidgetSummary
-          title="Your score"
-          total={234}
-          color="error"
-          icon={    <Lottie 
-            options={  {
-              loop: true,
-              autoplay: true,
-              animationData: heart,
-              rendererSettings: {
-                preserveAspectRatio: "xMidYMid slice"
-              }
-            }}
+        }
+
+        {me?.role === "student" && <Grid xs={12} sm={6} md={3}>
+          <AppWidgetSummary
+            title="Your score"
+            total={234}
+            color="error"
+            icon={<Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: heart,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice"
+                }
+              }}
               height={75}
               width={75}
-              style={{marginTop:"-10px"}}
+              style={{ marginTop: "-10px" }}
             />}
-        />
-      </Grid>}
+          />
+        </Grid>}
 
-      <Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={6} lg={8}>
         <AppWebsiteVisits
-          title="Website "
-          subheader="(+43%) than last year"
+          title="Users, Teachers and Students"
+          subheader="stats overview"
           chart={{
             labels: [
               '01/01/2003',
@@ -189,19 +208,19 @@ useEffect(()=>{
             ],
             series: [
               {
-                name: 'Team A',
+                name: 'Users',
                 type: 'column',
                 fill: 'solid',
                 data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
               },
               {
-                name: 'Team B',
+                name: 'Teachers',
                 type: 'area',
                 fill: 'gradient',
                 data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
               },
               {
-                name: 'Team C',
+                name: 'Students',
                 type: 'line',
                 fill: 'solid',
                 data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
@@ -211,21 +230,21 @@ useEffect(()=>{
         />
       </Grid>
 
-      <Grid xs={12} md={6} lg={4}>
-        <AppCurrentVisits
-          title="Current Visits"
-          chart={{
-            series: [
-              { label: 'America', value: 4344 },
-              { label: 'Asia', value: 5435 },
-              { label: 'Europe', value: 1443 },
-              { label: 'Africa', value: 4443 },
-            ],
-          }}
-        />
-      </Grid>
+        <Grid xs={12} md={6} lg={4}>
+          {userByGouvernorat && (
+            <AppCurrentVisits
+              title="Current Users"
+              chart={{
+                series: userByGouvernorat.map((userData) => ({
+                  label: userData.gouvernoratName,
+                  value: userData.userCount,
+                })),
+              }}
+            />
+          )}
+        </Grid>
 
-      {/* <Grid xs={12} md={6} lg={8}>
+        {/* <Grid xs={12} md={6} lg={8}>
         <AppConversionRates
           title="Conversion Rates"
           subheader="(+43%) than last year"
@@ -331,8 +350,8 @@ useEffect(()=>{
           ]}
         />
       </Grid> */}
-    </Grid>
-  </Container>
+      </Grid>
+    </Container>
   );
 };
 
