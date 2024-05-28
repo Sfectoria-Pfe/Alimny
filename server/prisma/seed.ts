@@ -188,12 +188,12 @@ async function main() {
       },
       {
         email: 'mraya9@alimmny.tn',
-        password: `${bcrypt.hashSync('student', 10)}`,
+        password: `${bcrypt.hashSync('manager', 10)}`,
         fullName: 'mraya9',
         phone: 'string',
         address: 'string',
-        isStudent: true,
-        role: 'student',
+        isStudent: false,
+        role: 'manager',
         gouvernoratId :10,
 
       },
