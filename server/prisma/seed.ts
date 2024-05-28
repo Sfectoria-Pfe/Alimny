@@ -154,7 +154,8 @@ async function main() {
         imageUrl:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s',
         aboutMe: 'my name is malika i love coding and i am a student',
-        gouvernoratId :1
+        gouvernoratId :1,
+        createdAt: new Date('2023-01-02T00:00:00Z')
       },
       {
         email: 'malika2@alimny.tn',
@@ -164,7 +165,9 @@ async function main() {
         address: 'string',
         isStudent: false,
         role: 'teacher',
-        gouvernoratId :1
+        gouvernoratId :1,
+        createdAt: new Date('2023-02-02T00:00:00Z')
+
       },
       {
         email: 'malika22@alimny.tn',
@@ -174,7 +177,9 @@ async function main() {
         address: 'string',
         isStudent: false,
         role: 'teacher',
-        gouvernoratId :2
+        gouvernoratId :2,
+        createdAt: new Date('2023-03-02T00:00:00Z')
+
       },
       {
         email: 'malek@alimmny.tn',
@@ -184,7 +189,9 @@ async function main() {
         address: 'string',
         isStudent: true,
         role: 'student',
-        gouvernoratId :2
+        gouvernoratId :2,
+        createdAt: new Date('2023-04-02T00:00:00Z')
+
       },
       {
         email: 'mraya9@alimmny.tn',
@@ -195,8 +202,22 @@ async function main() {
         isStudent: false,
         role: 'manager',
         gouvernoratId :10,
+        createdAt: new Date('2023-05-02T00:00:00Z')
 
       },
+      {
+        email: 'mraya99@alimmny.tn',
+        password: `${bcrypt.hashSync('manager', 10)}`,
+        fullName: 'mraya9',
+        phone: 'string',
+        address: 'string',
+        isStudent: false,
+        role: 'manager',
+        gouvernoratId :5,
+        createdAt: new Date('2023-06-02T00:00:00Z')
+
+
+      }
     ],
   });
   await prisma.course.createMany({

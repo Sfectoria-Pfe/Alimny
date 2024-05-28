@@ -4,6 +4,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt'
 
+import { Prisma } from '@prisma/client'; // Import Prisma types
+import { UserStatistics } from './entities/user.entity';
 
 
 @Injectable()
@@ -23,6 +25,44 @@ export class UsersService {
     return await this.prisma.user.create({ data:{...rest,password:hashedPassword} });
   }
 
+  async findUsersByGouvernorat() {
+    const usersByGouvernorat = await this.prisma.user.groupBy({
+      by: ['gouvernoratId'],
+      _count: { id: true }, 
+    });
+  
+    const usersWithGouvernorat = await Promise.all(
+      usersByGouvernorat.map(async (group: Prisma.UserGroupByOutputType) => {
+        const gouvernorat = await this.prisma.gouvernorat.findUnique({
+          where: { id: group.gouvernoratId },
+          select: { name: true },
+        });
+        return { ...group, gouvernorat };
+      })
+    );
+
+    
+  
+    return usersWithGouvernorat.map((group) => ({
+      gouvernoratName: group.gouvernorat?.name,
+      userCount: group._count.id,
+    }));
+  }
+  async getChartData() {
+    const usersCount = await this.prisma.user.count();
+    const teachersCount = await this.prisma.user.count({ where: { role: 'teacher' } });
+    const studentsCount = await this.prisma.user.count({ where: { role: 'student' } });
+  
+    return { usersCount, teachersCount, studentsCount };
+  }
+  
+
+
+  
+
+
+
+  
   findAll() {
     return this.prisma.user.findMany();
   }
@@ -30,6 +70,7 @@ export class UsersService {
   async findAllStudents(){
     return await this.prisma.user.findMany({where:{role:"student"}})
   }
+  
   async findAllTeachers(){
     return await this.prisma.user.findMany({where:{role:"teacher"}})
   }

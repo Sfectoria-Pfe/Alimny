@@ -5,7 +5,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <header className="hero">
-        <div className="hero-content">
+        <div className="hero-content">jop
           <h1>Bienvenue sur notre Learning Management System</h1>
           <p>Une plateforme d'apprentissage en ligne pour les étudiants et les enseignants.</p>
           <a href="#features" className="btn">Découvrez nos fonctionnalités</a>
