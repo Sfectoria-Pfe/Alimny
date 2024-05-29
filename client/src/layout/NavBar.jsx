@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useSelector } from 'react-redux';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -19,6 +20,9 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function NavBar({handleDrawerOpen}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const me = useSelector(this.state?.auth?.me)
+  console.log(me,"this is me ")
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

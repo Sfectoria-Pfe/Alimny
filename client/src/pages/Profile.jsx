@@ -13,13 +13,13 @@ const Profile = () => {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleUpdate = async () => {
     if (Object.keys(form).length) {
-      let auxUser = { ...user };
+      let auxUser = { ...form,id:me?.id };
       if (image) {
         const formData = new FormData();
         formData.append("file", image);
@@ -33,7 +33,7 @@ const Profile = () => {
     } else {
       setClicked(!clicked);
     }
-  };
+  }; 
   console.log(form, "this is the form");
   const me = useSelector((state) => state.auth.me);
   console.log(me, "this is me");
@@ -43,14 +43,14 @@ const Profile = () => {
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center">
           <div className="col col-lg-9 col-xl-8">
-            <div className="card">
+            <div className="card ">
               <div
-                className="rounded-top text-white d-flex flex-row"
+                className="rounded-top text-white d-flex flex-row "
                 style={{ backgroundColor: "#000", height: "200px" }}
               >
                 <div
-                  className="ms-4 mt-5 d-flex flex-column"
-                  style={{ width: "150px" }}
+                  className=" d-flex flex-column p-3" 
+                  style={{ width: "150px",marginTop:"100px" }}
                 >
                   {clicked && (
                     <input
@@ -60,10 +60,10 @@ const Profile = () => {
                     />
                   )}
                   <img
-                    src={form.imageUrl ? form.imageUrl : me?.imageUrl}
+                    src={image ? URL.createObjectURL(image) : me?.imageUrl}
                     alt="Generic placeholder image"
                     className="img-fluid img-thumbnail mt-4 mb-2"
-                    style={{ width: "150px", zIndex: "1" }}
+                    style={{ width: "80px", height: "80px", zIndex: "1" }}
                   />
 
                   {!clicked ? (
@@ -79,7 +79,7 @@ const Profile = () => {
                     </button>
                   ) : (
                     <button
-                    onClick={handleUpdate}
+                      onClick={handleUpdate}
                       type="button"
                       className="btn btn-outline-success "
                       data-mdb-button-init
@@ -90,16 +90,16 @@ const Profile = () => {
                     </button>
                   )}
                 </div>
-                <div className="ms-3" style={{ marginTop: "130px" }}>
+                <div className="" style={{ marginTop: "100px" }}>
                   {!clicked ? (
-                    <h5>{me?.fullName}</h5>
+                    <h5 className="mt-5">{me?.fullName}</h5>
                   ) : (
                     <input
                       onChange={handleChange}
                       type="text"
                       placeholder={me?.fullName}
                       name="fullName"
-                      className="form-control"
+                      className="form-control mt-5"
                     />
                   )}
                 </div>

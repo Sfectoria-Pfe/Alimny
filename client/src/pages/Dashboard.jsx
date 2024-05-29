@@ -77,7 +77,7 @@ const Dashboard = () => {
 
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Aaslema {me?.fullName}, Welcome back 👋
+        Aaslema Student Welcome back 👋
       </Typography>
 
       <Grid container spacing={3}>
@@ -211,23 +211,23 @@ const Dashboard = () => {
               '11/01/2003',
             ],
             series: [
-              {
-                name: 'Users',
-                type: 'column',
-                fill: 'solid',
-                data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
-              },
-              {
-                name: 'Teachers',
-                type: 'area',
-                fill: 'gradient',
-                data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-              },
+              // {
+              //   name: 'Users',
+              //   type: 'column',
+              //   fill: 'solid',
+              //   data: [0, , 22, 27, 13, 22, 37, 21, 44, 22, 30],
+              // },
+              // {
+              //   name: 'Teachers',
+              //   type: 'area',
+              //   fill: 'gradient',
+              //   data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
+              // },
               {
                 name: 'Students',
                 type: 'line',
                 fill: 'solid',
-                data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+                data: [30, 80, 36, 12, 45, 35, 16, 52, 59, 36, 39],
               },
             ],
           }}

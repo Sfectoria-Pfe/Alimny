@@ -28,7 +28,7 @@ import Diversity1OutlinedIcon from '@mui/icons-material/Diversity1Outlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import { logout } from "../store/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../assets/logo.png"
 
 const drawerWidth = 240;
@@ -42,7 +42,7 @@ const sidebarData = [
   { name: "Mysessions", path: "mysessions", icon: <SchoolOutlinedIcon/> },
   { name: "Agenda", path: "agenda", icon: <EventAvailableOutlinedIcon /> },
   { name: "Help", path: "help", icon: <InfoOutlinedIcon /> },
-  { name: "LandingPage", path: "landingpage", icon: <InfoOutlinedIcon /> },
+  // { name: "LandingPage", path: "landingpage", icon: <InfoOutlinedIcon /> },
 ];
 const settings = [
   { name: "Profile", path: "profile", icon: <HomeIcon /> },
@@ -117,6 +117,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer({ user, setUser }) {
+  const me = useSelector(state=>state?.auth?.me)
+  console.log(me)
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -167,13 +169,13 @@ export default function MiniDrawer({ user, setUser }) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              LMS Malek
+              Alimny
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s" />
+                <Avatar alt="Remy Sharp" src={me?.imageUrl} />
               </IconButton>
             </Tooltip>
             <Menu

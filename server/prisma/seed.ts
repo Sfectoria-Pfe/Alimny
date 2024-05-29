@@ -144,16 +144,16 @@ async function main() {
   await prisma.user.createMany({
     data: [
       {
-        email: 'malika@alimny.tn',
+        email: 'malek@alimny.tn',
         password: `${bcrypt.hashSync('admin', 10)}`,
-        fullName: 'malika',
-        phone: 'string',
+        fullName: 'malek',
+        phone: '+216 55888633',
         address: 'string',
         isStudent: false,
         role: 'admin',
         imageUrl:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s',
-        aboutMe: 'my name is malika i love coding and i am a student',
+        aboutMe: 'my name is malek i love coding and i am a student',
         gouvernoratId :1,
         createdAt: new Date('2023-01-02T00:00:00Z')
       },

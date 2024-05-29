@@ -49,6 +49,7 @@ export class AuthService {
   }
 
  async  update(id: number, dto: UpdateUserDto) {
+  console.log(dto)
   const response =  await this.prisma.user.update({
       where: { id },
       data: dto,
