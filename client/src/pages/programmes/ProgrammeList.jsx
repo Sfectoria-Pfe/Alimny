@@ -7,56 +7,47 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 import TablePage from "../../components/table/view/table-view";
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import KeepMountedModal from "../../components/Modals/Modal";
 import { fetchcategories } from "../../store/category";
+import AddProgramme from "./AddProgramme";
 
 function ProgrammeList() {
   const [cover, setCover] = useState(null);
   const [rows, setRows] = useState([]);
-  const [open,setOpen]=useState(false)
-  const [id,setId] = useState("")
-  const navigate = useNavigate(); 
-  const [addedProgramme,setAddedprogramme]=useState({
-    name:"",
-    description:"",
-    categoryId:"",
-  })
-    
-const handleDeleteProgramme = async () => {
-  try {
-    if(id) {
-     dispatch(deleteProgramme(id))
-    }
-  } catch (error) {
-    console.log(error)
-    
-  }
-}
-useEffect(()=>{
-  handleDeleteProgramme()
-},[id])
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
 
+
+  const handleDeleteProgramme = async () => {
+    try {
+      if (id) {
+        dispatch(deleteProgramme(id));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    handleDeleteProgramme();
+  }, [id]);
 
   const programmes = useSelector(
     (state) => state.programmeSlice?.programmes?.items
   );
-  const categories = useSelector(
-    (state) => state.category?.categories?.items
-  );
-  console.log(programmes, "this is programmes")
-  console.log(categories,"this is categories")
+  const categories = useSelector((state) => state.category?.categories?.items);
+  console.log(programmes, "this is programmes");
+  console.log(categories, "this is categories");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchprogrammes());
-    dispatch(fetchcategories())
-    
+    dispatch(fetchcategories());
   }, [dispatch]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setRows(programmes);
-  },[programmes])
- 
+  }, [programmes]);
+
   const columns = [
     { field: "id", headerName: "malek", width: 90 },
     {
@@ -136,8 +127,21 @@ useEffect(()=>{
     //   </Box>
     // </div>
     <>
-    <TablePage btnTitle={"Add Programme"} icon={<BorderColorOutlinedIcon/>} titlePage={"Programmes"} setOpen={setOpen} programmes={programmes} setId={setId}/>
-    <KeepMountedModal open={open} setOpen={setOpen} categories={categories} setAddedprogramme={setAddedprogramme} />
+      <TablePage
+        goToOne={true}
+        btnTitle={"Add Programme"}
+        icon={<BorderColorOutlinedIcon />}
+        titlePage={"Programmes"}
+        setOpen={setOpen}
+        programmes={programmes}
+        setId={setId}
+      />
+      <KeepMountedModal
+        open={open}
+        setOpen={setOpen}
+       
+        Body={AddProgramme}
+      />
     </>
   );
 }
