@@ -108,7 +108,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{mb:2}}>
                 <TextField
                   required
                   fullWidth
@@ -120,18 +120,18 @@ export default function SignUp() {
                 />
               </Grid>
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}  sx={{mb:2}}>
                 <TextField
                   required
                   fullWidth
                   name="password"
                   label="Adress"
-                  type="password"
+                  type="text"
                   id="password"
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12}  sx={{mb:2}}>
                 <TextField
                   required
                   fullWidth
