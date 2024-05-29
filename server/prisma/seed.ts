@@ -175,7 +175,7 @@ async function main() {
         isStudent: false,
         role: 'teacher',
         gouvernoratId :2
-      },/jcvhosjvo/
+      },
       {
         email: 'malek@alimmny.tn',
         password: `${bcrypt.hashSync('student', 10)}`,
