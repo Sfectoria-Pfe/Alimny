@@ -10,10 +10,10 @@ function SessionDetails() {
   const navigate = useNavigate();
   return (
     <div className="p-4 position-relative" >
-      <div className="d-flex justify-content-end gap-4">
+      <div className="d-flex justify-content-start gap-4">
         <button className="btn btn-success fs-5">+ Add</button>
       </div>
-      <Accordion defaultActiveKey={["0"]} className="mt-5" alwaysOpen>
+      <Accordion defaultActiveKey={["0"]} className=" w-50 pr-5" alwaysOpen>
         {[1, 2, 3].map((e, i) => {
           return (
             <div className="mt-4" key={i}>
@@ -162,7 +162,7 @@ function SessionDetails() {
           );
         })}
       </Accordion>
-      <div className="position-fixed w-md-100 w-50 h-100  top-0"  style={{ right: 0 }}>
+      <div className="position-fixed w-md-100 w-50 h-100  top-0"  style={{ right: 0 ,display:""}}>
         <Chat />
       </div>
     </div>

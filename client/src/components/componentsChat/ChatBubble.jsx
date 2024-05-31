@@ -78,8 +78,8 @@ export default function ChatBubble(props) {
                   : 'var(--joy-palette-text-primary)',
               }}
             >
-              {/* {content} */}
-              hello 
+              {content}
+          
             </Typography>
           </Sheet>
           {/* {(isHovered || isLiked || isCelebrated) && ( */}

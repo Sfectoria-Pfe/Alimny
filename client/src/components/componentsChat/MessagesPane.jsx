@@ -13,8 +13,8 @@ import { chats } from '../../constant/data';
 
 export default function MessagesPane(props) {
   const { chat } = props;
-  // const [chatMessages, setChatMessages] = React.useState(chat.messages);
   const [chatMessages, setChatMessages] = React.useState(chats);
+  // const [chatMessages, setChatMessages] = React.useState(chats);
   const [textAreaValue, setTextAreaValue] = React.useState('');
 
   // React.useEffect(() => {

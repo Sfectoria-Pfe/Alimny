@@ -30,6 +30,7 @@ export default function MessageInput(props) {
           aria-label="Message"
           ref={textAreaRef}
           onChange={(e) => {
+            console.log(e.target.value)
             setTextAreaValue(e.target.value);
           }}
           value={textAreaValue}
@@ -63,7 +64,7 @@ export default function MessageInput(props) {
             </Stack>
           }
           onKeyDown={(event) => {
-            if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+            if (event.key === 'Enter' && !event.shiftKey) {
               handleClick();
             }
           }}
