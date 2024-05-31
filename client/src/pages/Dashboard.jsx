@@ -194,7 +194,7 @@ const Dashboard = () => {
 
         <Grid xs={12} md={6} lg={8}>
         <AppWebsiteVisits
-          title="Users, Teachers and Students"
+          title=" Students"
           subheader="stats overview"
           chart={{
             labels: [
