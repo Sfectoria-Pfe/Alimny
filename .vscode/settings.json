@@ -16,7 +16,12 @@
         "titleBar.activeBackground": "#6635df",
         "titleBar.activeForeground": "#e7e7e7",
         "titleBar.inactiveBackground": "#6635df99",
-        "titleBar.inactiveForeground": "#e7e7e799"
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "editorGroup.border": "#8761e6",
+        "panel.border": "#8761e6",
+        "sideBar.border": "#8761e6",
+        "statusBar.debuggingBackground": "#aedf35",
+        "statusBar.debuggingForeground": "#15202b"
     },
     "peacock.color": "6635df",
     "prisma-smart-formatter.typescript.defaultFormatter": "esbenp.prettier-vscode",
