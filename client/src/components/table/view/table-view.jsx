@@ -24,6 +24,7 @@ import { emptyRows, applyFilter, getComparator } from "../utils";
 
 export default function TablePage({
   btnTitle,
+  goToOne,
   icon,
   titlePage,
   setOpen,
@@ -32,7 +33,7 @@ export default function TablePage({
   users,
   setId,
   modules,
-  sessions
+  sessions,
 }) {
   const [page, setPage] = useState(0);
 
@@ -96,9 +97,9 @@ export default function TablePage({
   };
 
   const dataFiltered = applyFilter({
-    inputData: programmes || courses || users || modules ||  [],
+    inputData: programmes || courses || users || modules || [],
     comparator: getComparator(order, orderBy),
-    filterName
+    filterName,
   });
   console.log(filterName, "filterName");
   console.log(dataFiltered, "dataFiltered");
@@ -153,15 +154,16 @@ export default function TablePage({
                     ? [
                         { id: "name", label: "Name" },
                         { id: "description", label: "Description" },
-                      !modules && !sessions  && { id: "category", label: "Category" }
+                        !modules &&
+                          !sessions && { id: "category", label: "Category" },
                       ]
                     : [
                         {
                           id: "fullName",
-                          label: "FullName"
+                          label: "FullName",
                         },
                         { id: "role", label: "Role" },
-                        { id: "email", label: "Email" }
+                        { id: "email", label: "Email" },
                       ]
                 }
               />
@@ -172,6 +174,7 @@ export default function TablePage({
                     console.log(row, "this is row");
                     return (
                       <TableRow
+                        goToOne={goToOne}
                         setId={setId}
                         key={row?.id}
                         name={row?.name}

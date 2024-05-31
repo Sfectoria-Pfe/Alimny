@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField, Typography } from "@mui/material";
 
-export default function AddProgramme() {
+export default function AddCourse() {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category?.categories?.items);
 
@@ -54,7 +54,7 @@ export default function AddProgramme() {
             getOptionLabel={(option) => option.name}
             options={categories}
             sx={{ width: "50%" }}
-            renderInput={(params) => <TextField {...params} label="category" />}
+            renderInput={(params) => <TextField {...params} label="programme" />}
           />
         </Box>
 

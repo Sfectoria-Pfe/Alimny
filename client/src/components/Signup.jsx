@@ -39,7 +39,12 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
   };
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -57,9 +62,9 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Create User
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }} >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -103,13 +108,48 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
+              <Grid item xs={12} sx={{mb:2}}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Phone"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              </Grid>
+              <Grid item xs={12}  sx={{mb:2}}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Adress"
+                  type="text"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}  sx={{mb:2}}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Role"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
-            </Grid>
+              
+            
             <Button
               type="submit"
               fullWidth

@@ -21,26 +21,9 @@ const style = {
   borderRadius: "10px",
 };
 
-export default function KeepMountedModal({ open, setOpen, categories }) {
+export default function KeepMountedModal({ open, setOpen, Body }) {
   const handleClose = () => setOpen(false);
-  const [addedProgramme, setAddedprogramme] = React.useState({
-    name: "",
-    description: "",
-    categoryId: "",
-  });
-  const dispatch = useDispatch();
-  const handleSubmit =() => {
-   dispatch(addprogrammes(addedProgramme)).then((res)=>{
-    setOpen(false)
-   })
-   //effacer programme
-  // const dispatch = useDispatch();
-  // const handleSubmit = () => {
-  //   dispatch(deleteprogrammes(id)).then((res) => {
-  //     setOpen(false);
-  //   });
-  }
-  console.log(categories, "this iscategories from modal");
+
   return (
     <div>
       <Modal
@@ -68,70 +51,7 @@ export default function KeepMountedModal({ open, setOpen, categories }) {
               }}
             />
           </Box>
-
-          <Typography
-            id="keep-mounted-modal-title"
-            variant="h6"
-            component="h2"
-            sx={{ textAlign: "center", mb: 2 }}
-          >
-            Add
-          </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <TextField
-                id="outlined-basic"
-                label="name"
-                onChange={(e) => {
-                  setAddedprogramme((prev) => {
-                    return { ...prev, name: e.target.value };
-                  });
-                }}
-                variant="outlined"
-                sx={{ width: "50%" }}
-              />
-              <Autocomplete
-                onChange={(event, value) => {
-                  setAddedprogramme((prev) => {
-                    return { ...prev, categoryId: value.id };
-                  });
-                }}
-                disablePortal
-                id="combo-box-demo"
-                getOptionLabel={(option) => option.name}
-                options={categories}
-                sx={{ width: "50%" }}
-                renderInput={(params) => (
-                  <TextField {...params} label="category" />
-                )}
-              />
-            </Box>
-
-            <TextField
-              id="outlined-basic"
-              label="description"
-              onChange={(e) => {
-                setAddedprogramme((prev) => {
-                  return { ...prev, description: e.target.value };
-                });
-              }}
-              variant="outlined"
-              sx={{ width: "100%" }}
-            />
-          </Box>
-          <Button
-            sx={{
-              mt: 5,
-              bgcolor: "#6635DF",
-              width: "100%",
-              borderRadius: "100px",
-              color: "white",
-            }}
-            variant="contained"
-            onClick={handleSubmit}
-          >
-            Save
-          </Button>
+          <Body />
         </Box>
       </Modal>
     </div>

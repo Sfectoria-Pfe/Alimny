@@ -37,13 +37,15 @@ export const logout = createAsyncThunk("logout", async () => {
 });
 
 export const updateUser = createAsyncThunk("update/user", async (body,{ dispatch }) => {
+  const {id,...rest} = body
+  console.log(rest,"this is rest")
   try {
-    const response = await axios.put(
-      `http://localhost:3000/auth/update/${body.id}`,
-      body
+    const response = await axios.patch(
+      `http://localhost:3000/auth/${id}`,
+      rest
     );
-    await localStorage.setItem("token", JSON.stringify(res.data));
-    dispatch(me(res.data.authorization));
+    await localStorage.setItem("token", JSON.stringify(response.data));
+    dispatch(me(response.data.Authorization));
     return response.data;
   } catch (e) {
     console.log(e);
