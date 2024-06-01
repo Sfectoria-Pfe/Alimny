@@ -5,19 +5,39 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Chat from "../chat/Chat";
 import Lottie from "react-lottie";
 import chat from "../../assets/lotties/chat.json";
+import zoominy from "../../assets/lotties/videoConf.json"
 function SessionDetails() {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
   const { id } = useParams();
   console.log(id, "this is the sessionId");
   const navigate = useNavigate();
   return (
     <div className="p-4 position-relative">
       <div
-        className={`d-flex ${
+        className={`d-flex align-items-center ${
           toggle ? "justify-content-end" : "justify-content-start"
-        } `}
+        } gap-3`}
       >
-        <button className="btn btn-success fs-5">+ Add</button>
+        <button className="btn btn-success fs-5 rounded-5 " style={{backgroundColor:"#6669D6",height:"45px"}}>+ Add</button>
+        <button className="btn btn-lightfs-5  " >
+          
+       
+          <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: zoominy,
+            rendererSettings: {
+              preserveAspectRatio: "xMidYMid slice"
+            }
+          }}
+          
+          height={70}
+          width={70}
+          style={{  }}
+        />
+    
+        </button>
       </div>
       <div className={` ${toggle ? "w-100" : "w-75"}`}>
         <Accordion
@@ -191,7 +211,7 @@ function SessionDetails() {
         </div>
       </div>
       <div
-        className="position-fixed w-md-100 w-25 h-100  top-0"
+        className="position-fixed w-md-100 w-25 h-100  top-0 "
         style={{ right: 0, display: toggle ? "none" : "" }}
       >
         <Chat />

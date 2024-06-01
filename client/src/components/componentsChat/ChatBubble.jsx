@@ -30,28 +30,7 @@ export default function ChatBubble(props) {
         </Typography>
         <Typography level="body-xs">{timestamp}</Typography>
       </Stack>
-      {/* {attachment ? (
-        <Sheet
-          variant="outlined"
-          sx={{
-            px: 1.75,
-            py: 1.25,
-            borderRadius: 'lg',
-            borderTopRightRadius: isSent ? 0 : 'lg',
-            borderTopLeftRadius: isSent ? 'lg' : 0,
-          }}
-        > */}
-          {/* <Stack direction="row" spacing={1.5} alignItems="center">
-            <Avatar color="primary" size="lg">
-              <InsertDriveFileRoundedIcon />
-            </Avatar>
-            <div>
-              <Typography fontSize="sm">{attachment.fileName}</Typography>
-              <Typography level="body-sm">{attachment.size}</Typography>
-            </div>
-          </Stack> */}
-        {/* </Sheet> */}
-      {/* ) : ( */}
+      
         <Box
           sx={{ position: 'relative' }}
           onMouseEnter={() => setIsHovered(true)}

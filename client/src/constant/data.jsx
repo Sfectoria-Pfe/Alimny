@@ -2,44 +2,44 @@
 
 export const users= [
   {
-    name: 'Steve E.',
-    username: '@steveEberger',
+    name: 'Malek',
+    username: '@malekfridhi',
     avatar: '/static/images/avatar/2.jpg',
     online: true,
   },
   {
-    name: 'Katherine Moss',
-    username: '@kathy',
+    name: 'Farouk',
+    username: '@faroukmestiri',
     avatar: '/static/images/avatar/3.jpg',
     online: false,
   },
   {
-    name: 'Phoenix Baker',
-    username: '@phoenix',
+    name: 'Mohamed Taher',
+    username: '@MohamedTaherBhiri',
     avatar: '/static/images/avatar/1.jpg',
     online: true,
   },
   {
-    name: 'Eleanor Pena',
-    username: '@eleanor',
+    name: 'Khalil',
+    username: '@khalilkraiem',
     avatar: '/static/images/avatar/4.jpg',
     online: false,
   },
   {
-    name: 'Kenny Peterson',
-    username: '@kenny',
+    name: 'Rania',
+    username: '@raniaelouni',
     avatar: '/static/images/avatar/5.jpg',
     online: true,
   },
   {
-    name: 'Al Sanders',
-    username: '@al',
+    name: 'Amal',
+    username: '@amalsghaier',
     avatar: '/static/images/avatar/6.jpg',
     online: true,
   },
   {
-    name: 'Melissa Van Der Berg',
-    username: '@melissa',
+    name: 'Habib',
+    username: '@habibkammoun',
     avatar: '/static/images/avatar/7.jpg',
     online: false,
   },
@@ -65,7 +65,7 @@ export const chats = [
       {
         id: '3',
         timestamp: 'Wednesday 11:30am',
-        sender: users[0],
+        sender: users[1 ],
         content: 'I will send the draft by end of the day.',
       },
       {
