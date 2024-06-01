@@ -12,7 +12,7 @@ import { chats } from '../../constant/data';
 
 
 export default function MessagesPane(props) {
-  const { chat } = props;
+  
   const [chatMessages, setChatMessages] = React.useState(chats);
   // const [chatMessages, setChatMessages] = React.useState(chats);
   const [textAreaValue, setTextAreaValue] = React.useState('');
@@ -30,7 +30,7 @@ export default function MessagesPane(props) {
         backgroundColor: 'background.level1',
       }}
     >
-      <MessagesPaneHeader sender={chat.sender} />
+      {/* <MessagesPaneHeader sender={chatMessages[0].sender} /> */}
       <Box
         sx={{
           display: 'flex',

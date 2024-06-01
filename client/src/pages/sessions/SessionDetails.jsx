@@ -4,16 +4,16 @@ import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
 import Chat from "../chat/Chat";
 function SessionDetails() {
-  const [collapse, setCollapse] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const { id } = useParams();
   console.log(id, "this is the sessionId");
   const navigate = useNavigate();
   return (
     <div className="p-4 position-relative" >
-      <div className="d-flex justify-content-start gap-4">
+      <div className={`d-flex ${toggle?"justify-content-end":"justify-content-start"} gap-4`}>
         <button className="btn btn-success fs-5">+ Add</button>
       </div>
-      <Accordion defaultActiveKey={["0"]} className=" w-75 " alwaysOpen style={{paddingRight:"30px"}}>
+      <Accordion defaultActiveKey={["0"]} className={`${toggle?"w-100":"w-75"}`} alwaysOpen style={{paddingRight:"75px"}}>
         {[1, 2, 3].map((e, i) => {
           return (
             <div className="mt-4" key={i}>
@@ -162,7 +162,7 @@ function SessionDetails() {
           );
         })}
       </Accordion>
-      <div className="position-fixed w-md-100 w-25 h-100  top-0"  style={{ right: 0 ,display:""}}>
+      <div className="position-fixed w-md-100 w-25 h-100  top-0"  style={{ right: 0 ,display:toggle?"none":""}}>
         <Chat />
       </div>
     </div>
