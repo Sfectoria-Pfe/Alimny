@@ -8,6 +8,8 @@ import Typography from '@mui/joy/Typography';
 import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
+import { IconButton } from '@mui/joy';
+
 
 
 
@@ -81,7 +83,7 @@ export default function ChatBubble(props) {
                     }),
               }}
             >
-              {/* <IconButton
+              <IconButton
                 variant={isLiked ? 'soft' : 'plain'}
                 color={isLiked ? 'danger' : 'neutral'}
                 size="sm"
@@ -96,7 +98,7 @@ export default function ChatBubble(props) {
                 onClick={() => setIsCelebrated((prevState) => !prevState)}
               >
                 {isCelebrated ? '🎉' : <CelebrationOutlinedIcon />}
-              </IconButton> */}
+              </IconButton>
             </Stack>
           {/* )} */}
         </Box>

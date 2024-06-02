@@ -74,7 +74,7 @@ export default function MessagesPane(props) {
             {
               id: newIdString,
               sender: "You",
-              content: "hello",
+              content: textAreaValue,
               timestamp: "Just now"
             }
           ]);

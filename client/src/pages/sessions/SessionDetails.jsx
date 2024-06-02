@@ -23,8 +23,10 @@ function SessionDetails() {
           
        
           <Lottie
+
           options={{
-            loop: true,
+            loop: false,
+        
             autoplay: true,
             animationData: zoominy,
             rendererSettings: {
