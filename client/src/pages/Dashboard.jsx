@@ -211,18 +211,18 @@ const Dashboard = () => {
               '11/01/2003',
             ],
             series: [
-              // {
-              //   name: 'Users',
-              //   type: 'column',
-              //   fill: 'solid',
-              //   data: [0, , 22, 27, 13, 22, 37, 21, 44, 22, 30],
-              // },
-              // {
-              //   name: 'Teachers',
-              //   type: 'area',
-              //   fill: 'gradient',
-              //   data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-              // },
+              {
+                name: 'Users',
+                type: 'column',
+                fill: 'solid',
+                data: [0, , 22, 27, 13, 22, 37, 21, 44, 22, 30],
+              },
+              {
+                name: 'Teachers',
+                type: 'area',
+                fill: 'gradient',
+                data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
+              },
               {
                 name: 'Students',
                 type: 'line',
