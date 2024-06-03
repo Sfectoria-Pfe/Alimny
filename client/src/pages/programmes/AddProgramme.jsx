@@ -5,8 +5,10 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import { addprogrammes } from "../../store/programme";
 
-export default function AddProgramme() {
+export default function AddProgramme({setOpen}) {
+  console.log(setOpen,"this is the setOpen")
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category?.categories?.items);
 
@@ -17,6 +19,7 @@ export default function AddProgramme() {
   });
   const handleSubmit = () => {
     dispatch(addprogrammes(addedProgramme)).then((res) => {
+      setAddedprogramme({ name: "", description: "", categoryId: "" });
       setOpen(false);
     });
   };

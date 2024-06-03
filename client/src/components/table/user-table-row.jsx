@@ -13,6 +13,8 @@ import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
 import Label from "../../components/label";
 import Iconify from "../../components/iconify";
+import { useSelector } from "react-redux";
+import { Autocomplete, TextField } from "@mui/material";
 
 // ----------------------------------------------------------------------
 
@@ -28,9 +30,12 @@ export default function TableRow({
   category,
   handleClick,
   setId,
-  id,
+  id
 }) {
   const [open, setOpen] = useState(null);
+  const [clicked, setClicked] = useState(false);
+  const categories = useSelector((state) => state.category?.categories?.items);
+
   const navigate = useNavigate();
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -47,30 +52,67 @@ export default function TableRow({
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
 
-        <TableCell component="th" scope="row" padding="none">
+        <TableCell component="th" scope="row" padding="none" width={300}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
-            <Typography
-              sx={{ cursor: goToOne ? "pointer" : "" }}
-              variant="subtitle2"
-              noWrap
-              onClick={() => {
-                if (goToOne) {
-                  console.log(id);
-                  navigate(`${id}`);
-                }
-              }}
-            >
-              {name ? name : fullName}
-            </Typography>
+            {!clicked ? (
+              <Typography
+                sx={{ cursor: goToOne ? "pointer" : "" }}
+                variant="subtitle2"
+                noWrap
+                onClick={() => {
+                  if (goToOne) {
+                    console.log(id);
+                    navigate(`${id}`);
+                  }
+                }}
+              >
+                {name ? name : fullName}
+              </Typography>
+            ) : (
+              <input
+                type="text"
+                className="form-control"
+                placeholder={name ? name : fullName}
+              />
+            )}
           </Stack>
         </TableCell>
 
         <TableCell>
-          {description ? description?.slice(0, 100) + " ..." : role}
+          {!clicked ? (
+            <Typography>
+              {description ? description?.slice(0, 100) + " ..." : role}
+            </Typography>
+          ) : (
+            <input
+              type="text"
+              className="form-control"
+              placeholder={
+                description ? description?.slice(0, 100) + " ..." : role
+              }
+            />
+          )}
         </TableCell>
 
-        <TableCell>{category ? category : email}</TableCell>
+        <TableCell width={240}>
+          {!clicked ? (
+            <Typography style={{ whiteSpace: "nowrap" }}>
+              {category ? category : email}
+            </Typography>
+          ) : (
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              getOptionLabel={(option) => option.name}
+              options={categories}
+              sx={{ width: "50%" }}
+              renderInput={(params) => (
+                <TextField {...params} label="category" />
+              )}
+            />
+          )}
+        </TableCell>
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -86,12 +128,17 @@ export default function TableRow({
         anchorOrigin={{ vertical: "top", horizontal: "left" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
         PaperProps={{
-          sx: { width: 140 },
+          sx: { width: 140 }
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem
+          onClick={() => {
+            setClicked(!clicked);
+            handleCloseMenu();
+          }}
+        >
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-          Edit
+        { !clicked? "Edit" : "Save"}
         </MenuItem>
 
         <MenuItem
@@ -116,5 +163,5 @@ TableRow.propTypes = {
   name: PropTypes.any,
   role: PropTypes.any,
   selected: PropTypes.any,
-  status: PropTypes.string,
+  status: PropTypes.string
 };

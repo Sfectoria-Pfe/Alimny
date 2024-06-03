@@ -53,20 +53,20 @@ function ProgrammeList() {
     {
       field: "name",
       headerName: "Name",
-      width: 150,
+      width: 50,
       editable: true,
     },
     {
       field: "description",
       headerName: "Desription",
-      width: 150,
+      width: 140,
       editable: false,
     },
 
     {
       headerName: "Category",
       type: "number",
-      width: 150,
+      width:400,
       editable: true,
       valueGetter: (value, row) => {
         return row.Category.name;
@@ -99,33 +99,7 @@ function ProgrammeList() {
     }
   };
   return (
-    // <div className="">
-    //   <div className="d-flex justify-content-end py-3">
-    //     <button
-    //       className="btn btn-primary "
-    //       onClick={() => navigate("addProgramme")}
-    //     >
-    //       Add Programme
-    //     </button>
-    //   </div>
 
-    //   <Box sx={{ height: 400, width: "100%" }}>
-    //     <DataGrid
-    //       rows={rows}
-    //       columns={columns}
-    //       initialState={{
-    //         pagination: {
-    //           paginationModel: {
-    //             pageSize: 5,
-    //           },
-    //         },
-    //       }}
-    //       pageSizeOptions={[5]}
-    //       disableRowSelectionOnClick
-    //       slots={{ toolbar: GridToolbar }}
-    //     />
-    //   </Box>
-    // </div>
     <>
       <TablePage
         goToOne={true}
