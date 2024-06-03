@@ -21,6 +21,16 @@ try {
     console.log(error)
 }
 })
+export const updateProgramme = createAsyncThunk("update/programme",async(body,{dispatch})=>{
+    const {id,...rest}=body
+try {
+    const response = await axios.patch(`${config}/programme/${id}`,rest)
+    dispatch(fetchprogrammes())
+    return response.data
+} catch (error) {
+    console.log(error)
+}
+})
 
 export const programmeSlice = createSlice({
     name: "programme",

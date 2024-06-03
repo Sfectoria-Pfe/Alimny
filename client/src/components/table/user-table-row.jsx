@@ -11,10 +11,10 @@ import TableCell from "@mui/material/TableCell";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
-import Label from "../../components/label";
 import Iconify from "../../components/iconify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField } from "@mui/material";
+import { updateProgramme } from "../../store/programme";
 
 // ----------------------------------------------------------------------
 
@@ -34,8 +34,10 @@ export default function TableRow({
 }) {
   const [open, setOpen] = useState(null);
   const [clicked, setClicked] = useState(false);
+  const [updatedProgramme,setUpdatedProgramme]=useState({})
+  const dispatch = useDispatch()
   const categories = useSelector((state) => state.category?.categories?.items);
-
+console.log(id,"this is id")
   const navigate = useNavigate();
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -73,6 +75,9 @@ export default function TableRow({
               <input
                 type="text"
                 className="form-control"
+                onChange={(e)=>{
+                  setUpdatedProgramme({...updatedProgramme,name:e.target.value})
+                }}
                 placeholder={name ? name : fullName}
               />
             )}
@@ -88,6 +93,9 @@ export default function TableRow({
             <input
               type="text"
               className="form-control"
+              onChange={(e)=>{
+                setUpdatedProgramme({...updatedProgramme,description:e.target.value})
+              }}
               placeholder={
                 description ? description?.slice(0, 100) + " ..." : role
               }
@@ -105,6 +113,9 @@ export default function TableRow({
               disablePortal
               id="combo-box-demo"
               getOptionLabel={(option) => option.name}
+              onChange={(e,v)=>{
+                setUpdatedProgramme({...updatedProgramme,categoryId:v?.id})
+              }}
               options={categories}
               sx={{ width: "50%" }}
               renderInput={(params) => (
@@ -135,10 +146,19 @@ export default function TableRow({
           onClick={() => {
             setClicked(!clicked);
             handleCloseMenu();
+          
           }}
         >
+         { !clicked?<div>
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-        { !clicked? "Edit" : "Save"}
+       Edit
+        </div>:
+          <div onClick={()=>{
+            dispatch(updateProgramme({...updatedProgramme,id:id}))
+          }}>
+          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+       Save
+        </div>}
         </MenuItem>
 
         <MenuItem
