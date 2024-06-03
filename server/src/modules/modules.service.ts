@@ -1,3 +1,4 @@
+import { Programme } from './../programme/entities/programme.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateModuleDto } from './dto/create-module.dto';
 import { UpdateModuleDto } from './dto/update-module.dto';
@@ -8,28 +9,34 @@ export class ModulesService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createModuleDto: CreateModuleDto) {
     return await this.prisma.module.create({
-      data :createModuleDto
-    })
+      data: createModuleDto,
+    });
   }
 
   async findAll() {
-    return await this.prisma.module.findMany({});
+    return await this.prisma.module.findMany({
+      include: {
+        programmemodule: {
+          include: { Programme: true },
+        },
+      },
+    });
   }
 
- async  findOne(id: number) {
-    return await this.prisma.module.findUnique({where : {id}});
+  async findOne(id: number) {
+    return await this.prisma.module.findUnique({ where: { id } });
   }
 
   async update(id: number, updateModuleDto: UpdateModuleDto) {
     return await this.prisma.module.update({
-      where : {
-        id
+      where: {
+        id,
       },
-      data : updateModuleDto
+      data: updateModuleDto,
     });
   }
 
   async remove(id: number) {
-    return await this.prisma.module.delete({where : {id}});
+    return await this.prisma.module.delete({ where: { id } });
   }
 }

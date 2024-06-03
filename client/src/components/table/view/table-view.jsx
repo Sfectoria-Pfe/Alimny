@@ -34,6 +34,9 @@ export default function TablePage({
   setId,
   modules,
   sessions,
+  setUpdate,
+  update,
+  thisIsModule
 }) {
   const [page, setPage] = useState(0);
 
@@ -154,8 +157,8 @@ export default function TablePage({
                     ? [
                         { id: "name", label: "Name" },
                         { id: "description", label: "Description" },
-                        !modules &&
-                          !sessions && { id: "category", label: "Category" },
+                        modules ? { id: "Programme", label: "Programme" } :
+                        {}
                       ]
                     : [
                         {
@@ -184,9 +187,13 @@ export default function TablePage({
                         id={row.id}
                         description={row?.description}
                         category={row?.Category?.name}
+                        Programme = {row?.programmemodule[0]?.Programme?.name}
                         avatarUrl={row?.avatarUrl}
                         selected={selected.indexOf(row.name) !== -1}
                         handleClick={(event) => handleClick(event, row.name)}
+                        setUpdate={setUpdate}
+                        update={update}
+                        thisIsModule={thisIsModule}
                       />
                     );
                   })}

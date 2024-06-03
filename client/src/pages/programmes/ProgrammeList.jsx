@@ -12,6 +12,7 @@ import KeepMountedModal from "../../components/Modals/Modal";
 import { fetchcategories } from "../../store/category";
 import AddProgramme from "./AddProgramme";
 
+
 function ProgrammeList() {
   const [cover, setCover] = useState(null);
   const [rows, setRows] = useState([]);
@@ -21,7 +22,7 @@ function ProgrammeList() {
 
   const handleDeleteProgramme = async () => {
     try {
-      if (id) {
+      if (id ) {
         dispatch(deleteProgramme(id));
       }
     } catch (error) {

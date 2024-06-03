@@ -15,6 +15,7 @@ import Iconify from "../../components/iconify";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField } from "@mui/material";
 import { updateProgramme } from "../../store/programme";
+import { deleteModule } from "../../store/module";
 
 // ----------------------------------------------------------------------
 
@@ -30,14 +31,18 @@ export default function TableRow({
   category,
   handleClick,
   setId,
-  id
+  id,
+  Programme,
+  setUpdate,
+  update,
+  thisIsModule
 }) {
   const [open, setOpen] = useState(null);
   const [clicked, setClicked] = useState(false);
-  const [updatedProgramme,setUpdatedProgramme]=useState({})
-  const dispatch = useDispatch()
+  const [updatedProgramme, setUpdatedProgramme] = useState({});
+  const dispatch = useDispatch();
   const categories = useSelector((state) => state.category?.categories?.items);
-console.log(id,"this is id")
+  console.log(id, "this is id");
   const navigate = useNavigate();
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -75,8 +80,11 @@ console.log(id,"this is id")
               <input
                 type="text"
                 className="form-control"
-                onChange={(e)=>{
-                  setUpdatedProgramme({...updatedProgramme,name:e.target.value})
+                onChange={(e) => {
+                  setUpdatedProgramme({
+                    ...updatedProgramme,
+                    name: e.target.value
+                  });
                 }}
                 placeholder={name ? name : fullName}
               />
@@ -93,8 +101,11 @@ console.log(id,"this is id")
             <input
               type="text"
               className="form-control"
-              onChange={(e)=>{
-                setUpdatedProgramme({...updatedProgramme,description:e.target.value})
+              onChange={(e) => {
+                setUpdatedProgramme({
+                  ...updatedProgramme,
+                  description: e.target.value
+                });
               }}
               placeholder={
                 description ? description?.slice(0, 100) + " ..." : role
@@ -106,15 +117,15 @@ console.log(id,"this is id")
         <TableCell width={240}>
           {!clicked ? (
             <Typography style={{ whiteSpace: "nowrap" }}>
-              {category ? category : email}
+              {category ? category : email ? email : Programme ? Programme : ""}
             </Typography>
           ) : (
             <Autocomplete
               disablePortal
               id="combo-box-demo"
               getOptionLabel={(option) => option.name}
-              onChange={(e,v)=>{
-                setUpdatedProgramme({...updatedProgramme,categoryId:v?.id})
+              onChange={(e, v) => {
+                setUpdatedProgramme({ ...updatedProgramme, categoryId: v?.id });
               }}
               options={categories}
               sx={{ width: "50%" }}
@@ -146,24 +157,33 @@ console.log(id,"this is id")
           onClick={() => {
             setClicked(!clicked);
             handleCloseMenu();
-          
           }}
         >
-         { !clicked?<div>
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-       Edit
-        </div>:
-          <div onClick={()=>{
-            dispatch(updateProgramme({...updatedProgramme,id:id}))
-          }}>
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-       Save
-        </div>}
+          {!clicked ? (
+            <div>
+              <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+              Edit
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                dispatch(updateProgramme({ ...updatedProgramme, id: id }));
+              }}
+            >
+              <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+              Save
+            </div>
+          )}
         </MenuItem>
 
         <MenuItem
           onClick={() => {
-            setId(id), handleCloseMenu();
+            if (thisIsModule) {
+              dispatch(deleteModule(id));
+              setUpdate(!update);
+            } else {
+              setId(id), handleCloseMenu();
+            }
           }}
           sx={{ color: "error.main" }}
         >

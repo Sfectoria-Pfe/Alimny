@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField, Typography } from "@mui/material";
 import { addModules } from "../../store/module"; 
+import { fetchcourses } from "../../store/course";
 
-export default function AddModule({ setOpen }) {
+export default function AddModule({ setOpen ,setUpdate,update}) {
   const dispatch = useDispatch();
-  const programmes = useSelector((state) => state.programme?.programmes?.items);
+  const courses = useSelector(state=>state.course.courses.items)
+  
 
   const [addedModule, setAddedModule] = useState({
     name: "",
     description: "",
-    programmeId: "",
+    courseId: "",
   });
 
+  useEffect(()=>{
+    dispatch(fetchcourses())
+  },[])
   const handleSubmit = () => {
     dispatch(addModules(addedModule)).then((res) => {
-      setAddedModule({ name: "", description: "", programmeId: "" });
+      setAddedModule({ name: "", description: "", courseId: "" });
+      setUpdate(!update)
       setOpen(false);
     });
   };
@@ -49,15 +55,15 @@ export default function AddModule({ setOpen }) {
           <Autocomplete
             onChange={(event, value) => {
               setAddedModule((prev) => {
-                return { ...prev, programmeId: value.id };
+                return { ...prev, courseId: value.id };
               });
             }}
             disablePortal
             id="combo-box-demo"
             getOptionLabel={(option) => option.name}
-            options={programmes}
+            options={courses}
             sx={{ width: "50%" }}
-            renderInput={(params) => <TextField {...params} label="Programme" />}
+            renderInput={(params) => <TextField {...params} label="Courses" />}
           />
         </Box>
 
