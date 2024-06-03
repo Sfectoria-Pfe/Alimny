@@ -1,25 +1,28 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
-
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import { addModules } from "../../store/module"; 
 
-export default function AddModule() {
+export default function AddModule({ setOpen }) {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.category?.categories?.items);
+  const programmes = useSelector((state) => state.programme?.programmes?.items);
 
-  const [addedProgramme, setAddedprogramme] = React.useState({
+  const [addedModule, setAddedModule] = useState({
     name: "",
     description: "",
-    categoryId: "",
+    programmeId: "",
   });
+
   const handleSubmit = () => {
-    dispatch(addprogrammes(addedProgramme)).then((res) => {
+    dispatch(addModules(addedModule)).then((res) => {
+      setAddedModule({ name: "", description: "", programmeId: "" });
       setOpen(false);
     });
   };
+
   return (
     <div className="">
       <Typography
@@ -28,15 +31,15 @@ export default function AddModule() {
         component="h2"
         sx={{ textAlign: "center", mb: 2 }}
       >
-        Add
+        Add Module
       </Typography>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         <Box sx={{ display: "flex", gap: 1 }}>
           <TextField
             id="outlined-basic"
-            label="name"
+            label="Name"
             onChange={(e) => {
-              setAddedprogramme((prev) => {
+              setAddedModule((prev) => {
                 return { ...prev, name: e.target.value };
               });
             }}
@@ -45,24 +48,24 @@ export default function AddModule() {
           />
           <Autocomplete
             onChange={(event, value) => {
-              setAddedprogramme((prev) => {
-                return { ...prev, categoryId: value.id };
+              setAddedModule((prev) => {
+                return { ...prev, programmeId: value.id };
               });
             }}
             disablePortal
             id="combo-box-demo"
             getOptionLabel={(option) => option.name}
-            options={categories}
+            options={programmes}
             sx={{ width: "50%" }}
-            renderInput={(params) => <TextField {...params} label="programme" />}
+            renderInput={(params) => <TextField {...params} label="Programme" />}
           />
         </Box>
 
         <TextField
           id="outlined-basic"
-          label="description"
+          label="Description"
           onChange={(e) => {
-            setAddedprogramme((prev) => {
+            setAddedModule((prev) => {
               return { ...prev, description: e.target.value };
             });
           }}

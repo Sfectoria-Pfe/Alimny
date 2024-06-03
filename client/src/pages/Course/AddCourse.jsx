@@ -71,7 +71,7 @@ export default function AddCourse() {
         />
       </Box>
       <Button
-        sx={{
+        sx={{ 
           mt: 5,
           bgcolor: "#6635DF",
           width: "100%",
