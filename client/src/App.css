@@ -207,6 +207,10 @@ body {
   background-color: #45a049;
 }
 
+.divImageDrawer:hover {
+  cursor: pointer;
+}
+
 .dashboard-summary {
   display: flex;
   justify-content: space-between;
