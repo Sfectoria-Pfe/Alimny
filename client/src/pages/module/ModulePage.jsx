@@ -8,11 +8,12 @@ import AddModule from "./AddModule";
 
 function ModulePage() {
   const modules = useSelector((state) => state.modules.modules.items);
+  const [update,setUpdate]=useState(false)
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   useEffect(() => {
     dispatch(fetchmodules());
-  }, [dispatch]);
+  }, [dispatch,update]);
 
   return (
     <>
@@ -23,8 +24,11 @@ function ModulePage() {
         titlePage={"Modules"}
         modules={modules}
         goToOne
+        thisIsModule={true}
+        update = {update}
+        setUpdate = {setUpdate}
       />
-      <KeepMountedModal open={open} setOpen={setOpen} Body={AddModule} />
+      <KeepMountedModal open={open} setOpen={setOpen} Body={AddModule} setUpdate={setUpdate} update={update}/>
     </>
   );
 }

@@ -21,7 +21,7 @@ const style = {
   borderRadius: "10px",
 };
 
-export default function KeepMountedModal({ open, setOpen, Body }) {
+export default function KeepMountedModal({ open, setOpen, Body,setUpdate,update }) {
   const handleClose = () => setOpen(false);
 
   return (
@@ -51,7 +51,7 @@ export default function KeepMountedModal({ open, setOpen, Body }) {
               }}
             />
           </Box>
-          <Body setOpen={setOpen}/>
+          <Body setOpen={setOpen} setUpdate={setUpdate} update={update}/>
         </Box>
       </Modal>
     </div>

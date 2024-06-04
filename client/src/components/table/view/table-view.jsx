@@ -29,6 +29,9 @@ export default function TablePage({
   setId,
   modules,
   sessions,
+  setUpdate,
+  update,
+  thisIsModule
 }) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
@@ -39,10 +42,8 @@ export default function TablePage({
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === "asc";
-    if (id !== "") {
-      setOrder(isAsc ? "desc" : "asc");
-      setOrderBy(id);
-    }
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(id);
   };
 
   const handleSelectAllClick = (event) => {
@@ -102,7 +103,7 @@ export default function TablePage({
         justifyContent="space-between"
         mb={5}
       >
-        <Typography variant="h4 mx-3">
+        <Typography variant="h4" className="mx-3">
           {icon} {titlePage}
         </Typography>
 
@@ -136,17 +137,15 @@ export default function TablePage({
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={
-                  !users
-                    ? [
-                        { id: "name", label: "Name" },
-                        { id: "description", label: "Description" },
-                        !modules && !sessions && { id: "category", label: "Category" },
-                      ].filter(Boolean)
-                    : [
-                        { id: "fullName", label: "FullName" },
-                        { id: "role", label: "Role" },
-                        { id: "email", label: "Email" },
-                      ]
+                  users ? [
+                    { id: "fullName", label: "Full Name" },
+                    { id: "role", label: "Role" },
+                    { id: "email", label: "Email" },
+                  ] : [
+                    { id: "name", label: "Name" },
+                    { id: "description", label: "Description" },
+                    modules ? { id: "Programme", label: "Programme" } : sessions ? {} : { id: "category", label: "Category" },
+                  ].filter(Boolean)
                 }
               />
               <TableBody>
@@ -165,9 +164,13 @@ export default function TablePage({
                         id={row?.id}
                         description={row?.description}
                         category={row?.Category?.name}
+                        Programme={row?.programmemodule?.[0]?.Programme?.name}
                         avatarUrl={row?.avatarUrl}
                         selected={selected.indexOf(row.name) !== -1}
                         handleClick={(event) => handleClick(event, row.name)}
+                        setUpdate={setUpdate}
+                        update={update}
+                        thisIsModule={thisIsModule}
                       />
                     );
                   })}
