@@ -58,12 +58,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Create User
-          </Typography>
+          
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }} >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -143,10 +138,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+               
               </Grid>
               
             
@@ -156,13 +148,11 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Save
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-              <NavLink to="/">
-                    {" Already have an account? Sign in"}
-                  </NavLink>
+              
                 {/* <Link href="#" variant="body2">
                   Already have an account? Sign in
                 </Link> */}
@@ -170,7 +160,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        
       </Container>
     </ThemeProvider>
   );

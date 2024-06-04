@@ -3,8 +3,8 @@ import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlin
 import TablePage from "../components/table/view/table-view";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchusers } from "../store/users";
-import KeepMountedModal from "../components/Modals/Modal";
-import AddUser from "./user/view/AddUser";
+import CustomModal from "../components/Modals/CustomModal"; // Assurez-vous que le chemin est correct
+import SignUp from "../components/Signup";
 
 function Users() {
   const dispatch = useDispatch();
@@ -14,15 +14,17 @@ function Users() {
   useEffect(() => {
     dispatch(fetchusers());
   }, [dispatch]);
+
   return (
     <>
-      <KeepMountedModal open={open} setOpen={setOpen} Body={AddUser} />
+      <CustomModal open={open} setOpen={setOpen}>
+        <SignUp />
+      </CustomModal>
       <TablePage
-        // goToOne
         setOpen={setOpen}
-        btnTitle={"Add user"}
+        btnTitle={"Ajouter un utilisateur"}
         icon={<ManageAccountsOutlinedIcon />}
-        titlePage={"Users"}
+        titlePage={"Utilisateurs"}
         users={users}
       />
     </>
