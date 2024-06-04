@@ -8,8 +8,18 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class ModulesService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createModuleDto: CreateModuleDto) {
+    const {Courses,...rest} = createModuleDto
     return await this.prisma.module.create({
-      data: createModuleDto,
+      data: {
+        ...rest,
+        Courses : {
+         create : Courses?.map(e=>{
+          return {
+            courseId : e
+          }
+         })
+        },
+      }
     });
   }
 
@@ -19,6 +29,11 @@ export class ModulesService {
         programmemodule: {
           include: { Programme: true },
         },
+        Courses : {
+          include : {
+            Course : true
+          }
+        }
       },
     });
   }
@@ -28,11 +43,13 @@ export class ModulesService {
   }
 
   async update(id: number, updateModuleDto: UpdateModuleDto) {
+    const {Courses,...rest} = updateModuleDto
     return await this.prisma.module.update({
       where: {
         id,
       },
-      data: updateModuleDto,
+      data: rest
+      
     });
   }
 

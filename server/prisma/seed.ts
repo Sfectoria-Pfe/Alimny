@@ -256,16 +256,15 @@ async function main() {
       {
         name: 'module1',
         description: 'module 1 description',
-        courseId: 1,
       },
 
-      { name: 'module2', description: 'module 2 description', courseId: 2 },
+      { name: 'module2', description: 'module 2 description'},
 
-      { name: 'module3', description: 'module 3 description', courseId: 3 },
+      { name: 'module3', description: 'module 3 description'  },
 
-      { name: 'module4', description: 'module 4 description', courseId: 4 },
+      { name: 'module4', description: 'module 4 description'  },
 
-      { name: 'module5', description: 'module 5 description', courseId: 5 },
+      { name: 'module5', description: 'module 5 description' },
     ],
   });
 

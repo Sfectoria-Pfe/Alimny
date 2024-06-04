@@ -5,18 +5,19 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import { addcourses } from "../../store/course";
 
-export default function AddCourse() {
+export default function AddCourse({setOpen}) {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category?.categories?.items);
 
   const [addedProgramme, setAddedprogramme] = React.useState({
     name: "",
-    description: "",
-    categoryId: "",
+    description: ""
   });
   const handleSubmit = () => {
-    dispatch(addprogrammes(addedProgramme)).then((res) => {
+    dispatch(addcourses(addedProgramme)).then((res) => {
+      setAddedprogramme({ name: "", description: "" });
       setOpen(false);
     });
   };
@@ -35,32 +36,22 @@ export default function AddCourse() {
           <TextField
             id="outlined-basic"
             label="name"
+            value={addedProgramme.name}
             onChange={(e) => {
               setAddedprogramme((prev) => {
                 return { ...prev, name: e.target.value };
               });
             }}
             variant="outlined"
-            sx={{ width: "50%" }}
+            sx={{ width: "100%" }}
           />
-          <Autocomplete
-            onChange={(event, value) => {
-              setAddedprogramme((prev) => {
-                return { ...prev, categoryId: value.id };
-              });
-            }}
-            disablePortal
-            id="combo-box-demo"
-            getOptionLabel={(option) => option.name}
-            options={categories}
-            sx={{ width: "50%" }}
-            renderInput={(params) => <TextField {...params} label="programme" />}
-          />
+         
         </Box>
 
         <TextField
           id="outlined-basic"
-          label="description"
+          label="description"  
+          value={addedProgramme.description}
           onChange={(e) => {
             setAddedprogramme((prev) => {
               return { ...prev, description: e.target.value };

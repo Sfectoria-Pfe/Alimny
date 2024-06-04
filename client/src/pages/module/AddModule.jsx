@@ -15,15 +15,15 @@ export default function AddModule({ setOpen ,setUpdate,update}) {
   const [addedModule, setAddedModule] = useState({
     name: "",
     description: "",
-    courseId: "",
+    Courses: [],
   });
-
+console.log(addedModule)
   useEffect(()=>{
     dispatch(fetchcourses())
   },[])
   const handleSubmit = () => {
     dispatch(addModules(addedModule)).then((res) => {
-      setAddedModule({ name: "", description: "", courseId: "" });
+      setAddedModule({ name: "", description: "", Courses: [] });
       setUpdate(!update)
       setOpen(false);
     });
@@ -52,19 +52,26 @@ export default function AddModule({ setOpen ,setUpdate,update}) {
             variant="outlined"
             sx={{ width: "50%" }}
           />
-          <Autocomplete
-            onChange={(event, value) => {
-              setAddedModule((prev) => {
-                return { ...prev, courseId: value.id };
-              });
-            }}
-            disablePortal
-            id="combo-box-demo"
-            getOptionLabel={(option) => option.name}
-            options={courses}
-            sx={{ width: "50%" }}
-            renderInput={(params) => <TextField {...params} label="Courses" />}
+              <Autocomplete
+              fullWidth
+              onChange={(e,v)=>{
+                setAddedModule((prev) => {
+                  return { ...prev, Courses: v.map(e=>e.id) };
+                });
+              }}
+        multiple
+        id="tags-outlined"
+        options={courses}
+        getOptionLabel={(option) => option.name}
+        filterSelectedOptions
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Courses"
+            placeholder="courses"
           />
+        )}
+      />
         </Box>
 
         <TextField

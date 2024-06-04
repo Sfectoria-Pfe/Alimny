@@ -11,7 +11,6 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-
 }
 
 model Programme {
@@ -104,13 +103,15 @@ model ProgrammeModule {
   @@unique(fields: [programmeId, moduleId], name: "programmemodule")
 }
 
+
+
 model Module {
   id              Int               @id @default(autoincrement())
   name            String            @unique
   description     String
   programmemodule ProgrammeModule[]
-  Course          Course            @relation(fields: [courseId], references: [id])
-  courseId        Int
+  Courses         ModuleCourses[]
+ 
 }
 
 model WeekContent {
@@ -120,13 +121,21 @@ model WeekContent {
   CourseContent   CourseContent? @relation(fields: [courseContentId], references: [id])
   courseContentId Int?
 }
+model ModuleCourses {
+  id Int @id @default(autoincrement())
 
+  Module   Module? @relation(fields: [moduleId], references: [id])
+  moduleId Int?
+  Course   Course? @relation(fields: [courseId], references: [id])
+  courseId Int?
+  @@unique([courseId,moduleId])
+}
 model Course {
   id            Int             @id @default(autoincrement())
   name          String
   description   String
   coursecontent CourseContent[]
-  module        Module[]
+  modules       ModuleCourses[]
 }
 
 model User {
@@ -149,8 +158,8 @@ model User {
   aboutMe       String?
   Gouvernorat   Gouvernorat? @relation(fields: [gouvernoratId], references: [id])
   gouvernoratId Int?
-   createdAt              DateTime?           @default(now())
-  updatedAt              DateTime?           @updatedAt
+  createdAt     DateTime?    @default(now())
+  updatedAt     DateTime?    @updatedAt
 }
 
 model Employee {
