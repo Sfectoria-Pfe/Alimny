@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
@@ -9,18 +8,14 @@ import TableBody from "@mui/material/TableBody";
 import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
-
 import Iconify from "../../iconify";
 import Scrollbar from "../../scrollbar";
-
 import TableNoData from "../table-no-data";
 import TableRow from "../user-table-row";
 import UserTableHead from "../user-table-head";
 import TableEmptyRows from "../table-empty-rows";
 import UserTableToolbar from "../user-table-toolbar";
 import { emptyRows, applyFilter, getComparator } from "../utils";
-
-// ----------------------------------------------------------------------
 
 export default function TablePage({
   btnTitle,
@@ -39,23 +34,16 @@ export default function TablePage({
   thisIsModule
 }) {
   const [page, setPage] = useState(0);
-
   const [order, setOrder] = useState("asc");
-
   const [selected, setSelected] = useState([]);
-
   const [orderBy, setOrderBy] = useState("name");
-
   const [filterName, setFilterName] = useState("");
-
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === "asc";
-    if (id !== "") {
-      setOrder(isAsc ? "desc" : "asc");
-      setOrderBy(id);
-    }
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(id);
   };
 
   const handleSelectAllClick = (event) => {
@@ -73,13 +61,13 @@ export default function TablePage({
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected?.slice(1));
+      newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected?.slice(0, -1));
+      newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        selected?.slice(0, selectedIndex),
-        selected?.slice(selectedIndex + 1)
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
       );
     }
     setSelected(newSelected);
@@ -104,8 +92,6 @@ export default function TablePage({
     comparator: getComparator(order, orderBy),
     filterName,
   });
-  console.log(filterName, "filterName");
-  console.log(dataFiltered, "dataFiltered");
 
   const notFound = !dataFiltered.length && !!filterName;
 
@@ -117,7 +103,7 @@ export default function TablePage({
         justifyContent="space-between"
         mb={5}
       >
-        <Typography variant="h4 mx-3">
+        <Typography variant="h4" className="mx-3">
           {icon} {titlePage}
         </Typography>
 
@@ -126,9 +112,7 @@ export default function TablePage({
           color="inherit"
           startIcon={<Iconify icon="eva:plus-fill" />}
           sx={{ bgcolor: "#6635df" }}
-          onClick={() => {
-            setOpen(true);
-          }}
+          onClick={() => setOpen(true)}
         >
           {btnTitle}
         </Button>
@@ -148,33 +132,26 @@ export default function TablePage({
                 setId={setId}
                 order={order}
                 orderBy={orderBy}
-                rowCount={programmes?.length}
+                rowCount={(programmes || courses || users || modules || []).length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={
-                  !users
-                    ? [
-                        { id: "name", label: "Name" },
-                        { id: "description", label: "Description" },
-                        modules ? { id: "Programme", label: "Programme" } :
-                        {}
-                      ]
-                    : [
-                        {
-                          id: "fullName",
-                          label: "FullName",
-                        },
-                        { id: "role", label: "Role" },
-                        { id: "email", label: "Email" },
-                      ]
+                  users ? [
+                    { id: "fullName", label: "Full Name" },
+                    { id: "role", label: "Role" },
+                    { id: "email", label: "Email" },
+                  ] : [
+                    { id: "name", label: "Name" },
+                    { id: "description", label: "Description" },
+                    modules ? { id: "Programme", label: "Programme" } : sessions ? {} : { id: "category", label: "Category" },
+                  ].filter(Boolean)
                 }
               />
               <TableBody>
                 {dataFiltered
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    console.log(row, "this is row");
                     return (
                       <TableRow
                         goToOne={goToOne}
@@ -184,10 +161,10 @@ export default function TablePage({
                         role={row?.role}
                         fullName={row?.fullName}
                         email={row?.email}
-                        id={row.id}
+                        id={row?.id}
                         description={row?.description}
                         category={row?.Category?.name}
-                        Programme = {row?.programmemodule[0]?.Programme?.name}
+                        Programme={row?.programmemodule?.[0]?.Programme?.name}
                         avatarUrl={row?.avatarUrl}
                         selected={selected.indexOf(row.name) !== -1}
                         handleClick={(event) => handleClick(event, row.name)}
@@ -200,7 +177,7 @@ export default function TablePage({
 
                 <TableEmptyRows
                   height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, programmes?.length)}
+                  emptyRows={emptyRows(page, rowsPerPage, (programmes || []).length)}
                 />
 
                 {notFound && <TableNoData query={filterName} />}
@@ -212,7 +189,7 @@ export default function TablePage({
         <TablePagination
           page={page}
           component="div"
-          count={programmes?.length}
+          count={(programmes || courses || users || modules || []).length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}

@@ -42,11 +42,11 @@ const sidebarData = [
   { name: "Mysessions", path: "mysessions", icon: <SchoolOutlinedIcon/> },
   { name: "Agenda", path: "agenda", icon: <EventAvailableOutlinedIcon /> },
   { name: "Help", path: "help", icon: <InfoOutlinedIcon /> },
-  // { name: "LandingPage", path: "landingpage", icon: <InfoOutlinedIcon /> },
+ 
 ];
 const settings = [
   { name: "Profile", path: "profile", icon: <HomeIcon /> },
-  { name: "Settings ", path: "edit", icon: <HomeIcon /> },
+
   { name: "Logout", path: "/", icon: <HomeIcon /> },
  
 ];

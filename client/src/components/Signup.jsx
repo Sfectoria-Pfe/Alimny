@@ -13,6 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavLink } from 'react-router-dom';
+import { Autocomplete } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../store/users';
+import FormGroup from '@mui/material/FormGroup';
+
+
 
 function Copyright(props) {
   return (
@@ -32,18 +38,27 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const dispatch = useDispatch()
+  const [checked,setChekced] = React.useState(false)
+  const [addedUser,setAddedUser] = React.useState({
+    isStudent : false 
+  })
+console.log(addUser,"this is the object")
+
+const handleSubmit = async (e) => {
+e.preventDefault()
+try {
+  dispatch(addUser(addedUser))
+} catch (error) {
+  console.log(error)
+}
+}
+  const handleChange = (e)=> {
+    setAddedUser((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
     });
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  }
+ 
   
 
   return (
@@ -58,37 +73,26 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Create User
-          </Typography>
+          
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }} >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} >
                 <TextField
+               onChange={handleChange}
                   autoComplete="given-name"
-                  name="firstName"
+                  name="fullName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="Full Name"
+                  label="Full Name"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
+            
               <Grid item xs={12}>
                 <TextField
+               onChange={handleChange}
+
                   required
                   fullWidth
                   id="email"
@@ -99,6 +103,8 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+               onChange={handleChange}
+
                   required
                   fullWidth
                   name="password"
@@ -110,59 +116,73 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sx={{mb:2}}>
                 <TextField
+               onChange={handleChange}
+
                   required
                   fullWidth
-                  name="password"
+                  name="phone"
                   label="Phone"
-                  type="password"
-                  id="password"
+                  type="phone"
+                  id="phone"
                   autoComplete="new-password"
                 />
               </Grid>
               </Grid>
               <Grid item xs={12}  sx={{mb:2}}>
                 <TextField
+               onChange={handleChange}
+
                   required
                   fullWidth
-                  name="password"
-                  label="Adress"
+                  name="address"
+                  label="Address"
                   type="text"
                   id="password"
                   autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}  sx={{mb:2}}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Role"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
+              <Autocomplete
+              disabled={checked}
+               onChange={(e,v)=>{
+               
+                setAddedUser((prev)=>{
+                  return {...prev,role:v}
+                })
+               }}
+          
+            disablePortal
+            id="combo-box-demo"
+            getOptionLabel={(option) => option}
+            options={["admin","manager","student","teacher"]}
+            sx={{ width: "100%" }}
+            renderInput={(params) => <TextField {...params} label="Role" />}
+          />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+              <FormGroup>
+      <FormControlLabel control={<Checkbox onChange={(e)=>{
+       
+          setChekced(e.target.checked)
+          setAddedUser((prev)=>({...prev,isStudent:e.target.checked,role:"student"}))
+        
+
+      }} color="secondary" />} label="is student?" />
+   
+   
+    </FormGroup>
               </Grid>
               
             
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <button
+              onClick={handleSubmit}
+           className='btn btn-primary w-100' style={{backgroundColor:"#6635df"}}
             >
-              Sign Up
-            </Button>
+              Save
+            </button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-              <NavLink to="/">
-                    {" Already have an account? Sign in"}
-                  </NavLink>
+              
                 {/* <Link href="#" variant="body2">
                   Already have an account? Sign in
                 </Link> */}
@@ -170,7 +190,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+        
       </Container>
     </ThemeProvider>
   );

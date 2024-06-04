@@ -5,5 +5,8 @@ export class CreateModuleDto {
   @ApiProperty()
   description: string;
   @ApiProperty()
-  courseId: number;
+  Courses : number[];
+
+
+  
 }
