@@ -7,7 +7,7 @@ const CustomModal = ({ open, setOpen, children }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button className="close-button" onClick={() => setOpen(false)}>X</button>
+        <button className="close-button text-dark" onClick={() => setOpen(false)}>X</button>
         {children}
       </div>
     </div>
