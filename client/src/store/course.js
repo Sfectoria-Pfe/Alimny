@@ -11,7 +11,15 @@ export const addcourses = createAsyncThunk("add courses",async(body,{dispatch})=
  dispatch(fetchcourses())
  return response.data;
 })
-
+export const deleteCourse = createAsyncThunk("delete/Course",async(id,{dispatch})=>{
+    try {
+        const response = await axios.delete(`${config}/course/${id}`)
+        dispatch(fetchcourses())
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+    })
 
 export const courseSlice = createSlice({
     name: "course",
