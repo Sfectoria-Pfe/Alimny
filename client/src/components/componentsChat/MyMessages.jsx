@@ -6,7 +6,7 @@ import ChatsPane from "./ChatsPane";
 
 import { chats } from "../../constant/data";
 
-export default function MyProfile() {
+export default function MyProfile({id}) {
   const [selectedChat, setSelectedChat] = React.useState([]);
   return (
     <Sheet
@@ -24,7 +24,7 @@ export default function MyProfile() {
       }}
     >
       
-      <MessagesPane chat={selectedChat} />
+      <MessagesPane chat={selectedChat} id ={id}/>
     </Sheet>
   );
 }

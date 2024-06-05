@@ -70,10 +70,13 @@ model SessionStudent {
 }
 
 model Msgs {
-  id        Int     @id @default(autoincrement())
-  Session   Session @relation(fields: [sessionId], references: [id])
+  id        Int      @id @default(autoincrement())
+  Session   Session  @relation(fields: [sessionId], references: [id])
   sessionId Int
-  user      User[]
+  text      String?
+  User      User?    @relation(fields: [senderId], references: [id])
+  senderId  Int?
+  createdAt DateTime @default(now())
 }
 
 model SessionTeacher {
@@ -103,15 +106,12 @@ model ProgrammeModule {
   @@unique(fields: [programmeId, moduleId], name: "programmemodule")
 }
 
-
-
 model Module {
   id              Int               @id @default(autoincrement())
   name            String            @unique
   description     String
   programmemodule ProgrammeModule[]
   Courses         ModuleCourses[]
- 
 }
 
 model WeekContent {
@@ -121,6 +121,7 @@ model WeekContent {
   CourseContent   CourseContent? @relation(fields: [courseContentId], references: [id])
   courseContentId Int?
 }
+
 model ModuleCourses {
   id Int @id @default(autoincrement())
 
@@ -128,13 +129,15 @@ model ModuleCourses {
   moduleId Int?
   Course   Course? @relation(fields: [courseId], references: [id])
   courseId Int?
-  @@unique([courseId,moduleId])
+
+  @@unique([courseId, moduleId])
 }
+
 model Course {
   id            Int             @id @default(autoincrement())
   name          String
   description   String
-  imageUrl String ?
+  imageUrl      String?
   coursecontent CourseContent[]
   modules       ModuleCourses[]
 }
@@ -150,8 +153,7 @@ model User {
   imageUrl      String?
   role          Role
   isActive      Boolean      @default(true)
-  Msgs          Msgs?        @relation(fields: [msgsId], references: [id])
-  msgsId        Int?
+  Msgs          Msgs[]
   Student       Student?     @relation(fields: [studentId], references: [id])
   studentId     Int?
   Employee      Employee?    @relation(fields: [employeeId], references: [id])
