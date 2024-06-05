@@ -217,7 +217,10 @@ export default function MiniDrawer({ user, setUser }) {
           </IconButton>
             
         </DrawerHeader>
-        <img src={logo} alt="logo" loading="lazy"  className="p-3 mt-60"  width={120}/>
+
+<div className="d-flex justify-content-center divImageDrawer" onClick={()=>navigate("/")}>
+        <img src={logo} alt="logo" loading="lazy"  className="p-3 mt-60 img-fluid "  width={120}/>
+       </div>
 
         <Divider />
         <List>

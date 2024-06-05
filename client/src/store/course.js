@@ -21,6 +21,16 @@ export const deleteCourse = createAsyncThunk("delete/Course",async(id,{dispatch}
     }
     })
 
+export const getCourse = createAsyncThunk("get/course", async (id) => {
+    try {
+        const response = await axios.get(`${config}/course/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
 export const courseSlice = createSlice({
     name: "course",
     initialState:{
@@ -35,6 +45,9 @@ export const courseSlice = createSlice({
         builder.addCase(fetchcourses.fulfilled,(state, action)=>{console.log("adfc",action);
             state.courses.items=action.payload;
             state.courses.count=action.payload.length;
+        });
+        builder.addCase(getCourse.fulfilled,(state, action)=>{console.log("adfc",action);
+            state.course=action.payload;
         });
     }
 })
