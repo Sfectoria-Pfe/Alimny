@@ -134,6 +134,7 @@ model Course {
   id            Int             @id @default(autoincrement())
   name          String
   description   String
+  imageUrl String ?
   coursecontent CourseContent[]
   modules       ModuleCourses[]
 }
