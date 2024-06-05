@@ -37,7 +37,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({open,setOpen}) {
   const dispatch = useDispatch()
   const [checked,setChekced] = React.useState(false)
   const [addedUser,setAddedUser] = React.useState({
@@ -48,7 +48,9 @@ console.log(addUser,"this is the object")
 const handleSubmit = async (e) => {
 e.preventDefault()
 try {
-  dispatch(addUser(addedUser))
+  dispatch(addUser(addedUser)).then((res) => {
+    setOpen(false)
+  })
 } catch (error) {
   console.log(error)
 }

@@ -11,13 +11,13 @@ export default function AddCourse({setOpen}) {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.category?.categories?.items);
 
-  const [addedProgramme, setAddedprogramme] = React.useState({
+  const [addedCourse, setAddedCourse] = React.useState({
     name: "",
     description: ""
   });
   const handleSubmit = () => {
-    dispatch(addcourses(addedProgramme)).then((res) => {
-      setAddedprogramme({ name: "", description: "" });
+    dispatch(addcourses(addedCourse)).then((res) => {
+      setAddedCourse({ name: "", description: "" });
       setOpen(false);
     });
   };
@@ -36,9 +36,9 @@ export default function AddCourse({setOpen}) {
           <TextField
             id="outlined-basic"
             label="name"
-            value={addedProgramme.name}
+            value={addedCourse.name}
             onChange={(e) => {
-              setAddedprogramme((prev) => {
+              setAddedCourse((prev) => {
                 return { ...prev, name: e.target.value };
               });
             }}
@@ -51,9 +51,9 @@ export default function AddCourse({setOpen}) {
         <TextField
           id="outlined-basic"
           label="description"  
-          value={addedProgramme.description}
+          value={addedCourse.description}
           onChange={(e) => {
-            setAddedprogramme((prev) => {
+            setAddedCourse((prev) => {
               return { ...prev, description: e.target.value };
             });
           }}

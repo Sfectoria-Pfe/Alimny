@@ -30,7 +30,17 @@ export const getCourse = createAsyncThunk("get/course", async (id) => {
     }
 })
 
-
+export const updateCourse = createAsyncThunk("update/course", async (body, { dispatch }) => {
+    const { id, ...rest } = body;
+    console.log(body)
+    try {
+      const response = await axios.patch(`${config}/course/${id}`, rest);
+      dispatch(fetchcourses());
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 export const courseSlice = createSlice({
     name: "course",
     initialState:{

@@ -15,7 +15,8 @@ import Iconify from "../../components/iconify";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField } from "@mui/material";
 import { updateProgramme } from "../../store/programme";
-import { deleteModule } from "../../store/module";
+import { deleteModule, updateModule } from "../../store/module";
+import { updateCourse } from "../../store/course";
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +36,9 @@ export default function TableRow({
   Programme,
   setUpdate,
   update,
-  thisIsModule
+  thisIsModule,
+  modules,
+  courses,
 }) {
   const [open, setOpen] = useState(null);
   const [clicked, setClicked] = useState(false);
@@ -83,7 +86,7 @@ export default function TableRow({
                 onChange={(e) => {
                   setUpdatedProgramme({
                     ...updatedProgramme,
-                    name: e.target.value
+                    name: e.target.value,
                   });
                 }}
                 placeholder={name ? name : fullName}
@@ -104,7 +107,7 @@ export default function TableRow({
               onChange={(e) => {
                 setUpdatedProgramme({
                   ...updatedProgramme,
-                  description: e.target.value
+                  description: e.target.value,
                 });
               }}
               placeholder={
@@ -120,19 +123,25 @@ export default function TableRow({
               {category ? category : email ? email : Programme ? Programme : ""}
             </Typography>
           ) : (
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              getOptionLabel={(option) => option.name}
-              onChange={(e, v) => {
-                setUpdatedProgramme({ ...updatedProgramme, categoryId: v?.id });
-              }}
-              options={categories}
-              sx={{ width: "50%" }}
-              renderInput={(params) => (
-                <TextField {...params} label="category" />
-              )}
-            />
+            !modules &&
+            !courses && (
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                getOptionLabel={(option) => option.name}
+                onChange={(e, v) => {
+                  setUpdatedProgramme({
+                    ...updatedProgramme,
+                    categoryId: v?.id,
+                  });
+                }}
+                options={categories}
+                sx={{ width: "50%" }}
+                renderInput={(params) => (
+                  <TextField {...params} label="category" />
+                )}
+              />
+            )
           )}
         </TableCell>
 
@@ -150,7 +159,7 @@ export default function TableRow({
         anchorOrigin={{ vertical: "top", horizontal: "left" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
         PaperProps={{
-          sx: { width: 140 }
+          sx: { width: 140 },
         }}
       >
         <MenuItem
@@ -167,7 +176,11 @@ export default function TableRow({
           ) : (
             <div
               onClick={() => {
-                dispatch(updateProgramme({ ...updatedProgramme, id: id }));
+                modules
+                  ? dispatch(updateModule({ ...updatedProgramme, id: id }))
+                  : courses
+                  ? dispatch(updateCourse({ ...updatedProgramme, id: id }))
+                  : dispatch(updateProgramme({ ...updatedProgramme, id: id }));
               }}
             >
               <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
@@ -203,5 +216,5 @@ TableRow.propTypes = {
   name: PropTypes.any,
   role: PropTypes.any,
   selected: PropTypes.any,
-  status: PropTypes.string
+  status: PropTypes.string,
 };

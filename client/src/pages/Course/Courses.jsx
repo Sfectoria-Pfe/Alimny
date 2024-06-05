@@ -13,6 +13,7 @@ function Courses() {
   const courses = useSelector((state) => state?.course?.courses?.items);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [update,setUpdate]=useState(false)
   useEffect(() => {
     dispatch(fetchcourses());
   }, [dispatch]);
@@ -41,6 +42,8 @@ function Courses() {
         courses={courses}
         setOpen={setOpen}
         setId={setId}
+        update = {update}
+        setUpdate = {setUpdate}
       />
       <KeepMountedModal open={open} setOpen={setOpen} Body={AddCourse} />
     </>

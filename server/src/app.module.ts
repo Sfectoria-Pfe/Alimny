@@ -16,8 +16,9 @@ import { ModulesModule } from './modules/modules.module';
 
 
 
+
 @Module({
-  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule, ModulesModule,],
+  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule,ModulesModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -171,6 +171,8 @@ export default function TablePage({
                         setUpdate={setUpdate}
                         update={update}
                         thisIsModule={thisIsModule}
+                        modules={modules}
+                        courses={courses}
                       />
                     );
                   })}
