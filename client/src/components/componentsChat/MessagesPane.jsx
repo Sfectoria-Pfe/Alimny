@@ -9,7 +9,10 @@ import MessagesPaneHeader from "./MessagesPaneHeader";
 import { chats } from "../../constant/data";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import io from 'socket.io-client';
 
+
+const socket = io('http://localhost:3000');
 export default function MessagesPane({id}) {
   const [chatMessages, setChatMessages] = React.useState(chats[0]?.messages);
   const me = useSelector(state=>state?.auth?.me);
@@ -25,6 +28,16 @@ export default function MessagesPane({id}) {
     axios.get(`http://localhost:3000/messages/${id}`).then((res)=>{
       setChatMessages(res.data)
     })
+  }, []);
+  
+  React.useEffect(() => {
+    socket.on('message', (message) => {
+      console.log(message)
+    });
+
+    return () => {
+      socket.off('message');
+    };
   }, []);
 
   return (
@@ -84,6 +97,7 @@ export default function MessagesPane({id}) {
               timestamp: "Just now"
             }
           ]);
+          socket.emit('message', { senderId: me?.id, text: textAreaValue, sessionId: id });
         }}
       />
     </Sheet>

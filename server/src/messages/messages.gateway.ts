@@ -17,28 +17,10 @@ import { Server } from 'socket.io';
 export class MessagesGateway {
   constructor(private readonly messagesService: MessagesService) {}
   @WebSocketServer() server: Server;
-  @SubscribeMessage('createMessage')
-  create(@MessageBody() createMessageDto: CreateMessageDto) {
-    return this.messagesService.create(createMessageDto);
-  }
 
-  @SubscribeMessage('findAllMessages')
-  findAll() {
-    return this.messagesService.findAll();
-  }
-
-  @SubscribeMessage('findOneMessage')
-  findOne(@MessageBody() id: number) {
-    return this.messagesService.findOne(id);
-  }
-
-  @SubscribeMessage('updateMessage')
-  update(@MessageBody() updateMessageDto: UpdateMessageDto) {
-    return this.messagesService.update(updateMessageDto.id, updateMessageDto);
-  }
-
-  @SubscribeMessage('removeMessage')
-  remove(@MessageBody() id: number) {
-    return this.messagesService.remove(id);
+  @SubscribeMessage('message')
+  async handleMessage(@MessageBody() data : {sessionId : number , text : string , senderId : number}) {
+    const message = await this.messagesService.create(data);
+    this.server.emit('message', message);
   }
 }

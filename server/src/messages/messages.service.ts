@@ -9,6 +9,9 @@ export class MessagesService {
   async create(createMessageDto: CreateMessageDto) {
     return await this.prisma.msgs.create({
       data: createMessageDto,
+      include : {
+        User : true
+      }
     });
   }
 
