@@ -32,7 +32,7 @@ export default function MessagesPane({id}) {
   
   React.useEffect(() => {
     socket.on('message', (message) => {
-      console.log(message)
+      setChatMessages((prev)=>[...prev,message])
     });
 
     return () => {
@@ -88,16 +88,8 @@ export default function MessagesPane({id}) {
         onSubmit={() => {
           const newId = chatMessages.length + 1;
           const newIdString = newId.toString();
-          setChatMessages([
-            ...chatMessages,
-            {
-              id: newIdString,
-              sender: "You",
-              content: textAreaValue,
-              timestamp: "Just now"
-            }
-          ]);
-          socket.emit('message', { senderId: me?.id, text: textAreaValue, sessionId: id });
+         
+          socket.emit('message', { senderId: me?.id, text: textAreaValue, sessionId: +id });
         }}
       />
     </Sheet>
