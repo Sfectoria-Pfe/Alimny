@@ -7,7 +7,7 @@ import Box from '@mui/joy/Box';
 // import Header from '../../components/componentsChat/Header';
 import MyMessages from '../../components/componentsChat/MyMessages';
 
-export default function Chat() {
+export default function Chat({id }) {
   return (
     <CssVarsProvider disableTransitionOnChange>
     <CssBaseline />
@@ -15,7 +15,7 @@ export default function Chat() {
       {/* <Sidebar /> */}
       {/* <Header /> */}
       <Box component="main" className="MainContent" sx={{ flex: 1 }}>
-        <MyMessages />
+        <MyMessages id={id}/>
       </Box>
     </Box>
   </CssVarsProvider>

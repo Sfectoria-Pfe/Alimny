@@ -216,7 +216,7 @@ function SessionDetails() {
         className="position-fixed w-md-100 w-25 h-100  top-0 "
         style={{ right: 0, display: toggle ? "none" : "" }}
       >
-        <Chat />
+        <Chat id ={id } />
       </div>
     </div>
   );

@@ -9,16 +9,18 @@ import CelebrationOutlinedIcon from '@mui/icons-material/CelebrationOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
 import { IconButton } from '@mui/joy';
-
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
 
 
 
 export default function ChatBubble(props) {
-  const { content, variant, timestamp, attachment = undefined, sender } = props;
+  const { text, variant, createdAt, attachment = undefined, senderId,me,User } = props;
   const isSent = variant === 'sent';
   const [isHovered, setIsHovered] = React.useState(false);
   const [isLiked, setIsLiked] = React.useState(false);
   const [isCelebrated, setIsCelebrated] = React.useState(false);
+  dayjs.extend(relativeTime);
   return (
     <Box sx={{ maxWidth: '60%', minWidth: 'auto' }}>
       <Stack
@@ -28,9 +30,9 @@ export default function ChatBubble(props) {
         sx={{ mb: 0.25 }}
       >
         <Typography level="body-xs">
-          {sender === 'You' ? sender : sender.name}
+          {senderId === me?.id ? "You" : User?.fullName}
         </Typography>
-        <Typography level="body-xs">{timestamp}</Typography>
+        <Typography level="body-xs">{dayjs(createdAt).fromNow()}</Typography>
       </Stack>
       
         <Box
@@ -59,7 +61,7 @@ export default function ChatBubble(props) {
                   : 'var(--joy-palette-text-primary)',
               }}
             >
-              {content}
+              {text}
           
             </Typography>
           </Sheet>
