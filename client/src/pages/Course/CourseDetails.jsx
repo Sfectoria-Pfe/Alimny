@@ -38,80 +38,33 @@ function CourseDetails() {
           defaultActiveKey={["0"]}
           alwaysOpen
           style={{ paddingRight: "75px" }}
-        >
-          {[1, 2, 3].map((e, i) => {
+        ><ListGroup>
+          {course?.coursecontent?.map((e, i) => {
             return (
               <div className="mt-4" key={i}>
-                <ListGroup>
+                
                                   <ListGroup.Item
                                     action
                                     onClick={() =>
-                                      navigate("/mysessions/pdf-content")
+                                      window.open(e?.path, "mozillaTab")
                                     }
                                   >
                                     <i
-                                      class="fa-regular fa-file-lines"
+                                      className={`${e?.type === "pdf" ? "fa-regular fa-file-lines" : "fa-solid fa-video"}`}
                                       style={{
                                         paddingLeft: "10px",
                                         paddingRight: "10px"
                                       }}
                                     ></i>
-                                    Introduction.pdf
+                                    {e?.name}
                                   </ListGroup.Item>
-                                  <ListGroup.Item
-                                    action
-                                    onClick={() =>
-                                      navigate("/mysessions/video-content")
-                                    }
-                                  >
-                                    <i
-                                      class="fa-solid fa-video"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Introduction.mp4
-                                  </ListGroup.Item>
-                                  <ListGroup.Item action>
-                                    <i
-                                      class="fa-regular fa-file-lines"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Chapitre1.pdf
-                                  </ListGroup.Item>
-                                  <ListGroup.Item action>
-                                    <i
-                                      class="fa-solid fa-video"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Chapitre1.mp4
-                                  </ListGroup.Item>
-                                  <ListGroup.Item
-                                    action
-                                    onClick={() =>
-                                      navigate("/mysessions/exercice-content")
-                                    }
-                                  >
-                                    <i
-                                      class="fa-regular fa-file-lines"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Exercice.pdf
-                                  </ListGroup.Item>
-                                </ListGroup>
+                                 
+                              
+                                
               </div>
             );
           })}
+          </ListGroup>
         </Accordion>
     </div>
   );

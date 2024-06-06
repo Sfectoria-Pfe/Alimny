@@ -14,14 +14,14 @@ import { ProgrammeModulesModule } from './programme-modules/programme-modules.mo
 import { SessionStudentModule } from './session-student/session-student.module';
 import { ModulesModule } from './modules/modules.module';
 import { MessagesModule } from './messages/messages.module';
+import { CourseContentsModule } from './course-contents/course-contents.module';
 
 
 
 
 
 @Module({
-
-  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule, ModulesModule, MessagesModule],
+  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule, ModulesModule, MessagesModule, CourseContentsModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -38,6 +38,7 @@ model CourseContent {
   courseId    Int?
   Questions   Questions?    @relation(fields: [questionsId], references: [id])
   questionsId Int?
+  path        String?
 }
 
 model Session {
