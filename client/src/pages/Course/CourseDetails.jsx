@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { getCourse } from "../../store/course";
 import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
-import Lottie from 'react-lottie';
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 function CourseDetails() {
   const { courseId } = useParams();
   const dispatch = useDispatch();
@@ -34,38 +35,43 @@ function CourseDetails() {
           className="img-fluid"
         />
       </div>
-      <Accordion 
-          defaultActiveKey={["0"]}
-          alwaysOpen
-          style={{ paddingRight: "75px" }}
-        ><ListGroup>
+      <Accordion
+        defaultActiveKey={["0"]}
+        alwaysOpen
+        style={{ paddingRight: "75px" }}
+      >
+        <ListGroup>
           {course?.coursecontent?.map((e, i) => {
             return (
               <div className="mt-4" key={i}>
-                
-                                  <ListGroup.Item
-                                    action
-                                    onClick={() =>
-                                      window.open(e?.path, "mozillaTab")
-                                    }
-                                  >
-                                    <i
-                                      className={`${e?.type === "pdf" ? "fa-regular fa-file-lines" : "fa-solid fa-video"}`}
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    {e?.name}
-                                  </ListGroup.Item>
-                                 
-                              
-                                
+                <ListGroup.Item
+                  action
+                  onClick={() => window.open(e?.path, "mozillaTab")}
+                >
+                  <div className="d-flex justify-content-between">
+                    <div>
+                      <i
+                        className={`${
+                          e?.type === "pdf"
+                            ? "fa-regular fa-file-lines"
+                            : "fa-solid fa-video"
+                        }`}
+                        style={{
+                          paddingLeft: "10px",
+                          paddingRight: "10px",
+                        }}
+                      ></i>
+                      {e?.name}
+                    </div>
+                    {<DeleteIcon />}
+                    {<ModeEditIcon />}
+                  </div>
+                </ListGroup.Item>
               </div>
             );
           })}
-          </ListGroup>
-        </Accordion>
+        </ListGroup>
+      </Accordion>
     </div>
   );
 }
