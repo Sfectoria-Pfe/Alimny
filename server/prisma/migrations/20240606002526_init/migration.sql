@@ -10,6 +10,15 @@ CREATE TABLE `Programme` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Gouvernorat` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+
+    UNIQUE INDEX `Gouvernorat_name_key`(`name`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `CourseContent` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
@@ -26,7 +35,9 @@ CREATE TABLE `Session` (
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
     `date` DATETIME(3) NOT NULL,
+    `imageUrl` VARCHAR(191) NULL DEFAULT 'https://media.licdn.com/dms/image/D4E0BAQH8I-kzQdsUXg/company-logo_200_200/0/1698062214267/sfectoria_logo?e=2147483647&v=beta&t=-FocSdGYCvAW7rmL_dPMHj9GYFN11yEm1CM0JwZYdIk',
     `programmeId` INTEGER NOT NULL,
+    `active` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Session_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -54,6 +65,9 @@ CREATE TABLE `SessionStudent` (
 CREATE TABLE `Msgs` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `sessionId` INTEGER NOT NULL,
+    `text` VARCHAR(191) NULL,
+    `senderId` INTEGER NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -90,7 +104,6 @@ CREATE TABLE `Module` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
-    `courseId` INTEGER NOT NULL,
 
     UNIQUE INDEX `Module_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -106,10 +119,21 @@ CREATE TABLE `WeekContent` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `ModuleCourses` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `moduleId` INTEGER NULL,
+    `courseId` INTEGER NULL,
+
+    UNIQUE INDEX `ModuleCourses_courseId_moduleId_key`(`courseId`, `moduleId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Course` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `description` VARCHAR(191) NOT NULL,
+    `imageUrl` VARCHAR(191) NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -126,9 +150,12 @@ CREATE TABLE `User` (
     `imageUrl` VARCHAR(191) NULL,
     `role` ENUM('admin', 'teacher', 'manager', 'student') NOT NULL,
     `isActive` BOOLEAN NOT NULL DEFAULT true,
-    `msgsId` INTEGER NULL,
     `studentId` INTEGER NULL,
     `employeeId` INTEGER NULL,
+    `aboutMe` VARCHAR(191) NULL,
+    `gouvernoratId` INTEGER NULL,
+    `createdAt` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
@@ -226,6 +253,9 @@ ALTER TABLE `SessionStudent` ADD CONSTRAINT `SessionStudent_studentId_fkey` FORE
 ALTER TABLE `Msgs` ADD CONSTRAINT `Msgs_sessionId_fkey` FOREIGN KEY (`sessionId`) REFERENCES `Session`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE `Msgs` ADD CONSTRAINT `Msgs_senderId_fkey` FOREIGN KEY (`senderId`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `SessionTeacher` ADD CONSTRAINT `SessionTeacher_sessionId_fkey` FOREIGN KEY (`sessionId`) REFERENCES `Session`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -241,22 +271,25 @@ ALTER TABLE `ProgrammeModule` ADD CONSTRAINT `ProgrammeModule_programmeId_fkey` 
 ALTER TABLE `ProgrammeModule` ADD CONSTRAINT `ProgrammeModule_moduleId_fkey` FOREIGN KEY (`moduleId`) REFERENCES `Module`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Module` ADD CONSTRAINT `Module_courseId_fkey` FOREIGN KEY (`courseId`) REFERENCES `Course`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `WeekContent` ADD CONSTRAINT `WeekContent_weeksId_fkey` FOREIGN KEY (`weeksId`) REFERENCES `Weeks`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `WeekContent` ADD CONSTRAINT `WeekContent_courseContentId_fkey` FOREIGN KEY (`courseContentId`) REFERENCES `CourseContent`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `User` ADD CONSTRAINT `User_msgsId_fkey` FOREIGN KEY (`msgsId`) REFERENCES `Msgs`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `ModuleCourses` ADD CONSTRAINT `ModuleCourses_moduleId_fkey` FOREIGN KEY (`moduleId`) REFERENCES `Module`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ModuleCourses` ADD CONSTRAINT `ModuleCourses_courseId_fkey` FOREIGN KEY (`courseId`) REFERENCES `Course`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `User` ADD CONSTRAINT `User_studentId_fkey` FOREIGN KEY (`studentId`) REFERENCES `Student`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `User` ADD CONSTRAINT `User_employeeId_fkey` FOREIGN KEY (`employeeId`) REFERENCES `Employee`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `User` ADD CONSTRAINT `User_gouvernoratId_fkey` FOREIGN KEY (`gouvernoratId`) REFERENCES `Gouvernorat`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `StudentResponse` ADD CONSTRAINT `StudentResponse_studentId_fkey` FOREIGN KEY (`studentId`) REFERENCES `Student`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

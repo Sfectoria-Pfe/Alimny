@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getCourse } from "../../store/course";
 import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
-
+import Lottie from 'react-lottie';
 function CourseDetails() {
   const { courseId } = useParams();
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ function CourseDetails() {
           className="img-fluid"
         />
       </div>
-      <Accordion
+      <Accordion 
           defaultActiveKey={["0"]}
           alwaysOpen
           style={{ paddingRight: "75px" }}
