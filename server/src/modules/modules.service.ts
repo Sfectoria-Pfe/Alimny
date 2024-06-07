@@ -31,7 +31,11 @@ export class ModulesService {
         },
         Courses : {
           include : {
-            Course : true
+            Course : {
+              include : {
+                coursecontent : true
+              }
+            }
           }
         }
       },

@@ -304,19 +304,12 @@ async function main() {
     ],
   });
 
-  // const post2 = await prisma.student.upsert({
-  //   where: { firstname : "What's new in Prisma? (Q1/22)" },
-  //   update: {},
-  //   create: {
-  //     firstname : "What's new in Prisma? (Q1/22)",
-  //     body: 'Our engineers have been working hard, issuing new releases with many improvements...',
-  //     description:
-  //       'Learn about everything in the Prisma ecosystem and community from January to March 2022.',
-  //     published: true,
-  //   },
-  // });
-
-  // console.log({ post1, post2 });
+ await prisma.moduleCourses.createMany({
+  data : {
+    moduleId : 1 , 
+    courseId :1 
+  }
+ })
 }
 
 // execute the main function
