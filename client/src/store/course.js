@@ -41,6 +41,17 @@ export const updateCourse = createAsyncThunk("update/course", async (body, { dis
       console.error(error);
     }
   });
+export const addCourseContent = createAsyncThunk("create/content",async(body,{dispatch})=>{
+    try {
+        const response = await axios.post(`${config}/course-contents`,body)
+        dispatch(fetchcourses())
+        return response.data
+        
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 export const courseSlice = createSlice({
     name: "course",
     initialState:{
