@@ -38,7 +38,9 @@ function Router() {
   const user = useSelector((state) => state.auth?.me);
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+  const roles2 = ["manager", "admin"];
 
+  console.log(user, "this is user");
   useEffect(() => {
     (async () => {
       if (token) {
@@ -52,21 +54,27 @@ function Router() {
       <Routes>
         {user ? (
           <Route path="/" element={<App />}>
-            <Route index element={<Dashboard />} />
-            <Route path="courses" element={<Courses />} />
-            <Route path="courses/:courseId" element={<CourseDetails />} />
-            <Route path="agenda" element={<Agenda />} />
-            <Route path="help" element={<Chat />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="programme" element={<Programme />}>
-              <Route index element={<ProgrammeList />} />
-              <Route path="addProgramme" element={<AddProgramme />} />
-              <Route path=":programmeId" element={<ProgrammeDetail />} />
-            </Route>
-            <Route path="module" element={<ModulePage />} />
-            <Route path="module/:moduleId" element={<ModuleDetails />} />
-            <Route path="session" element={<Session />} />
-            <Route path="users" element={<Users />} />
+            {roles2.includes(user?.role) && (
+              <>
+                <Route index element={<Dashboard />} />
+                <Route path="courses" element={<Courses />} />
+                <Route path="courses/:courseId" element={<CourseDetails />} />
+                <Route path="programme" element={<Programme />}>
+                  <Route index element={<ProgrammeList />} />
+                  <Route path="addProgramme" element={<AddProgramme />} />
+                  <Route path=":programmeId" element={<ProgrammeDetail />} />
+                </Route>
+                <Route path="module" element={<ModulePage />} />
+                <Route path="module/:moduleId" element={<ModuleDetails />} />
+                <Route path="session" element={<Session />} />
+                <Route path="users" element={<Users />} />
+                <Route path="category" element={<CategoryList />} />
+                <Route path="agenda" element={<Agenda />} />
+                <Route path="profile" element={<Profile />} />{" "}
+              </>
+            )}
+            {/*only admin and manager could see it  */}
+
             {/* <Route path="users/:userId" element={<User />} /> */}
             <Route path="mysessions" element={<SessionList />}>
               <Route index element={<Mysessions />} />
@@ -77,14 +85,13 @@ function Router() {
             </Route>
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />
-            <Route path="category" element={<CategoryList/>} />
+
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         ) : (
           <Route path="/" element={<Auth />}>
             <Route index element={<Login />} />
             <Route path="signup" element={<Signup />} />
-            {/* <Route path="*" element={<Navigate to="/" />} /> */}
           </Route>
         )}
       </Routes>
