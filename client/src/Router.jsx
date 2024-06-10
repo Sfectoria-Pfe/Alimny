@@ -32,6 +32,7 @@ import PdfExercice from "./pages/sessions/PdfExercice";
 import Courses from "./pages/Course/Courses";
 import CourseDetails from "./pages/Course/CourseDetails";
 import ModuleDetails from "./pages/module/ModuleDetails";
+import CategoryList from "./pages/category/CategoryList";
 
 function Router() {
   const user = useSelector((state) => state.auth?.me);
@@ -76,6 +77,7 @@ function Router() {
             </Route>
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />
+            <Route path="category" element={<CategoryList/>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Route>
         ) : (

@@ -31,7 +31,8 @@ export default function TablePage({
   sessions,
   setUpdate,
   update,
-  thisIsModule
+  thisIsModule,
+  categories
 }) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
@@ -88,7 +89,7 @@ export default function TablePage({
   };
 
   const dataFiltered = applyFilter({
-    inputData: programmes || courses || users || modules || [],
+    inputData: programmes || courses || users || modules || categories || [],
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -132,7 +133,7 @@ export default function TablePage({
                 setId={setId}
                 order={order}
                 orderBy={orderBy}
-                rowCount={(programmes || courses || users || modules || []).length}
+                rowCount={(programmes || courses || users || modules ||categories || []).length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
@@ -141,7 +142,7 @@ export default function TablePage({
                     { id: "fullName", label: "Full Name" },
                     { id: "role", label: "Role" },
                     { id: "email", label: "Email" },
-                  ] : [
+                  ] : categories? [{id:"name",label : "Name"}]: [
                     { id: "name", label: "Name" },
                     { id: "description", label: "Description" },
                     modules ? { id: "Programme", label: "Programme" } : sessions ? {} : { id: "category", label: "Category" },

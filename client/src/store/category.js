@@ -7,6 +7,17 @@ export const fetchcategories=createAsyncThunk("fetch categories",async()=>{
     return response.data;
 })
 
+export const addCategory = createAsyncThunk("add/category",async (body,{dispatch})=>{
+    try {
+        const response = await axios.post(`${config}/categories`,body)
+        dispatch(fetchcategories())
+        return response.data
+        
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 export const categorySlice = createSlice({
     name: "category",

@@ -13,7 +13,6 @@ export default function MyProfile({id}) {
       sx={{
         // flex: 1,
         width: "100%",
-        
         mx: "auto",
         pt: { xs: "var(--Header-height)", sm: 0 },
         // display: 'grid',
