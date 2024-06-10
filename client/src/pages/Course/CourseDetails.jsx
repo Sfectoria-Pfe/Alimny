@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addCourseContent, getCourse } from "../../store/course";
@@ -12,7 +12,8 @@ import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import Autocomplete from "@mui/material/Autocomplete";
 import axios from "axios";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 const style = {
   position: "absolute",
   top: "50%",
@@ -96,7 +97,10 @@ function CourseDetails() {
                   action
                   onClick={() => window.open(e?.path, "mozillaTab")}
                 >
+                  <div className="d-flex justify-content-between">
+                  <div>
                   <i
+
                     className={`${
                       e?.type === "pdf"
                         ? "fa-regular fa-file-lines"
@@ -106,8 +110,15 @@ function CourseDetails() {
                       paddingLeft: "10px",
                       paddingRight: "10px"
                     }}
-                  ></i>
+                  >
+
+                  </i>
                   {e?.name}
+                  </div>
+                  <div className="d-flex gap-3">
+                  {<DeleteIcon />}
+                    {<ModeEditIcon />}</div>
+                    </div>
                 </ListGroup.Item>
               </div>
             );

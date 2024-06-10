@@ -11,6 +11,15 @@ export const addcourses = createAsyncThunk("add courses",async(body,{dispatch})=
  dispatch(fetchcourses())
  return response.data;
 })
+export const deleteCourse = createAsyncThunk("delete/Course",async(id,{dispatch})=>{
+    try {
+        const response = await axios.delete(`${config}/course/${id}`)
+        dispatch(fetchcourses())
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+    })
 
 export const getCourse = createAsyncThunk("get/course", async (id) => {
     try {
@@ -21,6 +30,17 @@ export const getCourse = createAsyncThunk("get/course", async (id) => {
     }
 })
 
+export const updateCourse = createAsyncThunk("update/course", async (body, { dispatch }) => {
+    const { id, ...rest } = body;
+    console.log(body)
+    try {
+      const response = await axios.patch(`${config}/course/${id}`, rest);
+      dispatch(fetchcourses());
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  });
 export const addCourseContent = createAsyncThunk("create/content",async(body,{dispatch})=>{
     try {
         const response = await axios.post(`${config}/course-contents`,body)

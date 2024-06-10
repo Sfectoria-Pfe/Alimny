@@ -19,6 +19,7 @@ import { CourseContentsModule } from './course-contents/course-contents.module';
 
 
 
+
 @Module({
   imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule, ModulesModule, MessagesModule, CourseContentsModule],
   controllers: [AppController],
