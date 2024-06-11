@@ -33,6 +33,9 @@ import Courses from "./pages/Course/Courses";
 import CourseDetails from "./pages/Course/CourseDetails";
 import ModuleDetails from "./pages/module/ModuleDetails";
 import CategoryList from "./pages/category/CategoryList";
+import SessionStudents from "./pages/sessions/SessionStudents";
+import SessionTeachers from "./pages/sessions/SessionTeachers";
+import SessionDetailsList from "./pages/sessions/SessionDetailsList";
 
 function Router() {
   const user = useSelector((state) => state.auth?.me);
@@ -56,7 +59,6 @@ function Router() {
           <Route path="/" element={<App />}>
             {roles2.includes(user?.role) && (
               <>
-                <Route index element={<Dashboard />} />
                 <Route path="courses" element={<Courses />} />
                 <Route path="courses/:courseId" element={<CourseDetails />} />
                 <Route path="programme" element={<Programme />}>
@@ -69,19 +71,27 @@ function Router() {
                 <Route path="session" element={<Session />} />
                 <Route path="users" element={<Users />} />
                 <Route path="category" element={<CategoryList />} />
-                <Route path="agenda" element={<Agenda />} />
                 <Route path="profile" element={<Profile />} />{" "}
               </>
             )}
             {/*only admin and manager could see it  */}
 
             {/* <Route path="users/:userId" element={<User />} /> */}
+            <Route index element={<Dashboard />} />
+            <Route path="agenda" element={<Agenda />} />
+
             <Route path="mysessions" element={<SessionList />}>
               <Route index element={<Mysessions />} />
-              <Route path=":id" element={<SessionDetails />} />
+              
+              <Route path=":id" element={<SessionDetailsList />} >
+              <Route index element ={<SessionDetails />} />
+              <Route path="students" element={<SessionStudents />} />
+              <Route path="teachers" element={<SessionTeachers />} />
+              </Route>
               <Route path="pdf-content" element={<PdfContent />} />
               <Route path="video-content" element={<VideoContent />} />
               <Route path="exercice-content" element={<PdfExercice />} />
+             
             </Route>
             <Route path="landingpage" element={<LandingPage />} />
             <Route path="edit" element={<EditProfile />} />

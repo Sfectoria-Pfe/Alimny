@@ -6,8 +6,12 @@ import Chat from "../chat/Chat";
 import Lottie from "react-lottie";
 import chat from "../../assets/lotties/chat.json";
 import zoominy from "../../assets/lotties/videoConf.json"
+import { useSelector } from "react-redux";
 function SessionDetails() {
   const [toggle, setToggle] = useState(true);
+  const user = useSelector((state) => state.auth?.me);
+  const roles2 = ["manager", "admin","teacher"];
+
   const { id } = useParams();
   console.log(id, "this is the sessionId");
   const navigate = useNavigate();
@@ -18,7 +22,12 @@ function SessionDetails() {
           toggle ? "justify-content-end" : "justify-content-start"
         } gap-3`}
       >
-        <button className="btn btn-success fs-5 rounded-5 " style={{backgroundColor:"#6669D6",height:"45px"}}>+ Add</button>
+      <div className="d-flex gap-3">  <button className="btn btn-success fs-5 rounded-5 " style={{backgroundColor:"#6669D6",height:"45px"}}>
+          + Add Week
+          </button>
+          <button className="btn btn-success fs-5 rounded-5" style={{backgroundColor:"#6669D6",height:"45px"}} onClick={() => navigate("students")}>Students</button>
+          <button className="btn btn-success fs-5 rounded-5" style={{backgroundColor:"#6669D6",height:"45px"}} onClick={() => navigate("teachers")}>Teachers</button>
+          </div>
         <button className="btn btn-lightfs-5  " >
           
        

@@ -32,18 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 import logo from "../assets/logo.png"
 
 const drawerWidth = 240;
-const sidebarData = [
-  { name: "Dashboard", path: "/", icon: <HomeIcon /> },
-  { name: "Programme", path: "programme", icon: <BorderColorOutlinedIcon/> },
-  { name: "Module", path: "module", icon: <ViewInArOutlinedIcon/> },
-  { name: "Courses", path: "courses", icon: <CategoryOutlinedIcon/> },
-  { name: "Session", path: "session", icon: <Diversity1OutlinedIcon/> },
-  { name: "Users", path: "users", icon: <ManageAccountsOutlinedIcon/> },
-  { name: "Mysessions", path: "mysessions", icon: <SchoolOutlinedIcon/> },
-  { name: "Agenda", path: "agenda", icon: <EventAvailableOutlinedIcon /> },
-  { name: "Help", path: "help", icon: <InfoOutlinedIcon /> },
- 
-];
+
 const settings = [
   { name: "Profile", path: "profile", icon: <HomeIcon /> },
 
@@ -123,7 +112,20 @@ export default function MiniDrawer({ user, setUser }) {
   const [open, setOpen] = React.useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const roles2 = ["manager", "admin"];
 
+  const sidebarData = [
+    { name: "Dashboard", path: "/", icon: <HomeIcon /> },
+    { name: "Mysessions", path: "mysessions", icon: <SchoolOutlinedIcon/> },
+    { name: "Agenda", path: "agenda", icon: <EventAvailableOutlinedIcon /> },
+   roles2.includes(me?.role) && { name: "Programme", path: "programme", icon: <BorderColorOutlinedIcon/> },
+   roles2.includes(me?.role) &&  { name: "Module", path: "module", icon: <ViewInArOutlinedIcon/> },
+   roles2.includes(me?.role) && { name: "Courses", path: "courses", icon: <CategoryOutlinedIcon/> },
+   roles2.includes(me?.role) && { name: "Session", path: "session", icon: <Diversity1OutlinedIcon/> },
+   roles2.includes(me?.role) && { name: "Users", path: "users", icon: <ManageAccountsOutlinedIcon/> },
+   
+   
+  ];
   const handleOpenUserMenu = (event) => {
     console.log("hh");
     setAnchorElUser(event.currentTarget);
