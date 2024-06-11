@@ -16,6 +16,7 @@ import UserTableHead from "../user-table-head";
 import TableEmptyRows from "../table-empty-rows";
 import UserTableToolbar from "../user-table-toolbar";
 import { emptyRows, applyFilter, getComparator } from "../utils";
+import { useSelector } from "react-redux";
 
 export default function TablePage({
   btnTitle,
@@ -40,6 +41,10 @@ export default function TablePage({
   const [orderBy, setOrderBy] = useState("name");
   const [filterName, setFilterName] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const me = useSelector((state) => state.auth?.me);
+  const roles2 = ["manager", "admin"];
+
+
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === "asc";
@@ -108,7 +113,7 @@ export default function TablePage({
           {icon} {titlePage}
         </Typography>
 
-        <Button
+       { roles2.includes(me?.role) &&<Button
           variant="contained"
           color="inherit"
           startIcon={<Iconify icon="eva:plus-fill" />}
@@ -116,7 +121,7 @@ export default function TablePage({
           onClick={() => setOpen(true)}
         >
           {btnTitle}
-        </Button>
+        </Button>}
       </Stack>
 
       <Card>

@@ -167,7 +167,7 @@ model User {
 }
 
 model Employee {
-  id             Int              @id @unique
+  id             Int              @id @unique @default(autoincrement())
   firstname      String
   LastName       String
   isAdmin        Boolean
@@ -216,7 +216,7 @@ model Agenda {
 }
 
 model Student {
-  id              Int               @id
+  id              Int               @id @default(autoincrement())
   firstname       String
   LastName        String
   isAdmin         Boolean

@@ -15,13 +15,15 @@ import { SessionStudentModule } from './session-student/session-student.module';
 import { ModulesModule } from './modules/modules.module';
 import { MessagesModule } from './messages/messages.module';
 import { CourseContentsModule } from './course-contents/course-contents.module';
+import { TeachersModule } from './teachers/teachers.module';
+import { StudentsModule } from './students/students.module';
 
 
 
 
 
 @Module({
-  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule, ModulesModule, MessagesModule, CourseContentsModule],
+  imports: [PrismaModule, ProgrammeModule, CourseModule, UsersModule, AuthModule, CategoriesModule, SessionModule, AgendaModule, ProgrammeModulesModule, SessionStudentModule, ModulesModule, MessagesModule, CourseContentsModule, TeachersModule, StudentsModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -310,6 +310,22 @@ async function main() {
     courseId :1 
   }
  })
+
+ await prisma.student.create({
+  data : {
+    firstname : "malek" , 
+    LastName: "fridhi", 
+    isAdmin : false
+  }
+ })
+
+ await prisma.employee.create({
+  data : {
+    firstname : "malika2",
+    LastName : "ben achour", 
+    isAdmin : false, 
+  }
+ })
 }
 
 // execute the main function

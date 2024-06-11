@@ -85,6 +85,7 @@ CREATE TABLE `SessionTeacher` (
 -- CreateTable
 CREATE TABLE `Weeks` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
     `sessionId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -164,7 +165,7 @@ CREATE TABLE `User` (
 
 -- CreateTable
 CREATE TABLE `Employee` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `firstname` VARCHAR(191) NOT NULL,
     `LastName` VARCHAR(191) NOT NULL,
     `isAdmin` BOOLEAN NOT NULL,
@@ -224,7 +225,7 @@ CREATE TABLE `Agenda` (
 
 -- CreateTable
 CREATE TABLE `Student` (
-    `id` INTEGER NOT NULL,
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
     `firstname` VARCHAR(191) NOT NULL,
     `LastName` VARCHAR(191) NOT NULL,
     `isAdmin` BOOLEAN NOT NULL,
