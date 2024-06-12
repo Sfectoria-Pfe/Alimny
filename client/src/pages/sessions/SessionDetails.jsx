@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -6,13 +6,23 @@ import Chat from "../chat/Chat";
 import Lottie from "react-lottie";
 import chat from "../../assets/lotties/chat.json";
 import zoominy from "../../assets/lotties/videoConf.json"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getWeeks } from "../../store/sessions";
 function SessionDetails() {
   const [toggle, setToggle] = useState(true);
   const me = useSelector((state) => state.auth?.me);
+  const weeks = useSelector((state) => state.sessions?.weeks);
+  const dispatch = useDispatch();
   const roles2 = ["manager", "admin","teacher"];
+console.log(weeks,"those are weeks")
 
   const { id } = useParams();
+
+
+  useEffect(()=>{
+    dispatch(getWeeks(id))
+  },[id])
+
   console.log(id, "this is the sessionId");
   const navigate = useNavigate();
   return (
@@ -57,147 +67,44 @@ function SessionDetails() {
           alwaysOpen
           style={{ paddingRight: "75px" }}
         >
-          {[1, 2, 3].map((e, i) => {
+          {weeks.map((e, i) => {
             return (
               <div className="mt-4" key={i}>
                 <Accordion.Item eventKey={i + ""}>
-                  <Accordion.Header>Week {e}</Accordion.Header>
+                  <Accordion.Header>{e.name}</Accordion.Header>
                   <Accordion.Body>
                     <ListGroup>
-                      <ListGroup.Item action>
-                        <Accordion
-                          defaultActiveKey={["0"]}
-                          className="mt-5"
-                          alwaysOpen
-                        >
+                      {e.weekcontent?.map((e,i)=>{
+                        return (
                           <div className="mt-4" key={i}>
-                            <Accordion.Item eventKey={i + ""}>
-                              <Accordion.Header>
-                                {" "}
-                                <img
-                                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png"
-                                  alt=""
-                                  width={50}
-                                  className="img-fluid rounded-5 mx-3"
-                                />
-                                JavaScript.pdf
-                              </Accordion.Header>
-                              <Accordion.Body>
-                                <ListGroup>
-                                  <ListGroup.Item
-                                    action
-                                    onClick={() =>
-                                      navigate("/mysessions/pdf-content")
-                                    }
-                                  >
-                                    <i
-                                      class="fa-regular fa-file-lines"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Introduction.pdf
-                                  </ListGroup.Item>
-                                  <ListGroup.Item
-                                    action
-                                    onClick={() =>
-                                      navigate("/mysessions/video-content")
-                                    }
-                                  >
-                                    <i
-                                      class="fa-solid fa-video"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Introduction.mp4
-                                  </ListGroup.Item>
-                                  <ListGroup.Item action>
-                                    <i
-                                      class="fa-regular fa-file-lines"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Chapitre1.pdf
-                                  </ListGroup.Item>
-                                  <ListGroup.Item action>
-                                    <i
-                                      class="fa-solid fa-video"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Chapitre1.mp4
-                                  </ListGroup.Item>
-                                  <ListGroup.Item
-                                    action
-                                    onClick={() =>
-                                      navigate("/mysessions/exercice-content")
-                                    }
-                                  >
-                                    <i
-                                      class="fa-regular fa-file-lines"
-                                      style={{
-                                        paddingLeft: "10px",
-                                        paddingRight: "10px"
-                                      }}
-                                    ></i>
-                                    Exercice.pdf
-                                  </ListGroup.Item>
-                                </ListGroup>
-                              </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey={i + 1}>
-                              <Accordion.Header>
-                                {" "}
-                                <img
-                                  src="https://1000logos.net/wp-content/uploads/2020/09/CSS-Logo.jpg"
-                                  alt=""
-                                  width={50}
-                                  className="img-fluid rounded-5 mx-3"
-                                />
-                                Css.pdf
-                              </Accordion.Header>
-                              <Accordion.Body>
-                                <ListGroup>
-                                  <ListGroup.Item action>
-                                    <img
-                                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png"
-                                      alt=""
-                                      width={50}
-                                      className="img-fluid rounded-5 mx-3"
-                                    />
-                                    Css
-                                  </ListGroup.Item>
-                                  <ListGroup.Item action>
-                                    <img
-                                      src="https://www.easy-micro.org/images/lecons/html/formation-html.jpg"
-                                      alt=""
-                                      width={50}
-                                      className="img-fluid rounded-5 mx-3"
-                                    />
-                                    Content2.pdf
-                                  </ListGroup.Item>
-                                  <ListGroup.Item action>
-                                    <img
-                                      src="https://www.oxfordwebstudio.com/user/pages/06.da-li-znate/sta-je-css/sta-je-css.png"
-                                      alt=""
-                                      width={50}
-                                      className="img-fluid rounded-5 mx-3"
-                                    />
-                                    Content3.pdf
-                                  </ListGroup.Item>
-                                </ListGroup>
-                              </Accordion.Body>
-                            </Accordion.Item>
-                          </div>
-                        </Accordion>
-                      </ListGroup.Item>
+                <ListGroup.Item
+                  action
+                  onClick={() => window.open(e?.CourseContent?.path, "mozillaTab")}
+                >
+                  <div className="d-flex justify-content-between">
+                  <div>
+                  <i
+
+                    className={`${
+                      e?.type === "pdf"
+                        ? "fa-regular fa-file-lines"
+                        : "fa-solid fa-video"
+                    }`}
+                    style={{
+                      paddingLeft: "10px",
+                      paddingRight: "10px"
+                    }}
+                  >
+
+                  </i>
+                  {e?.CourseContent?.name}
+                  </div>
+                 
+                    </div>
+                </ListGroup.Item>
+              </div>
+                        )
+                      })}
                     </ListGroup>
                   </Accordion.Body>
                 </Accordion.Item>
