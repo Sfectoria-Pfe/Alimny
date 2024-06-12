@@ -1,3 +1,4 @@
+import { CourseContent } from './../course-contents/entities/course-content.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateWeekDto } from './dto/create-week.dto';
 import { UpdateWeekDto } from './dto/update-week.dto';
@@ -21,6 +22,7 @@ export class WeeksService {
         }
       })
     }
+    return week
   }
 
   findAll() {
@@ -33,7 +35,11 @@ export class WeeksService {
         sessionId : id 
       },
       include : {
-        weekcontent : true
+        weekcontent : {
+          include : {
+            CourseContent : true
+          }
+        }
       }
     })
   }

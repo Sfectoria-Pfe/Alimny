@@ -11,7 +11,11 @@ export class CourseService {
   }
 
   async findAll() {
-    const result = await this.prisma.course.findMany();
+    const result = await this.prisma.course.findMany({
+      include : {
+        coursecontent : true
+      }
+    });
     return result;
   }
 
