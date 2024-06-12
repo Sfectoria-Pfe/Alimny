@@ -7,7 +7,7 @@ export const fetchsessions=createAsyncThunk("fetch sessions",async()=>{
     return response.data;
 })
 
-export const fetchSessionsTeachers = createAsyncThunk("fetch/sessions", async (id) => {
+export const fetchSessionsTeachers = createAsyncThunk("fetch/teacher", async (id) => {
     const response = await axios.get("http://localhost:3000/session/getTeachersBySession/" + id);
     return response.data
 })

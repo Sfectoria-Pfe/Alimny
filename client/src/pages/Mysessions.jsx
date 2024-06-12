@@ -10,7 +10,7 @@ const CoursesPage = () => {
 console.log(sessions, "those are courses")
 useEffect(()=>{
   
- me?.role === "student"? dispatch(fetchSessionsStudents(me?.id)): me?.role==="teacher"? dispatch(fetchSessionsTeachers(me?.id)):dispatch(fetchsessions())
+ me?.role === "student"? dispatch(fetchSessionsStudents(me?.Student?.id)): me?.role==="teacher"? dispatch(fetchSessionsTeachers(me?.Employee?.id)):dispatch(fetchsessions())
 
 },[dispatch])
 const navigate = useNavigate()

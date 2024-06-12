@@ -17,7 +17,11 @@ export class AuthService {
   ) {}
   async login(Dto: CreateAuthDto) {
     
-    const user = await this.prisma.user.findUnique({ where: { email:Dto.email } });
+    const user = await this.prisma.user.findUnique({ where: { email:Dto.email } ,
+    include : {
+      Student : true,
+      Employee : true
+    }});
     if (!user) {
       throw new HttpException('invalid email', HttpStatus.BAD_REQUEST);
     }
