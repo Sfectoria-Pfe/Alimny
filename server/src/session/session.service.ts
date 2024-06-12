@@ -105,7 +105,11 @@ export class SessionService {
         },
       },
       include : {
-        user : true
+        user : {
+          include : {
+            Gouvernorat : true
+          }
+        }
       }
     });
   }
