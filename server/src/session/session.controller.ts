@@ -17,6 +17,32 @@ export class SessionController {
   findAll() {
     return this.SessionService.findAll();
   }
+@Get("/getStudentsBySession/:id")
+findAllSessionsForStudents(@Param('id') id:string ){
+return this.SessionService.findStudentsBySession(+id)
+}
+@Get("/getTeachersBySession/:id")
+findAllSessionsForTeachers(@Param('id') id:string ){
+return this.SessionService.findTeachersBySession(+id)
+}
+@Get("/getstudents/:id")
+findAllstudents(@Param('id') id:string ){
+return this.SessionService.findAllStudentsInSession(+id)
+}
+@Get("/getTeachers/:id")
+findAllteachers(@Param('id') id:string ){
+return this.SessionService.findAllTeacherInSession(+id)
+}
+
+
+@Get("/get/allStudents")
+findAllStudents(){
+  return this.SessionService.getAllStudents
+}
+@Get("/get/getAllTeachers")
+findAllTeachers(){
+  return this.SessionService.getAllStudents
+}
 
   @Get(':id')
   findOne(@Param('id') id: string) {

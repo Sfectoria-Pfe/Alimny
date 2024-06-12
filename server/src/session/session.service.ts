@@ -1,70 +1,129 @@
+import { SessionStudent } from './../session-student/entities/session-student.entity';
 import { ProgrammeModule } from './../programme-modules/entities/programme-module.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-@Injectable() 
+@Injectable()
 export class SessionService {
-  constructor(private readonly prisma:PrismaService){}
+  constructor(private readonly prisma: PrismaService) {}
 
- async create(dto: CreateSessionDto) {
+  async create(dto: CreateSessionDto) {
     return await this.prisma.session.create({
-      data:dto
-    })
+      data: dto,
+    });
   }
 
   async findStudentsBySession(id: number) {
-    return this.prisma.sessionStudent.findMany({
-      where : {
-        sessionId : id,
-        
-      }
-    })
-      
-    }
+    return this.prisma.session.findMany({
+      where: {
+        sessionstudent: {
+          some: {
+            studentId: id,
+          },
+        },
+      },
+    });
+  }
 
-  async  findAll() {
+  async findTeachersBySession(id: number) {
+    return this.prisma.session.findMany({
+      where: {
+        sessionteacher: {
+          some: {
+            employeeId: id,
+          },
+        },
+      },
+    });
+  }
+
+  async findAll() {
     return await this.prisma.session.findMany({
       include: {
-        Programme :{
-            include : {
-              programmemodule : {
-                include : {
-                  Module : true
-                }
-              }
-            }
+        Programme: {
+          include: {
+            programmemodule: {
+              include: {
+                Module: true,
+              },
+            },
+          },
         },
-        weeks  :true,
-        sessionteacher : true , 
-        sessionstudent : true
-      }
-    })
-  }
-
-  async  findOne(id: number) {
-    return await this.prisma.session.findFirst({
-      where : {
-        id
-      }
-    })
-  }
-
-  async  update(id: number, dto: UpdateSessionDto) {
-    return await this.prisma.session.update({
-      where : {
-        id
+        weeks: true,
+        sessionteacher: true,
+        sessionstudent: true,
       },
-      data : dto
+    });
+  }
+
+  async getAllTeachers(){
+    return await this.prisma.user.findMany({
+      where : {
+        role : "teacher"
+      }
     })
   }
 
-  async  remove(id: number) {
-    return this.prisma.session.delete({
+  async getAllStudents(){
+    return await this.prisma.user.findMany({
       where : {
-        id
+        role : "student"
       }
     })
+  }
+
+  async findOne(id: number) {
+    return await this.prisma.session.findFirst({
+      where: {
+        id,
+      },
+    });
+  }
+  async findAllTeacherInSession(id: number) {
+    return await this.prisma.employee.findMany({
+      where: {
+        sessionteacher: {
+          some: {
+            sessionId: id,
+          },
+        },
+      },
+      include : {
+        user : true
+      }
+    });
+  }
+  async findAllStudentsInSession(id: number) {
+    return await this.prisma.student.findMany({
+      where: {
+        sessionstudent: {
+          some: {
+            sessionId: id,
+          },
+        },
+      },
+      include : {
+        user : true
+      }
+    });
+  }
+
+  async update(id: number, dto: UpdateSessionDto) {
+    return await this.prisma.session.update({
+      where: {
+        id,
+      },
+      data: dto,
+    });
+  }
+
+  async remove(id: number) {
+    return this.prisma.session.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

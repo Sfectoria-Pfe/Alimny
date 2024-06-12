@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
 import Course from './SessionCard'; // Assure-toi d'importer correctement le composant de cours
 import {useDispatch,useSelector} from "react-redux"
-import { fetchsessions } from '../store/sessions';
+import { fetchsessions, fetchSessionsStudents, fetchSessionsTeachers } from '../store/sessions';
 import { useNavigate } from 'react-router-dom';
 const CoursesPage = () => {
+  const me = useSelector(state=>state?.auth?.me)
  const sessions = useSelector(state=>state?.sessions?.sessions?.items)
  const dispatch = useDispatch()
 console.log(sessions, "those are courses")
-useEffect(()=>{dispatch(fetchsessions())},[dispatch])
+useEffect(()=>{
+  
+ me?.role === "student"? dispatch(fetchSessionsStudents(me?.id)): me?.role==="teacher"? dispatch(fetchSessionsTeachers(me?.id)):dispatch(fetchsessions())
+
+},[dispatch])
 const navigate = useNavigate()
   return (
     <div className="courses-page">
