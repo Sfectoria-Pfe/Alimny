@@ -4,70 +4,65 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TablePage from "../../components/table/view/table-view";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import KeepMountedModal from "../../components/Modals/Modal";
+import {  getStudents } from "../../store/sessions";
 
 
 
 
 function SessionStudents() {
+  const dispatch = useDispatch();
 
   const [cover, setCover] = useState(null);
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
-  const [id, setId] = useState("");
+
+  const students = useSelector((state) => state.sessions.students);
+  const {id} = useParams()
+  
+console.log(students,"students")
 
 
-  const handleDeleteProgramme = async () => {
-    try {
-      if (id ) {
-        dispatch(deleteProgramme(id));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleDeleteProgramme();
-  }, [id]);
-
+useEffect(()=>{
+  dispatch(getStudents(id))
+},[id,dispatch])
 
  
-  const dispatch = useDispatch();
-  useEffect(() => {
-  
-  }, [dispatch]);
 
-  useEffect(() => {
-   
-  }, []);
 
   const columns = [
     { field: "id", headerName: "malek", width: 90 },
     {
-      field: "name",
-      headerName: "Name",
+      field: "fullName",
+      headerName: "Full Name",
       width: 50,
       editable: true,
+      valueGetter: (value, row) => {
+        return row?.user.fullName;
+      },
     },
     {
-      field: "description",
-      headerName: "Desription",
+      field: "phone",
+      headerName: "Phone Number",
       width: 140,
       editable: false,
+      valueGetter: (value, row) => {
+        return row?.user.phone;
+      },
     },
 
     {
-      headerName: "Category",
-      type: "number",
+      headerName: "State",
+      type: "string",
       width:400,
       editable: true,
       valueGetter: (value, row) => {
-        return row?.Category.name;
+        return row?.user.Gouvernorat.name;
       },
     },
     {
@@ -93,7 +88,9 @@ function SessionStudents() {
         titlePage={"Students List"}
         setOpen={setOpen}
         programmes={[]}
-        setId={setId}
+        columns={columns}
+        students = {students}
+        
       />
       <KeepMountedModal
         open={open}

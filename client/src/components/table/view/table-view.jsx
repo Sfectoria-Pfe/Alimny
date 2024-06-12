@@ -33,7 +33,10 @@ export default function TablePage({
   setUpdate,
   update,
   thisIsModule,
-  categories
+  categories,
+  teachers,
+  students,
+
 }) {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState("asc");
@@ -44,7 +47,7 @@ export default function TablePage({
   const me = useSelector((state) => state.auth?.me);
   const roles2 = ["manager", "admin"];
 
-
+console.log(students)
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === "asc";
@@ -94,7 +97,7 @@ export default function TablePage({
   };
 
   const dataFiltered = applyFilter({
-    inputData: programmes || courses || users || modules || categories || [],
+    inputData: teachers || students  || programmes || courses || users || modules || categories || [],
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -138,7 +141,7 @@ export default function TablePage({
                 setId={setId}
                 order={order}
                 orderBy={orderBy}
-                rowCount={(programmes || courses || users || modules ||categories || []).length}
+                rowCount={(programmes || courses || users || modules ||categories || students || []).length}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
@@ -150,7 +153,9 @@ export default function TablePage({
                   ] : categories? [{id:"name",label : "Name"}]: [
                     { id: "name", label: "Name" },
                     { id: "description", label: "Description" },
-                    modules ? { id: "Programme", label: "Programme" } : sessions ? {} : { id: "category", label: "Category" },
+                    modules ? { id: "Programme", label: "Programme" } : sessions ? {} : students ?  [{
+                      id : "fullName" , label : "Full Name"
+                    }]: { id: "category", label: "Category" },
                   ].filter(Boolean)
                 }
               />
@@ -158,6 +163,7 @@ export default function TablePage({
                 {dataFiltered
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
+                    console.log(row,"this is the row wey");
                     return (
                       <TableRow
                         goToOne={goToOne}
@@ -179,6 +185,7 @@ export default function TablePage({
                         thisIsModule={thisIsModule}
                         modules={modules}
                         courses={courses}
+                        students = {students}
                       />
                     );
                   })}

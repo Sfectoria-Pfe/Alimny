@@ -39,6 +39,7 @@ export default function TableRow({
   thisIsModule,
   modules,
   courses,
+  students
 }) {
   const [open, setOpen] = useState(null);
   const [clicked, setClicked] = useState(false);

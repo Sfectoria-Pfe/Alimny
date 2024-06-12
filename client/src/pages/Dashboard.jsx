@@ -80,7 +80,7 @@ const Dashboard = () => {
         Aaslema Student Welcome back 👋
       </Typography>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{display:"flex",justifyContent:"center"}}>
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Total users"

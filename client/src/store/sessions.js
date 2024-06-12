@@ -34,15 +34,15 @@ export const addSession = createAsyncThunk(
   }
 );
 
-export const getStudents = createAsyncThunk("get students", async id => {
+export const getStudents = createAsyncThunk("get/students", async id => {
   const response = await axios.get(
-    "http://localhost:3000/session/getStudentsBySession/" + id
+    "http://www.localhost:3000/session/getstudents/" + id
   );
   return response.data;
 });
 export const getTeachers = createAsyncThunk("get teachers", async id => {
   const response = await axios.get(
-    "http://localhost:3000/session/getTeachersBySession/" + id
+    "http://localhost:3000/session/getTeachers/" + id
   );
   return response.data;
 });
@@ -73,13 +73,22 @@ export const addStudent = createAsyncThunk(
   }
 );
 
-export const getWeeks = createAsyncThunk("get weeks", async id => {
+export const getWeeks = createAsyncThunk("get/weeks", async id => {
   try {
     const response = await axios.get(`${config}/weeks/week/session/${id}`);
     return response.data;
   } catch (error) {
     console.log(error);
   }
+});
+
+export const addedWeek = createAsyncThunk("add/week", async (body, { dispatch }) => {
+    try {
+        const response = await axios.post(`${config}/weeks`, body);
+        dispatch(getWeeks(body.sessionId));
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 const sessionSlice = createSlice({
@@ -110,6 +119,12 @@ const sessionSlice = createSlice({
     });
     builder.addCase(getWeeks.fulfilled, (state, action) => {
       state.weeks = action.payload;
+    });
+    builder.addCase(getStudents.fulfilled, (state, action) => {
+      state.students = action.payload;
+    });
+    builder.addCase(getTeachers.fulfilled, (state, action) => {
+      state.teachers = action.payload;
     });
   }
 });

@@ -7,7 +7,7 @@ import Lottie from "react-lottie";
 import chat from "../../assets/lotties/chat.json";
 import zoominy from "../../assets/lotties/videoConf.json"
 import { useDispatch, useSelector } from "react-redux";
-import { getWeeks } from "../../store/sessions";
+import { addedWeek, getWeeks } from "../../store/sessions";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
@@ -41,6 +41,7 @@ const style = {
 function SessionDetails() {
   const [open, setOpen] = useState(false);
   const [toggle, setToggle] = useState(true);
+  const [addWeek,setAddWeek] = useState({})
   const me = useSelector((state) => state.auth?.me);
   const weeks = useSelector((state) => state.sessions?.weeks);
 const courseContent = useSelector(state=>state.course.sessionCourses)
@@ -50,13 +51,20 @@ console.log(weeks,"those are weeks")
 console.log(courseContent,"those are course content")
   const { id } = useParams();
   const handleClose = () => setOpen(false);
-  useEffect(()=>{
+ 
+ useEffect(()=>{
     dispatch(getWeeks(id))
     dispatch(getCoursesForSession(id))
-  },[id])
+  },[id,dispatch])
 
+const content = courseContent?.map(e=>e?.coursecontent).flat()
+console.log(content)
 
-
+const handleAddWeek = ()=> {
+  dispatch(addedWeek({...addWeek,sessionId:+id})).then((res)=>{
+    setAddWeek({})
+    setOpen(false)})
+}
   console.log(id, "this is the sessionId");
   const navigate = useNavigate();
   return (
@@ -207,20 +215,21 @@ console.log(courseContent,"those are course content")
               <Box sx={{ display: "flex", gap: 1 }}>
                 <TextField
                   id="outlined-basic"
+                  onChange={(e)=>setAddWeek({...addWeek,name:e.target.value})}
                   label="Week name"
-                 
                   variant="outlined"
-                  sx={{ width: "100%" }}
+                  sx={{ width:"100%"}}
                 />
               </Box>
 
               <Autocomplete
         multiple
         id="tags-outlined"
-        options={["pdf", "video", "quiz", "exercice"]}
+        options={content}
 
-        getOptionLabel={(option) => option}
-        defaultValue={["pdf"]}
+        getOptionLabel={(option) => option.name}
+        onChange={(e,v)=>setAddWeek({...addWeek,courseContentId:v.map(e=>e.id)})}
+        defaultValue={content[0]}
         filterSelectedOptions
         renderInput={(params) => (
           <TextField
@@ -241,7 +250,7 @@ console.log(courseContent,"those are course content")
                 color: "white"
               }}
               variant="contained"
-            
+            onClick={handleAddWeek}
             >
               Save
             </Button>
