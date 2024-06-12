@@ -21,6 +21,35 @@ export const addSession = createAsyncThunk("add session",async(body,{dispatch})=
  return response.data;
 })
 
+export const getStudents = createAsyncThunk("get students", async (id) => {
+    const response = await axios.get("http://localhost:3000/session/getStudentsBySession/" + id);
+    return response.data
+})
+export const getTeachers = createAsyncThunk("get teachers", async (id) => {
+    const response = await axios.get("http://localhost:3000/session/getTeachersBySession/" + id);
+    return response.data
+})
+
+export const addTeacher = createAsyncThunk("add teacher",async(body,{dispatch})=>{
+    try {
+        const response = await axios.post(`${config}/session/teacher`,body)
+        dispatch(fetchSessionsTeachers(body.sessionId))
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+export const addStudent = createAsyncThunk("add student",async(body,{dispatch})=>{
+    try {
+        const response = await axios.post(`${config}/session/student`,body)
+        dispatch(fetchSessionsStudents(body.sessionId))
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+})
+
  const sessionSlice = createSlice({
     name: "session",
     initialState:{
@@ -29,6 +58,8 @@ export const addSession = createAsyncThunk("add session",async(body,{dispatch})=
         items:[],
         count:0,
      },
+     teachers : [],
+     students : []
     },
     reducers:{},
     extraReducers(builder){
