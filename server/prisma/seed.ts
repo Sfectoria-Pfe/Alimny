@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { create } from 'domain';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -53,7 +54,8 @@ async function main() {
         description: 'Session de developement web',
         date: new Date(Date.now()),
         programmeId: 1,
-"imageUrl":"https://www.keplearning.com/wp-content/uploads/2021/03/web-dev.jpg"
+        imageUrl:
+          'https://www.keplearning.com/wp-content/uploads/2021/03/web-dev.jpg',
       },
       {
         name: 'Developement mobile',
@@ -69,78 +71,151 @@ async function main() {
   await prisma.gouvernorat.createMany({
     data: [
       {
-        "name": "Ariana"
+        name: 'Ariana',
       },
       {
-        "name": "Béja"
+        name: 'Béja',
       },
       {
-        "name": "Ben Arous"
+        name: 'Ben Arous',
       },
       {
-        "name": "Bizerte"
+        name: 'Bizerte',
       },
       {
-        "name": "Gabès"
+        name: 'Gabès',
       },
       {
-        "name": "Gafsa"
+        name: 'Gafsa',
       },
       {
-        "name": "Jendouba"
+        name: 'Jendouba',
       },
       {
-        "name": "Kairouan"
+        name: 'Kairouan',
       },
       {
-        "name": "Kasserine"
+        name: 'Kasserine',
       },
       {
-        "name": "Kébili"
+        name: 'Kébili',
       },
       {
-        "name": "Kef"
+        name: 'Kef',
       },
       {
-        "name": "Mahdia"
+        name: 'Mahdia',
       },
       {
-        "name": "Manouba"
+        name: 'Manouba',
       },
       {
-        "name": "Médenine"
+        name: 'Médenine',
       },
       {
-        "name": "Monastir"
+        name: 'Monastir',
       },
       {
-        "name": "Nabeul"
+        name: 'Nabeul',
       },
       {
-        "name": "Sfax"
+        name: 'Sfax',
       },
       {
-        "name": "Sidi Bouzid"
+        name: 'Sidi Bouzid',
       },
       {
-        "name": "Siliana"
+        name: 'Siliana',
       },
       {
-        "name": "Sousse"
+        name: 'Sousse',
       },
       {
-        "name": "Tataouine"
+        name: 'Tataouine',
       },
       {
-        "name": "Tozeur"
+        name: 'Tozeur',
       },
       {
-        "name": "Tunis"
+        name: 'Tunis',
       },
       {
-        "name": "Zaghouan"
-      }
-    ],});
+        name: 'Zaghouan',
+      },
+    ],
+  });
+  await prisma.student.create({
+    data: {
+      fullName: 'malek',
+      user: {
+        create: {
+          email: 'malek1920@alimmny.tn',
+          password: `${bcrypt.hashSync('student', 10)}`,
+          fullName: 'malek-fridhi',
+          phone: 'string',
+          address: 'string',
+          isStudent: true,
+          role: 'student',
+          gouvernoratId: 2,
+          createdAt: new Date('2023-04-02T00:00:00Z'),
+        },
+      },
+    },
+  });
+  await prisma.student.create({
+    data: {
+      fullName: 'Elyes',
+      user: {
+        create: {
+          email: 'elyes@alimmny.tn',
+          password: `${bcrypt.hashSync('student', 10)}`,
+          fullName: 'Elyes-fridhi',
+          phone: 'string',
+          address: 'string',
+          isStudent: true,
+          role: 'student',
+          gouvernoratId: 2,
+          createdAt: new Date('2023-04-02T00:00:00Z'),
+        },
+      },
+    },
+  });
+  await prisma.employee.create({
+    data: {
+      fullName: 'Mohamed Taher Bhiri',
+      user: {
+        create: {
+          email: 'taher@alimny.tn',
+          password: `${bcrypt.hashSync('teacher', 10)}`,
+          fullName: 'Mohamed Taher Bhiri',
+          phone: '2165460142',
+          address: '13 wall street',
+          isStudent: false,
+          role: 'teacher',
+          gouvernoratId: 1,
+          createdAt: new Date('2023-02-02T00:00:00Z'),
+        },
+      },
+    },
+  });
+  await prisma.employee.create({
+    data: {
+      fullName: 'Farouk Mestiri',
+      user: {
+        create: {
+          email: 'mestiri@alimny.tn',
+          password: `${bcrypt.hashSync('teacher', 10)}`,
+          fullName: 'Farouk Mestiri',
+          phone: '2165460142',
+          address: 'Montplaisir tunis',
+          isStudent: false,
+          role: 'teacher',
+          gouvernoratId: 1,
+          createdAt: new Date('2023-02-02T00:00:00Z'),
+        },
+      },
+    },
+  });
   await prisma.user.createMany({
     data: [
       {
@@ -154,33 +229,10 @@ async function main() {
         imageUrl:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrStCiO2IfbiUQlP_BHs7vt7rnZirDbzOPw255QdplCw&s',
         aboutMe: 'my name is malek i love coding and i am a student',
-        gouvernoratId :1,
-        createdAt: new Date('2023-01-02T00:00:00Z')
+        gouvernoratId: 1,
+        createdAt: new Date('2023-01-02T00:00:00Z'),
       },
-      {
-        email: 'malika2@alimny.tn',
-        password: `${bcrypt.hashSync('teacher', 10)}`,
-        fullName: 'teacher',
-        phone: 'string',
-        address: 'string',
-        isStudent: false,
-        role: 'teacher',
-        gouvernoratId :1,
-        createdAt: new Date('2023-02-02T00:00:00Z')
 
-      },
-      {
-        email: 'malika22@alimny.tn',
-        password: `${bcrypt.hashSync('teacher', 10)}`,
-        fullName: 'teacher',
-        phone: 'string',
-        address: 'string',
-        isStudent: false,
-        role: 'teacher',
-        gouvernoratId :2,
-        createdAt: new Date('2023-03-02T00:00:00Z')
-
-      },
       {
         email: 'malek@alimmny.tn',
         password: `${bcrypt.hashSync('student', 10)}`,
@@ -189,9 +241,8 @@ async function main() {
         address: 'string',
         isStudent: true,
         role: 'student',
-        gouvernoratId :2,
-        createdAt: new Date('2023-04-02T00:00:00Z')
-
+        gouvernoratId: 2,
+        createdAt: new Date('2023-04-02T00:00:00Z'),
       },
       {
         email: 'mraya9@alimmny.tn',
@@ -201,9 +252,8 @@ async function main() {
         address: 'string',
         isStudent: false,
         role: 'manager',
-        gouvernoratId :10,
-        createdAt: new Date('2023-05-02T00:00:00Z')
-
+        gouvernoratId: 10,
+        createdAt: new Date('2023-05-02T00:00:00Z'),
       },
       {
         email: 'mraya99@alimmny.tn',
@@ -213,11 +263,9 @@ async function main() {
         address: 'string',
         isStudent: false,
         role: 'manager',
-        gouvernoratId :5,
-        createdAt: new Date('2023-06-02T00:00:00Z')
-
-
-      }
+        gouvernoratId: 5,
+        createdAt: new Date('2023-06-02T00:00:00Z'),
+      },
     ],
   });
   await prisma.course.createMany({
@@ -249,8 +297,6 @@ async function main() {
       },
     ],
   });
- 
-
   await prisma.module.createMany({
     data: [
       {
@@ -258,11 +304,11 @@ async function main() {
         description: 'module 1 description',
       },
 
-      { name: 'module2', description: 'module 2 description'},
+      { name: 'module2', description: 'module 2 description' },
 
-      { name: 'module3', description: 'module 3 description'  },
+      { name: 'module3', description: 'module 3 description' },
 
-      { name: 'module4', description: 'module 4 description'  },
+      { name: 'module4', description: 'module 4 description' },
 
       { name: 'module5', description: 'module 5 description' },
     ],
@@ -304,28 +350,35 @@ async function main() {
     ],
   });
 
- await prisma.moduleCourses.createMany({
-  data : {
-    moduleId : 1 , 
-    courseId :1 
+  await prisma.moduleCourses.createMany({
+    data: {
+      moduleId: 1,
+      courseId: 1,
+    },
+  });
+  await prisma.sessionStudent.createMany({
+    data : [{
+      sessionId : 1,
+      studentId : 1
+    },
+  {
+    sessionId : 1,
+      studentId : 2
   }
- })
+  ]
+  })
+  await prisma.sessionTeacher.createMany({
+    data : [{
+      sessionId : 1,
+      employeeId : 1
+    },
+  {
+    sessionId : 1,
+      employeeId : 2
+  }
+  ]
+  })
 
- await prisma.student.create({
-  data : {
-    firstname : "malek" , 
-    LastName: "fridhi", 
-    isAdmin : false
-  }
- })
-
- await prisma.employee.create({
-  data : {
-    firstname : "malika2",
-    LastName : "ben achour", 
-    isAdmin : false, 
-  }
- })
 }
 
 // execute the main function

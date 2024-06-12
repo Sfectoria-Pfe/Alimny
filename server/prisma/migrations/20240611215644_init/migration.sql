@@ -166,9 +166,7 @@ CREATE TABLE `User` (
 -- CreateTable
 CREATE TABLE `Employee` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `firstname` VARCHAR(191) NOT NULL,
-    `LastName` VARCHAR(191) NOT NULL,
-    `isAdmin` BOOLEAN NOT NULL,
+    `fullName` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Employee_id_key`(`id`),
     PRIMARY KEY (`id`)
@@ -226,9 +224,7 @@ CREATE TABLE `Agenda` (
 -- CreateTable
 CREATE TABLE `Student` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `firstname` VARCHAR(191) NOT NULL,
-    `LastName` VARCHAR(191) NOT NULL,
-    `isAdmin` BOOLEAN NOT NULL,
+    `fullName` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

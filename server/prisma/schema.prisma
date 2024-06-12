@@ -91,9 +91,9 @@ model SessionTeacher {
 model Weeks {
   id          Int           @id @default(autoincrement())
   weekcontent WeekContent[]
-name String
-  Session   Session @relation(fields: [sessionId], references: [id])
-  sessionId Int
+  name        String
+  Session     Session       @relation(fields: [sessionId], references: [id])
+  sessionId   Int
 }
 
 model ProgrammeModule {
@@ -168,9 +168,7 @@ model User {
 
 model Employee {
   id             Int              @id @unique @default(autoincrement())
-  firstname      String
-  LastName       String
-  isAdmin        Boolean
+ fullName     String
   sessionteacher SessionTeacher[]
   user           User[]
 }
@@ -216,10 +214,8 @@ model Agenda {
 }
 
 model Student {
-  id              Int               @id @default(autoincrement())
-  firstname       String
-  LastName        String
-  isAdmin         Boolean
+  id       Int    @id @default(autoincrement())
+  fullName String
   sessionstudent  SessionStudent[]
   user            User[]
   studentresponse StudentResponse[]

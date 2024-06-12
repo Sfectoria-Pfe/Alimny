@@ -14,6 +14,16 @@ export class SessionService {
     })
   }
 
+  async findStudentsBySession(id: number) {
+    return this.prisma.sessionStudent.findMany({
+      where : {
+        sessionId : id,
+        
+      }
+    })
+      
+    }
+
   async  findAll() {
     return await this.prisma.session.findMany({
       include: {
