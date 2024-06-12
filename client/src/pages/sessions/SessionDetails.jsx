@@ -8,7 +8,37 @@ import chat from "../../assets/lotties/chat.json";
 import zoominy from "../../assets/lotties/videoConf.json"
 import { useDispatch, useSelector } from "react-redux";
 import { getWeeks } from "../../store/sessions";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import CloseIcon from "@mui/icons-material/Close";
+import Autocomplete from "@mui/material/Autocomplete";
+import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+
+
+
+
+
+
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 700,
+  bgcolor: "background.paper",
+  border: "2px solid #6635df",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "10px"
+};
 function SessionDetails() {
+  const [open, setOpen] = useState(false);
   const [toggle, setToggle] = useState(true);
   const me = useSelector((state) => state.auth?.me);
   const weeks = useSelector((state) => state.sessions?.weeks);
@@ -18,7 +48,7 @@ console.log(weeks,"those are weeks")
 
   const { id } = useParams();
 
-
+  const handleClose = () => setOpen(false);
   useEffect(()=>{
     dispatch(getWeeks(id))
   },[id])
@@ -33,7 +63,7 @@ console.log(weeks,"those are weeks")
         } gap-3`}
       >
       <div className="d-flex gap-3"> 
-       { roles2.includes(me?.role) && <button className="btn btn-success fs-5 rounded-5 " style={{backgroundColor:"#6669D6",height:"45px"}}>
+       { roles2.includes(me?.role) && <button className="btn btn-success fs-5 rounded-5 " style={{backgroundColor:"#6669D6",height:"45px"}} onClick={()=>setOpen(true)}>
           + Add Week
           </button>}
           <button className="btn btn-success fs-5 rounded-5" style={{backgroundColor:"#6669D6",height:"45px"}} onClick={() => navigate("students")}>Students</button>
@@ -134,6 +164,85 @@ console.log(weeks,"those are weeks")
         style={{ right: 0, display: toggle ? "none" : "" }}
       >
         <Chat id ={id } />
+      </div>
+      <div>
+        <Modal
+          keepMounted
+          open={open}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box sx={style}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                cursor: "pointer"
+              }}
+              onClick={handleClose}
+            >
+              <CloseIcon
+                style={{
+                  color: "white",
+                  backgroundColor: "6635df",
+                  borderRadius: "10px",
+                  padding: "4px"
+                }}
+              />
+            </Box>
+
+            <Typography
+              id="keep-mounted-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{ textAlign: "center", mb: 2 }}
+            >
+              Add Week
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <TextField
+                  id="outlined-basic"
+                  label="Week name"
+                 
+                  variant="outlined"
+                  sx={{ width: "100%" }}
+                />
+              </Box>
+
+              <Autocomplete
+        multiple
+        id="tags-outlined"
+        options={["pdf", "video", "quiz", "exercice"]}
+
+        getOptionLabel={(option) => option}
+        defaultValue={["pdf"]}
+        filterSelectedOptions
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="filterSelectedOptions"
+            placeholder="Favorites"
+          />
+        )}
+      />
+             
+            </Box>
+            <Button
+              sx={{
+                mt: 5,
+                bgcolor: "#6635DF",
+                width: "100%",
+                borderRadius: "100px",
+                color: "white"
+              }}
+              variant="contained"
+            
+            >
+              Save
+            </Button>
+          </Box>
+        </Modal>
       </div>
     </div>
   );
