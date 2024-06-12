@@ -19,6 +19,12 @@ export class CourseController {
     return this.courseService.findAll();
   }
 
+  @Get("/getAllCourses/:id")
+  findAllCourses(@Param('id') id:string) {
+    return this.courseService.findAllCourses(+id);
+  }
+  
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.courseService.findOne(+id);

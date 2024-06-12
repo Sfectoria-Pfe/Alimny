@@ -15,6 +15,32 @@ export class CourseService {
     return result;
   }
 
+  async findAllCourses(id:number){
+    return await this.prisma.course.findMany({
+      where : {
+        modules : {
+          some : {
+            Module : {
+              programmemodule : {
+                some : {
+                  Programme : {
+                    session : {
+                      some : {
+                        id:id
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      include: {
+        coursecontent:true
+      }
+    })
+  }
   findOne(id: number) {
     return this.prisma.course.findUnique({ where: { id },include : {
       coursecontent : true
