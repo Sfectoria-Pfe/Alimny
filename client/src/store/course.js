@@ -70,9 +70,9 @@ export const addCourseContent = createAsyncThunk(
 
 export const getCoursesForSession = createAsyncThunk(
   "getCoursesForSession",
-  async id => {
+  async (id) => {
     try {
-      const response = await axios.get(`${config}course/getAllCourses/${id}`);
+      const response = await axios.get(`${config}/course/getAllCourses/${id}`);
       return response.data;
     } catch (error) {
       console.log(error);

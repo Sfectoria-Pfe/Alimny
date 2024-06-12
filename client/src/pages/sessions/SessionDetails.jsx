@@ -18,6 +18,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import course, { getCoursesForSession } from "../../store/course";
 
 
 
@@ -42,16 +43,19 @@ function SessionDetails() {
   const [toggle, setToggle] = useState(true);
   const me = useSelector((state) => state.auth?.me);
   const weeks = useSelector((state) => state.sessions?.weeks);
+const courseContent = useSelector(state=>state.course.sessionCourses)
   const dispatch = useDispatch();
   const roles2 = ["manager", "admin","teacher"];
 console.log(weeks,"those are weeks")
-
+console.log(courseContent,"those are course content")
   const { id } = useParams();
-
   const handleClose = () => setOpen(false);
   useEffect(()=>{
     dispatch(getWeeks(id))
+    dispatch(getCoursesForSession(id))
   },[id])
+
+
 
   console.log(id, "this is the sessionId");
   const navigate = useNavigate();
