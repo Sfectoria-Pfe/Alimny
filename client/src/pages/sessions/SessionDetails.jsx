@@ -29,7 +29,7 @@ function SessionDetails() {
           <button className="btn btn-success fs-5 rounded-5" style={{backgroundColor:"#6669D6",height:"45px"}} onClick={() => navigate("students")}>Students</button>
           <button className="btn btn-success fs-5 rounded-5" style={{backgroundColor:"#6669D6",height:"45px"}} onClick={() => navigate("teachers")}>Teachers</button>
           </div>
-        <button className="btn btn-lightfs-5  " >
+        <button className="btn btn-lightfs-5"  onClick={() => window.open("https://meet.google.com/hqk-tcom-owb")}>
           
        
           <Lottie
