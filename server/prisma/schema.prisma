@@ -45,7 +45,7 @@ model Session {
   id             Int              @id @default(autoincrement())
   name           String           @unique
   description    String
-  date           DateTime
+  date           DateTime  @default(now())
   sessionstudent SessionStudent[]
   imageUrl       String?          @default("https://media.licdn.com/dms/image/D4E0BAQH8I-kzQdsUXg/company-logo_200_200/0/1698062214267/sfectoria_logo?e=2147483647&v=beta&t=-FocSdGYCvAW7rmL_dPMHj9GYFN11yEm1CM0JwZYdIk")
   sessionteacher SessionTeacher[]

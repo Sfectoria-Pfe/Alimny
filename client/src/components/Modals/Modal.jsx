@@ -51,7 +51,7 @@ export default function KeepMountedModal({ open, setOpen, Body,setUpdate,update 
               }}
             />
           </Box>
-          {/* <Body setOpen={setOpen} setUpdate={setUpdate} update={update}/> */}
+          <Body setOpen={setOpen} setUpdate={setUpdate} update={update}/>
         </Box>
       </Modal>
     </div>

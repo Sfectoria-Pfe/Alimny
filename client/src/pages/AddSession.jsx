@@ -5,28 +5,28 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Autocomplete, TextField, Typography } from "@mui/material";
-import { addprogrammes } from "../../store/programme";
-import { fetchModules } from "../../store/module";
-import { fetchmodules } from "../../store/modules";
+import { addprogrammes, fetchprogrammes } from "../store/programme";
+import { addSession } from "../store/sessions";
 
-export default function AddProgramme({setOpen}) {
-  console.log(setOpen,"this is the setOpen")
+
+export default function AddSession({setOpen}) {
+  
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.category?.categories?.items);
-const modules = useSelector(state=>state?.modules?.modules?.items)
-  const [addedProgramme, setAddedprogramme] = React.useState({
+  const programmes = useSelector((state) => state.programmeSlice.programmes.items);
+console.log(programmes,"this is prog")
+  const [addedSession, setAddedSession] = React.useState({
     name: "",
     description: "",
-    categoryId: "",
   });
 
-  useEffect(()=>{dispatch(fetchmodules())},[dispatch])
-  const handleSubmit = () => {
-    dispatch(addprogrammes(addedProgramme)).then((res) => {
-      setAddedprogramme({ name: "", description: "", categoryId: "" });
-      setOpen(false);
-    });
-  };
+  useEffect(()=>{
+dispatch(fetchprogrammes())
+  },[dispatch])
+
+const handleSumbit = ()=>{
+    dispatch(addSession(addedSession)).then(()=>setOpen(false)).catch(err=>console.log(err))
+}
+
   return (
     <div className="">
       <Typography
@@ -35,7 +35,7 @@ const modules = useSelector(state=>state?.modules?.modules?.items)
         component="h2"
         sx={{ textAlign: "center", mb: 2 }}
       >
-        Add
+        Add Session
       </Typography>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         <Box sx={{ display: "flex", gap: 1 }}>
@@ -43,7 +43,7 @@ const modules = useSelector(state=>state?.modules?.modules?.items)
             id="outlined-basic"
             label="name"
             onChange={(e) => {
-              setAddedprogramme((prev) => {
+              setAddedSession((prev) => {
                 return { ...prev, name: e.target.value };
               });
             }}
@@ -51,45 +51,23 @@ const modules = useSelector(state=>state?.modules?.modules?.items)
             sx={{ width: "50%" }}
           />
           <Autocomplete
-            onChange={(event, value) => {
-              setAddedprogramme((prev) => {
-                return { ...prev, categoryId: value.id };
-              });
-            }}
+          onChange={(e, value) => {
+              setAddedSession({...addedSession,programmeId:value.id})
+          }}
             disablePortal
             id="combo-box-demo"
             getOptionLabel={(option) => option.name}
-            options={categories}
+            options={programmes}
             sx={{ width: "50%" }}
-            renderInput={(params) => <TextField {...params} label="category" />}
+            renderInput={(params) => <TextField {...params} label="programmes" />}
           />
-
         </Box>
-    <Autocomplete
-              fullWidth
-              onChange={(e,v)=>{
-                setAddedprogramme((prev) => {
-                  return { ...prev, programmeModules: v.map(e=>e.id) };
-                });
-              }}
-        multiple
-        id="tags-outlined"
-        options={modules}
-        getOptionLabel={(option) => option.name}
-        filterSelectedOptions
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Modules"
-            placeholder="Modules"
-          />
-        )}
-      />
+
         <TextField
           id="outlined-basic"
           label="description"
           onChange={(e) => {
-            setAddedprogramme((prev) => {
+            setAddedSession((prev) => {
               return { ...prev, description: e.target.value };
             });
           }}
@@ -106,7 +84,7 @@ const modules = useSelector(state=>state?.modules?.modules?.items)
           color: "white",
         }}
         variant="contained"
-        onClick={handleSubmit}
+      onClick={handleSumbit}
       >
         Save
       </Button>

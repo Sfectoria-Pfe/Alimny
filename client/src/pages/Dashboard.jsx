@@ -77,7 +77,7 @@ const Dashboard = () => {
 
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Aaslema Student Welcome back 👋
+        Aaslema {me?.fullName} Welcome back 👋
       </Typography>
 
       <Grid container spacing={3} sx={{display:"flex",justifyContent:"center"}}>

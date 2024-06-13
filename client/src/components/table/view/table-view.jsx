@@ -97,7 +97,7 @@ console.log(students)
   };
 
   const dataFiltered = applyFilter({
-    inputData: teachers || students  || programmes || courses || users || modules || categories || [],
+    inputData: teachers || students  || sessions || programmes || courses || users || modules || categories || [],
     comparator: getComparator(order, orderBy),
     filterName,
   });

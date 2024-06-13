@@ -11,6 +11,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { useDispatch, useSelector } from "react-redux";
 import KeepMountedModal from "../../components/Modals/Modal";
 import { getTeachers } from "../../store/sessions";
+import AddTeacher from "./AddTeacher";
 
 function SessionTeachers() {
   
@@ -18,17 +19,22 @@ function SessionTeachers() {
   const [cover, setCover] = useState(null);
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
+  const [update,setUpdate]=useState(false)
 const {id} = useParams()
 const teachers = useSelector(state=>state.sessions.teachers)
 console.log(teachers)
+
+
+
+const dispatch = useDispatch();
+
 useEffect(()=>{
   dispatch(getTeachers(id))
-},[])
+},[dispatch,update])
 
 
 
  
-  const dispatch = useDispatch();
  
 
  
@@ -49,7 +55,9 @@ useEffect(()=>{
       <KeepMountedModal
         open={open}
         setOpen={setOpen}
-        Body={""}
+        Body={AddTeacher}
+        update={update}
+        setUpdate={setUpdate}
       /> 
     </>
   );

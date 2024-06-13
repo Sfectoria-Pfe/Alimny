@@ -229,7 +229,7 @@ const handleAddWeek = ()=> {
 
         getOptionLabel={(option) => option.name}
         onChange={(e,v)=>setAddWeek({...addWeek,courseContentId:v.map(e=>e.id)})}
-        defaultValue={content[0]}
+      
         filterSelectedOptions
         renderInput={(params) => (
           <TextField

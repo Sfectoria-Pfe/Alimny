@@ -8,7 +8,19 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class ProgrammeService {
   constructor(private prisma: PrismaService) {}
   async create(dto: CreateProgrammeDto) {
-    return await this.prisma.programme.create({ data: dto});
+    const {programmeModules,...rest} = dto
+    const response = await this.prisma.programme.create({
+       data: rest
+      });
+      for(let e of programmeModules) {
+        await this.prisma.programmeModule.create({
+          data : {
+            programmeId : response.id,
+            moduleId : e
+          }
+        })
+      }
+      return response 
   }
 
   findAll() {

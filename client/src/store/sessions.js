@@ -51,7 +51,7 @@ export const addTeacher = createAsyncThunk(
   "add teacher",
   async (body, { dispatch }) => {
     try {
-      const response = await axios.post(`${config}/session/teacher`, body);
+      const response = await axios.post(`${config}/teachers`, body);
       dispatch(fetchSessionsTeachers(body.sessionId));
       return response.data;
     } catch (error) {
@@ -60,11 +60,11 @@ export const addTeacher = createAsyncThunk(
   }
 );
 
-export const addStudent = createAsyncThunk(
+export const addedStudent = createAsyncThunk(
   "add student",
   async (body, { dispatch }) => {
     try {
-      const response = await axios.post(`${config}/session/student`, body);
+      const response = await axios.post(`${config}/session-student`, body);
       dispatch(fetchSessionsStudents(body.sessionId));
       return response.data;
     } catch (error) {
@@ -91,6 +91,23 @@ export const addedWeek = createAsyncThunk("add/week", async (body, { dispatch })
     }
 });
 
+export const allStudents = createAsyncThunk("get/all/students",async()=>{
+  try {
+    const response = await axios.get("http://localhost:3000/students")
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+export const allTeachers = createAsyncThunk("get/all/teachers",async()=>{
+  try {
+    const response = await axios.get("http://localhost:3000/teachers")
+return response.data
+  } catch (error) {
+    console.log(error);
+  }
+})
 const sessionSlice = createSlice({
   name: "session",
   initialState: {
@@ -101,7 +118,9 @@ const sessionSlice = createSlice({
     },
     teachers: [],
     students: [],
-    weeks: []
+    weeks: [],
+    allStudentss : [],
+    allTeachers : []
   },
   reducers: {},
   extraReducers(builder) {
@@ -125,6 +144,12 @@ const sessionSlice = createSlice({
     });
     builder.addCase(getTeachers.fulfilled, (state, action) => {
       state.teachers = action.payload;
+    });
+    builder.addCase(allStudents.fulfilled, (state, action) => {
+      state.allStudentss = action.payload;
+    });
+    builder.addCase(allTeachers.fulfilled, (state, action) => {
+      state.allTeachers = action.payload;
     });
   }
 });

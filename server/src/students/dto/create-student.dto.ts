@@ -1,1 +1,6 @@
-export class CreateStudentDto {}
+import { ApiProperty } from "@nestjs/swagger";
+
+export class CreateStudentDto {
+   
+    
+}

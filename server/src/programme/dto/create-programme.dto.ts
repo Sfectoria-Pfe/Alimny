@@ -11,4 +11,6 @@ export class CreateProgrammeDto {
     @ApiProperty()
     @IsNumber()
     categoryId : number
+    @ApiProperty()
+    programmeModules : [number]
 }

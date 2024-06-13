@@ -11,7 +11,5 @@ export class CreateSessionDto {
     @IsString()
     @ApiProperty()
     description:string
-    @ApiProperty()
-    @IsDate()
-    date:Date
+    
 }
